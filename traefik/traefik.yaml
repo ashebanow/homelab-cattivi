@@ -28,11 +28,11 @@ entryPoints:
     address: :80
     # (Optional) Redirect to HTTPS
     # ---
-    http:
-      redirections:
-        entryPoint:
-          to: websecure
-          scheme: https
+    # http:
+    #   redirections:
+    #     entryPoint:
+    #       to: websecure
+    #       scheme: https
 
   websecure:
     address: :443
@@ -71,6 +71,7 @@ entryPoints:
 providers:
   docker:
     # exposedByDefault: false  # Default is true
+    endpoint: "unix:///var/run/docker.sock"
   file:
     # watch for dynamic configuration changes
     directory: /etc/traefik
