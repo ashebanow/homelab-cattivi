@@ -10,6 +10,7 @@ services:
       - 4430:443
       - 8081:8080  # (optional) expose the dashboard !don't use in production!
     volumes:
-      - /etc/traefik:/etc/traefik
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/traefik:/etc/traefik
+      - /mnt/user/appdata/traefik:/data
     restart: unless-stopped
