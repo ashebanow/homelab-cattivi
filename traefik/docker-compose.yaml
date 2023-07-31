@@ -4,7 +4,14 @@ services:
   reverse-proxy:
     image: traefik:v2.10.4
     container_name: traefik
-    command: --api.insecure=true --providers.docker
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+#      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+#      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+#      - "--certificatesresolvers.myresolver.acme.email=ashebanow@gmail.com"
+#      - "--certificatesresolvers.myresolver.acme.storage=/data/letsencrypt/acme.json"
     ports:
       - 80:80
       - 443:443
@@ -14,3 +21,12 @@ services:
       - etc-traefik:/etc/traefik
       - /mnt/user/appdata/traefik:/data
     restart: unless-stopped
+
+  whoami:
+    image: "traefik/whoami"
+    container_name: "whoami"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.cattivi.com`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=myresolver"

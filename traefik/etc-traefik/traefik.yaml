@@ -70,7 +70,7 @@ entryPoints:
 
 providers:
   docker:
-    # exposedByDefault: false  # Default is true
+    exposedByDefault: false  # Default is true
     endpoint: "unix:///var/run/docker.sock"
   file:
     # watch for dynamic configuration changes
