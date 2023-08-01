@@ -15,3 +15,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/user/appdata/portainer-ce:/data
     restart: unless-stopped
+    labels:
+      - traefik.http.routers.portainer.rule=Host(`portainer`)
+      - traefik.http.services.portainer.loadbalancer.server.port=9443

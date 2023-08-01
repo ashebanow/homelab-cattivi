@@ -1,0 +1,18 @@
+# Based largely on https://github.com/jonas-merkle/container-cloudflare-tunnel
+version: '3.7'
+
+# service description
+services:
+  # cloudflare tunnel
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared
+    container_name: cloudflare-tunnel
+    hostname: cloudflare-tunnel
+    restart: unless-stopped
+    network_mode: "host"
+    command: tunnel run
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config/hosts:/etc/hosts
+    environment:
+      - "TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}"
