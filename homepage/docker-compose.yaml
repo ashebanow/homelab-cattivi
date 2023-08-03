@@ -8,6 +8,6 @@ services:
     volumes:
       - /mnt/user/appdata/homepage:/app
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
-    environment:
+    # environment:
       # will need to add these as they get configured in ./config
       # HOMEPAGE_VAR_XXX: $SECRETS_XXX
