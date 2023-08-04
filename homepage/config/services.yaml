@@ -1,0 +1,30 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/services
+
+- Public Servers:
+    - storage (Unraid):
+        href: https://storage.local:4432/Dashboard
+        description: Our biggest server, with loads of cores, RAM, and disks
+    - Portainer:
+        href: http://storage:9996/#!/2/docker/containers
+        description: Manages docker instances on all servers
+    - web (Caddy):
+        href: URL
+        description: SVCDESCRIPTION
+
+- Metrics, Alerts and Logs:
+    - Uptime Kuma:
+        href: http://192.168.86.69:3001/dashboard
+        description: SVCDESCRIPTION
+    - Dashy:
+        href: http://storage.local:4000/
+        description: Old dashboard (soon to be gone)
+
+- Internal Servers:
+    - gateway (opnsense):
+        href: http://10.40.0.1/index.php
+        description: Firewall & router
+    - proxy (traefik):
+        href: _blank
+        description: Coming soon...
