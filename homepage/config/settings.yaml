@@ -5,3 +5,5 @@
 providers:
   openweathermap: openweathermapapikey
   weatherapi: weatherapiapikey
+
+showStats: true
