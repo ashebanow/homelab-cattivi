@@ -1,7 +1,8 @@
 version: "3.7"
 services:
   homepage:
-    dockerfile: Dockerfile
+    # dockerfile: Dockerfile
+    image: ghcr.io/benphelps/homepage:latest
     container_name: homepage
     ports:
       - 8002:8002
