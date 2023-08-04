@@ -2,20 +2,7 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/en/configs/services
 
-- Main Servers:
-    - storage (Unraid):
-        href: https://storage.local:4432/Dashboard
-        description: Our biggest server, with loads of cores, RAM, and disks
-    - Portainer:
-        href: http://storage:9996/#!/2/docker/containers
-        description: Manages docker instances on all servers
-        server: storage-docker
-        container: portainer
-        widget:
-            type: portainer
-            url: http://storage:9996/
-            env: 2
-            key: {{HOMEPAGE_VAR_PORTAINER_ACCESS_TOKEN}}
+- Servers:
     - web (Caddy):
         href: http://192.168.86.62:8001/
         description: cattivi.com website (coming soon)
@@ -24,7 +11,6 @@
         # widget:
         #     type: caddy
         #     url: http://192.168.86.62:2019/ # TODO: configure this in Caddyfile
-
 
 - Metrics, Alerts and Logs:
     - Uptime Kuma:
@@ -36,8 +22,14 @@
             type: uptimekuma
             url: http://192.168.86.69:3001
             slug: cattivi
+    - Speedtest:
+        href: http://192.168.86.69:8765
+        description: Internet speed checker
+        server: storage-docker
+        container: speedtest
 
-- Internal Servers:
+
+- Services:
     - gateway (opnsense):
         href: http://10.40.0.1/
         description: Firewall & router
@@ -49,3 +41,16 @@
     - proxy (traefik):
         href: _blank
         description: Coming soon...
+    - storage (Unraid):
+        href: https://storage.local:4432/Dashboard
+        description: Our biggest server, with loads of cores, RAM, and disks
+    - portainer:
+        href: http://storage:9996/#!/2/docker/containers
+        description: Manages docker instances on all servers
+        server: storage-docker
+        container: portainer
+        widget:
+            type: portainer
+            url: http://storage:9996/
+            env: 2
+            key: {{HOMEPAGE_VAR_PORTAINER_ACCESS_TOKEN}}
