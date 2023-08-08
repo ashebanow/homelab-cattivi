@@ -57,3 +57,11 @@
             url: http://storage:9996
             env: 2
             key: {{HOMEPAGE_VAR_PORTAINER_ACCESS_TOKEN}}
+    - cloudflared:
+        icon: cloudflare.png
+        description: Cloudflare Tunnel Service
+        widget:
+            type: cloudflared
+            accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNT}}
+            tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_ID}}
+            key: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_TOKEN}}

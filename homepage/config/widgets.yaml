@@ -23,9 +23,3 @@
 #     username: user
 #     password: pass
 #     site: cattivi.com # optional
-
-widget:
-    type: cloudflared
-    accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNT}}
-    tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_ID}}
-    key: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_TOKEN}}
