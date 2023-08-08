@@ -31,11 +31,11 @@
 
 - Services:
     - gateway (opnsense):
-        href: https://10.40.0.1/
+        href: https://10.40.0.1
         description: Firewall & router
         widget:
             type: opnsense
-            url: https://10.40.0.1/
+            url: https://10.40.0.1
             username: {{HOMEPAGE_VAR_OPNSENSE_USER}}
             password: {{HOMEPAGE_VAR_OPNSENSE_PASSWORD}}
     - proxy (traefik):
@@ -51,6 +51,6 @@
         container: portainer
         widget:
             type: portainer
-            url: http://storage:9996/
+            url: http://storage:9996
             env: 2
             key: {{HOMEPAGE_VAR_PORTAINER_ACCESS_TOKEN}}
