@@ -1,4 +1,9 @@
 version: '3.9'
+
+configs:
+  glances_config:
+    file: ./glances.conf
+
 services:
   glances:
     image: nicolargo/glances:latest-full
@@ -6,9 +11,11 @@ services:
     pid: "host"
     privileged: true
     network_mode: "host"
+    configs:
+      - source: glances_config
+        target: /glances/conf/glances.conf
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./glances.conf:/glances/conf/glances.conf"
     environment:
       GLANCES_OPT: "-C /glances/conf/glances.conf -w"
       TZ: "Pacific/Los_Angeles"
