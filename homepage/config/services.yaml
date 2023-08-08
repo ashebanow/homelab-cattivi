@@ -4,9 +4,9 @@
 
 - Servers:
     - web (Caddy):
+        icon: caddy.png
         href: http://192.168.86.62:8001/
         description: cattivi.com website (coming soon)
-        server: storage-docker
         container: web
         # widget:
         #     type: caddy
@@ -14,23 +14,24 @@
 
 - Metrics, Alerts and Logs:
     - Uptime Kuma:
+        icon: uptime-kuma.png
         href: http://192.168.86.69:3001
         description: Uptime monitoring tools
-        server: storage-docker
         container: uptime
         widget:
             type: uptimekuma
             url: http://192.168.86.69:3001
             slug: cattivi
     - Speedtest:
+        icon: speedtest-tracker.png
         href: http://192.168.86.69:8765
         description: Internet speed checker
-        server: storage-docker
         container: speedtest
 
 
 - Services:
     - gateway (opnsense):
+        icon: opnsense.png
         href: https://10.40.0.1
         description: Firewall & router
         widget:
@@ -39,15 +40,17 @@
             username: {{HOMEPAGE_VAR_OPNSENSE_USER}}
             password: {{HOMEPAGE_VAR_OPNSENSE_PASSWORD}}
     - proxy (traefik):
+        icon: traefik.png
         href: _blank
         description: Coming soon...
     - storage (Unraid):
+        icon: unraid.png
         href: https://storage.local:4432/Dashboard
         description: Our biggest server, with loads of cores, RAM, and disks
     - portainer:
+        icon: portainer.png
         href: http://storage:9996/#!/2/docker/containers
         description: Manages docker instances on all servers
-        server: storage-docker
         container: portainer
         widget:
             type: portainer
