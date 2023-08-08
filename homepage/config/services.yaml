@@ -6,7 +6,6 @@
     - gateway (opnsense):
         icon: opnsense.png
         href: https://10.40.0.1
-        ping: https://10.40.0.1
         description: Firewall & router
         # widget:
         #     type: opnsense
