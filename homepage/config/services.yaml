@@ -7,20 +7,11 @@
         icon: opnsense.png
         href: https://10.40.0.1
         description: Firewall & router
-        widget:
-            type: opnsense
-            url: https://10.40.0.1
-            username: {{HOMEPAGE_VAR_OPNSENSE_USER}}
-            password: {{HOMEPAGE_VAR_OPNSENSE_PASSWORD}}
-    - proxy (traefik):
-        icon: traefik.png
-        href: _blank
-        description: Coming soon...
         # widget:
-        #     type: traefik
-        #     url: http://traefik.host.or.ip
-        #     username: username # optional
-        #     password: password # optional
+        #     type: opnsense
+        #     url: https://10.40.0.1
+        #     username: {{HOMEPAGE_VAR_OPNSENSE_USER}}
+        #     password: {{HOMEPAGE_VAR_OPNSENSE_PASSWORD}}
     - web (Caddy):
         icon: caddy.png
         href: http://192.168.86.62:8001/
@@ -29,6 +20,15 @@
         # widget:
         #     type: caddy
         #     url: http://192.168.86.62:2019/ # TODO: configure this in Caddyfile
+    - cloudflared:
+        icon: cloudflare.png
+        description: Cloudflare Tunnel Service
+        container: cloudflare-tunnel
+        # widget:
+        #     type: cloudflared
+        #     accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNT}}
+        #     tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_ID}}
+        #     key: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_TOKEN}}
 
 - Metrics, Alerts and Logs:
     - Uptime Kuma:
@@ -55,20 +55,11 @@
         description: Our biggest server, with loads of cores, RAM, and disks
     - portainer:
         icon: portainer.png
-        href: http://storage:9996/#!/2/docker/containers
+        href: http://storage:9996
         description: Manages docker instances on all servers
         container: portainer
-        widget:
-            type: portainer
-            url: http://storage:9996
-            env: 2
-            key: {{HOMEPAGE_VAR_PORTAINER_ACCESS_TOKEN}}
-    - cloudflared:
-        icon: cloudflare.png
-        description: Cloudflare Tunnel Service
-        container: cloudflare-tunnel
-        widget:
-            type: cloudflared
-            accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNT}}
-            tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_ID}}
-            key: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_TOKEN}}
+        # widget:
+        #     type: portainer
+        #     url: http://storage:9996
+        #     env: 2
+        #     key: {{HOMEPAGE_VAR_PORTAINER_ACCESS_TOKEN}}
