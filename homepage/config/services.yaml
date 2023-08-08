@@ -43,9 +43,16 @@
         icon: traefik.png
         href: _blank
         description: Coming soon...
+        # widget:
+        #     type: traefik
+        #     url: http://traefik.host.or.ip
+        #     username: username # optional
+        #     password: password # optional
+
     - storage (Unraid):
         icon: unraid.png
         href: https://storage.local:4432/Dashboard
+        ping: https://storage.local:4432/Dashboard
         description: Our biggest server, with loads of cores, RAM, and disks
     - portainer:
         icon: portainer.png
@@ -60,6 +67,7 @@
     - cloudflared:
         icon: cloudflare.png
         description: Cloudflare Tunnel Service
+        container: cloudflare-tunnel
         widget:
             type: cloudflared
             accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNT}}
