@@ -31,11 +31,11 @@
 
 - Services:
     - gateway (opnsense):
-        href: http://10.40.0.1/
+        href: https://10.40.0.1/
         description: Firewall & router
         widget:
             type: opnsense
-            url: http://10.40.0.1/
+            url: https://10.40.0.1/
             username: {{HOMEPAGE_VAR_OPNSENSE_USER}}
             password: {{HOMEPAGE_VAR_OPNSENSE_PASSWORD}}
     - proxy (traefik):
