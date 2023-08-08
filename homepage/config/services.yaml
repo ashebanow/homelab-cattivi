@@ -51,8 +51,8 @@
 
     - storage (Unraid):
         icon: unraid.png
-        href: https://storage.local:4432/Dashboard
-        ping: https://storage.local:4432/Dashboard
+        href: https://storage:4432/Dashboard
+        ping: https://storage:4432/Dashboard
         description: Our biggest server, with loads of cores, RAM, and disks
     - portainer:
         icon: portainer.png
@@ -68,8 +68,8 @@
         icon: cloudflare.png
         description: Cloudflare Tunnel Service
         container: cloudflare-tunnel
-        widget:
-            type: cloudflared
-            accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNT}}
-            tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_ID}}
-            key: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_TOKEN}}
+        # widget:
+        #     type: cloudflared
+        #     accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNT}}
+        #     tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_ID}}
+        #     key: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNEL_TOKEN}}
