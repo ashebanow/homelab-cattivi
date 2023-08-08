@@ -7,4 +7,6 @@
 #   port: 2375
 
 storage-docker:
+  # host: 10.40.0.8
+  # port: 2375
   socket: /var/run/docker.sock
