@@ -13,11 +13,11 @@ services:
     network_mode: "host"
     configs:
       - source: glances_config
-        target: /glances/conf/glances.conf
+        target: /glances/config/glances.conf
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     environment:
-      GLANCES_OPT: "-C /glances/conf/glances.conf -w"
+      GLANCES_OPT: "-C /glances/config/glances.conf -w"
       TZ: "Pacific/Los_Angeles"
     # labels:
     #   - "traefik.port=61208"
