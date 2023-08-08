@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  glances:
+    image: nicolargo/glances:latest-full
+    restart: unless-stopped
+    pid: "host"
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./glances.conf:/glances/conf/glances.conf"
+    environment:
+      - GLANCES_OPT: "-C /glances/conf/glances.conf -w"
+      - TZ: "${TZ}"
+    # labels:
+    #   - "traefik.port=61208"
+    #   - "traefik.frontend.rule=Host:glances.docker.localhost"
