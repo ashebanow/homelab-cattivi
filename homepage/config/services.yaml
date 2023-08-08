@@ -2,7 +2,26 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/en/configs/services
 
-- Servers:
+- Internet Facing:
+    - gateway (opnsense):
+        icon: opnsense.png
+        href: https://10.40.0.1
+        ping: https://10.40.0.1
+        description: Firewall & router
+        # widget:
+        #     type: opnsense
+        #     url: https://10.40.0.1
+        #     username: {{HOMEPAGE_VAR_OPNSENSE_USER}}
+        #     password: {{HOMEPAGE_VAR_OPNSENSE_PASSWORD}}
+    - proxy (traefik):
+        icon: traefik.png
+        href: _blank
+        description: Coming soon...
+        # widget:
+        #     type: traefik
+        #     url: http://traefik.host.or.ip
+        #     username: username # optional
+        #     password: password # optional
     - web (Caddy):
         icon: caddy.png
         href: http://192.168.86.62:8001/
@@ -30,26 +49,6 @@
 
 
 - Services:
-    - gateway (opnsense):
-        icon: opnsense.png
-        href: https://10.40.0.1
-        ping: https://10.40.0.1
-        description: Firewall & router
-        # widget:
-        #     type: opnsense
-        #     url: https://10.40.0.1
-        #     username: {{HOMEPAGE_VAR_OPNSENSE_USER}}
-        #     password: {{HOMEPAGE_VAR_OPNSENSE_PASSWORD}}
-    - proxy (traefik):
-        icon: traefik.png
-        href: _blank
-        description: Coming soon...
-        # widget:
-        #     type: traefik
-        #     url: http://traefik.host.or.ip
-        #     username: username # optional
-        #     password: password # optional
-
     - storage (Unraid):
         icon: unraid.png
         href: https://storage:4432/Dashboard
