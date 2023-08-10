@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: nginx:alpine
+    ports:
+      - 8080:8080
+      # - 8081:8081
+    volumes:
+      - /mnt/appdata/reverse-proxy/etc-nginx:/etc/nginx
+      - ./nginx-reverse-proxy.conf:/etc/nginx/nginx.conf
+    restart: unless-stopped
+
+  web:
+    depends_on:
+      - reverse-proxy
+    container_name: web
+    image: nginx:alpine
+    volumes:
+      - /mnt/appdata/reverse-proxy/etc-nginx:/etc/nginx
+      - ./nginx-web.conf:/etc/nginx/nginx.conf
+      - ./site:/usr/share/nginx/html
+    restart: unless-stopped
+
+  # apache:
+  #   depends_on:
+  #     - reverse-proxy
+  #   image: httpd:alpine
+  #   restart: unless-stopped
