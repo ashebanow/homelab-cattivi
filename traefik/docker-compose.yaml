@@ -3,7 +3,7 @@ version: '3'
 services:
   reverse-proxy:
     image: traefik:v2.10.4
-    container_name: traefik
+    container_name: reverse-proxy
     command:
       - "--api.insecure=true"
       - "--providers.docker"
@@ -15,11 +15,11 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 8080:8080  # (optional) expose the dashboard !don't use in production!
+      - 8081:8080  # (optional) expose the dashboard !don't use in production!
     volumes:
+      - ./traefik.yaml /etc/traefik/traefik.yaml
+      - /mnt/appdata/traefik:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - etc-traefik:/etc/traefik
-      - /mnt/user/appdata/traefik:/data
     restart: unless-stopped
 
   whoami:
