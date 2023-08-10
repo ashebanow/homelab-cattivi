@@ -10,9 +10,9 @@ services:
     image: caddy:latest
     restart: unless-stopped
     ports:
-      - "8001:80"
-      - "4431:443"
-      - "4431:443/udp"
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
     environment:
       - CATTIVI_SITE_ADDRESS=10.40.0.124:8001
     configs:
