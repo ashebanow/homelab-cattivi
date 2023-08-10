@@ -1,0 +1,7 @@
+# cattivi.com eventually
+{$CATTIVI_SITE_ADDRESS} { 
+  root * /srv
+  encode zstd gzip
+  templates
+  file_server
+}

@@ -1,20 +1,22 @@
-version: "3.9"
+version: '3.9'
+
+configs:
+  caddy_config:
+    file: ./Caddyfile
 
 services:
   caddy:
-    image: caddy:<version>
+    container_name: caddy
+    image: caddy:latest
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+      - "8001:80"
+      - "4431:443"
+      - "4431:443/udp"
+    configs:
+      - source: caddy_config
+        target: /etc/caddy/Caddyfile
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
-
-volumes:
-  caddy_data:
-    external: true
-  caddy_config:
+      - ./site:/srv
+      - /mnt/user/appdata/caddy/config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
