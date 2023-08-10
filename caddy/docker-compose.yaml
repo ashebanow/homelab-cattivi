@@ -1,9 +1,5 @@
 version: '3.9'
 
-configs:
-  caddy_config:
-    file: ./Caddyfile
-
 services:
   caddy:
     container_name: web
@@ -14,11 +10,9 @@ services:
       - "4431:443"
       - "4431:443/udp"
     environment:
-      - CATTIVI_SITE_ADDRESS=10.40.0.124:8001
-    configs:
-      - source: caddy_config
-        target: /etc/caddy/Caddyfile
+      - CATTIVI_SITE_ADDRESS=storage:8001
     volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - ./site:/srv
-      - /mnt/user/appdata/caddy/config:/app/config
-      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+      - /mnt/user/appdata/caddy/data:/data
+      - /mnt/user/appdata/caddy/config:/config
