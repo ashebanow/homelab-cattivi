@@ -10,7 +10,7 @@ services:
       - "4431:443"
       - "4431:443/udp"
     environment:
-      - CATTIVI_SITE_ADDRESS=10.40.0.124:8001
+      - CATTIVI_SITE_ADDRESS=10.40.0.124
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./site:/srv
