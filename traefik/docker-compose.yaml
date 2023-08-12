@@ -1,23 +1,16 @@
-version: '3'
+version: '3.9'
 
 services:
   reverse-proxy:
     image: traefik:v2.10.4
     container_name: reverse-proxy
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker"
-      - "--providers.docker.exposedbydefault=false"
-#      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-#      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-#      - "--certificatesresolvers.myresolver.acme.email=ashebanow@gmail.com"
-#      - "--certificatesresolvers.myresolver.acme.storage=/data/letsencrypt/acme.json"
     ports:
       - 80:80
       - 443:443
-      - 8081:8080  # (optional) expose the dashboard !don't use in production!
+      # - 8081:8080  # (optional) expose the dashboard !don't use in production!
     volumes:
       - ./traefik.yaml:/etc/traefik/traefik.yaml
+      # - ./data:/data
       - /mnt/appdata/traefik:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
@@ -28,5 +21,3 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
-      # - "traefik.http.routers.whoami.entrypoints=websecure"
-      # - "traefik.http.routers.whoami.tls.certresolver=myresolver"
