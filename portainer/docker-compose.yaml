@@ -3,14 +3,14 @@ version: '3'
 services:
   app:
     container_name: portainer
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ee:latest
     ports:
       # - 8000:8000 # for ssh to edge agents, optional
       - 9443:9443 # for admin UI
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./data:/data    # for testing purposes on unbuntu dev box
-      - /mnt/user/appdata/portainer-ce:/data
+      - /mnt/user/appdata/portainer:/data
     restart: unless-stopped
     labels:
       - traefik.http.routers.portainer.rule=Host(`portainer`)
