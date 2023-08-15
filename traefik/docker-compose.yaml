@@ -1,23 +1,70 @@
+# based in part on:
+# https://github.com/htpcBeginner/docker-traefik/docker-compose-t2.yml
+
 version: '3.9'
+
+networks:
+  t2_proxy:
+    name: t2_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.90.0/24
+  default:
+    driver: bridge
+  socket_proxy:
+    name: socket_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.91.0/24
 
 services:
   reverse-proxy:
     image: traefik:v2.10.4
     container_name: reverse-proxy
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      t2_proxy:
+        ipv4_address: 192.168.90.254 # You can specify a static IP
+      socket_proxy:
+    #healthcheck:
+    #  test: ["CMD", "traefik", "healthcheck", "--ping"]
+    #  interval: 5s
+    #  retries: 3
     ports:
-      - 80:80
-      - 443:443
-      # - 8081:8080  # (optional) expose the dashboard !don't use in production!
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+      # - target: 8080 # dashboard w/o insecure api wont work
+      #   published: 8080
+      #   protocol: tcp
+      #   mode: host
     volumes:
       - ./traefik.yaml:/etc/traefik/traefik.yaml
       # - ./data:/data
-      - /mnt/appdata/traefik:/data
+      - /mnt/user/appdata/traefik:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - TZ=$TZ
+      # - CF_API_EMAIL_FILE=/run/secrets/cf_email
+      # - CF_API_KEY_FILE=/run/secrets/cf_api_key
+      # - HTPASSWD_FILE=/run/secrets/htpasswd # HTPASSWD_FILE can be whatever as it is not used/called anywhere.
+      # - DOMAINNAME_CLOUD_SERVER # Passing the domain name to traefik container to be able to use the variable in rules. 
     restart: unless-stopped
 
   whoami:
     image: "traefik/whoami"
     container_name: "whoami"
+    networks:
+      t2_proxy:
+      socket_proxy:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
