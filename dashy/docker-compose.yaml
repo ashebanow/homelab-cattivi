@@ -1,0 +1,42 @@
+---
+# Welcome to Dashy! To get started, run `docker compose up -d`
+# You can configure your container here, by modifying this file
+version: "3.8"
+services:
+  dashy:
+    container_name: dashboard
+
+    # Pull latest image from DockerHub
+    image: lissy93/dashy:latest
+
+    # Set port that web service will be served on. Keep container port as 80
+    ports:
+      - 4000:80
+
+    # Set any environmental variables
+    environment:
+      NODE_ENV: production
+      TZ: "Pacific/Los_Angeles"
+    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
+    #  UID: 1000
+    #  GID: 1000
+
+    # Specify restart policy
+    restart: unless-stopped
+
+    labels:
+      - "traefik.port=4000"
+      - "traefik.frontend.rule=Host:dashboard.docker.localhost"
+
+    # Configure healthchecks
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      # - /path/to/my-config.yml:/app/public/conf.yml
+      # - /path/to/item-icons:/app/public/item-icons
