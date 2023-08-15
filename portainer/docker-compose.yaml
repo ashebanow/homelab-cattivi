@@ -5,9 +5,8 @@ services:
     container_name: portainer
     image: portainer/portainer-ce:latest
     ports:
-      - 8000:8000
-      - 9000:9000
-      - 9443:9443
+      # - 8000:8000 # for ssh to edge agents, optional
+      - 9443:9443 # for admin UI
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./data:/data    # for testing purposes on unbuntu dev box
