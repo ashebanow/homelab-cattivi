@@ -20,6 +20,6 @@ services:
     environment:
       GLANCES_OPT: "-C /glances/config/glances.conf -w"
       TZ: "Pacific/Los_Angeles"
-    # labels:
-    #   - "traefik.port=61208"
-    #   - "traefik.frontend.rule=Host:glances.docker.localhost"
+    labels:
+      - "traefik.port=61208"
+      - "traefik.frontend.rule=Host:glances.docker.localhost"
