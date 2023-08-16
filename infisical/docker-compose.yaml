@@ -4,7 +4,7 @@ services:
   infisical:
     container_name: infisical
     image: nginx
-    restart: always
+    restart: unless-stopped
     ports:
       - 7080:80
       - 7443:443
@@ -58,19 +58,17 @@ services:
   infisical-mongo:
     container_name: infisical-mongo
     image: mongo
-    restart: always
+    restart: unless-stopped
     env_file: .env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
     volumes:
-      - /mnt/user/appdata/infisical-mongo/db:/data/db
+      # for debug purposes:
+      - ./data/db:/data/db
+      # - /mnt/user/appdata/infisical-mongo/db:/data/db
     networks:
       - infisical
-
-volumes:
-  infisical-mongo-data:
-    driver: local
 
 networks:
   infisical:
