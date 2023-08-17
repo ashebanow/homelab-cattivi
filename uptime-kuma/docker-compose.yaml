@@ -13,3 +13,5 @@ services:
     labels:
       - "traefik.port=3001"
       - "traefik.frontend.rule=Host:uptime.cattivi.com"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
