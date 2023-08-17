@@ -10,3 +10,6 @@ services:
     ports:
       - 3001:3001  # <Host Port>:<Container Port>
     restart: unless-stopped
+    labels:
+      - "traefik.port=3001"
+      - "traefik.frontend.rule=Host:uptime.cattivi.com"

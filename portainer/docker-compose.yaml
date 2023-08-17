@@ -13,5 +13,5 @@ services:
       - /mnt/user/appdata/portainer:/data
     restart: unless-stopped
     labels:
-      - traefik.http.routers.portainer.rule=Host(`portainer`)
+      - traefik.http.routers.portainer.rule=Host(`portainer.cattivi.com`)
       - traefik.http.services.portainer.loadbalancer.server.port=9443

@@ -26,7 +26,7 @@ services:
 
     labels:
       - "traefik.port=4000"
-      - "traefik.frontend.rule=Host:dashboard.docker.localhost"
+      - "traefik.frontend.rule=Host:dashboard.cattivi.com"
 
     # Configure healthchecks
     healthcheck:

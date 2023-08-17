@@ -18,8 +18,10 @@ services:
       - 10001:10001/udp
       - 8080:8080
       - 1900:1900/udp #optional
-      - 8843:8843 #optional
       - 8880:8880 #optional
       - 6789:6789 #optional
       - 5514:5514/udp #optional
     restart: unless-stopped
+    labels:
+      - traefik.http.routers.portainer.rule=Host(`unifi-controller.cattivi.com`)
+      - traefik.http.services.portainer.loadbalancer.server.port=8443
