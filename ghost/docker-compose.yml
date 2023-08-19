@@ -41,6 +41,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       # - ./mysql-data:/var/lib/mysql
-      - /mnt/user/appdata/ghost/mysql:/var/lib/mysql
+      - /mnt/user/appdata/blog/mysql:/var/lib/mysql
     env_file:
       - .env
