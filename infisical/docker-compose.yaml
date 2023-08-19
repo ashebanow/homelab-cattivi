@@ -65,8 +65,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
     volumes:
       # for debug purposes:
-      - ./data/db:/data/db
-      # - /mnt/user/appdata/infisical-mongo/db:/data/db
+      # - ./data/db:/data/db
+      - /mnt/user/appdata/infisical-mongo/db:/data/db
     networks:
       - infisical
 
