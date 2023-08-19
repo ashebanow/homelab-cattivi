@@ -21,8 +21,6 @@ services:
       # image defaults to NODE_ENV=production (so development mode needs to
       # be explicitly specified if desired)
       NODE_ENV: development
-    env_file:
-      - .env
     labels:
       - "traefik.port=3080"
       - "traefik.frontend.rule=Host:blog.cattivi.com"
@@ -43,5 +41,3 @@ services:
     volumes:
       # - ./mysql-data:/var/lib/mysql
       - /mnt/user/appdata/blog/mysql:/var/lib/mysql
-    env_file:
-      - .env
