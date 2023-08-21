@@ -12,9 +12,12 @@ services:
       # image defaults to NODE_ENV=production (so development mode needs to
       # be explicitly specified if desired)
       NODE_ENV: development
+    volumes:
+      # - ./content:/var/lib/ghost/content
+      - /mnt/user/appdata/blog/content:/var/lib/ghost/content
     labels:
       - "traefik.port=3080"
-      - "traefik.frontend.rule=Host:blog.cattivi.com"
+      - traefik.frontend.rule="Host(`blog.cattivi.com`) || (Host(`shebanator.com`)"
 
   blog_mysql:
     container_name: blog_mysql
