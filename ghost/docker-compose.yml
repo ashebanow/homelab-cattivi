@@ -3,6 +3,7 @@ version: '3.9'
 services:
   blog:
     container_name: blog
+    # build: .
     image: ghost:5-alpine
     restart: unless-stopped
     ports:
@@ -12,6 +13,7 @@ services:
       # image defaults to NODE_ENV=production (so development mode needs to
       # be explicitly specified if desired)
       NODE_ENV: development
+      # DEBUG: 'ghost-storage-cloudinary:*'
     volumes:
       # - ./content:/var/lib/ghost/content
       - /mnt/user/appdata/blog/content:/var/lib/ghost/content
@@ -26,11 +28,11 @@ services:
     environment:
       MYSQL_DATABASE: 'db'
       # So you don't have to use root, but you can if you like
-      MYSQL_USER: root
+      # MYSQL_ROOT_USER: root
       # You can use whatever password you like
-      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       # Password for root access
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
       # - ./mysql-data:/var/lib/mysql
       - /mnt/user/appdata/blog/mysql:/var/lib/mysql

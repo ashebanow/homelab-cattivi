@@ -9,7 +9,7 @@
     "connection": {
       "host": "blog_mysql.docker.local",
       "port": 3306,
-      "user": "root",
+      "user": "${MYSQL_ROOT_USER}",
       "password": "${MYSQL_ROOT_PASSWORD}",
       "database": "ghost"
     }
@@ -25,27 +25,4 @@
   "paths": {
     "contentPath": "/var/lib/ghost/content"
   },
-  "storage": {
-    "active": "ghost-cloudinary-store",
-    "ghost-cloudinary-store": {
-      "cloud_name": "${CLOUDINARY_CLOUD_NAME}",
-      "api_key": "${CLOUDINARY_API_KEY}",
-      "api_secret": "${CLOUDINARY_API_SECRET}",
-      "configuration": {
-        "image": {
-          "quality": "auto:good",
-          "secure": "true"
-        },
-        "file": {
-          "use_filename": "true",
-          "unique_filename": "false",
-          "phash": "true",
-          "overwrite": "false",
-          "invalidate": "true",
-          "folder": "shebanator-blog-images",
-          "tags": [ "blog", "shebanator" ]
-        }       
-      }
-    }
-  }
 }
