@@ -13,7 +13,8 @@ services:
       # image defaults to NODE_ENV=production (so development mode needs to
       # be explicitly specified if desired)
       NODE_ENV: development
-      # DEBUG: 'ghost-storage-cloudinary:*'
+      DEBUG: ghost:*,ghost-config
+      # DEBUG: ghost:*,ghost-config,ghost-storage-cloudinary:*
     volumes:
       # - ./content:/var/lib/ghost/content
       - /mnt/user/appdata/blog/content:/var/lib/ghost/content
