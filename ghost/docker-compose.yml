@@ -3,37 +3,53 @@ version: '3.9'
 services:
   blog:
     container_name: blog
-    # build: .
-    image: ghost:5-alpine
+    hostname: blog.cattivi.com
+    build: .
+    env_file:
+      - .env
     restart: unless-stopped
     ports:
       - 3080:2368
     environment:
+      url: http://localhost:3080
+      # url: http://10.40.0.24:3080
+
+      database__client: mysql
+      database__connection__host: blog_mysql
+      database__connection__user: ${MYSQL_USER}
+      database__connection__password: ${MYSQL_PASSWORD}
+      database__connection__database: ${MYSQL_DATABASE}
+
       # contrary to the default mentioned in the linked documentation, this
       # image defaults to NODE_ENV=production (so development mode needs to
       # be explicitly specified if desired)
       NODE_ENV: development
-      DEBUG: ghost:*,ghost-config
+
+      # Useful debugging settings for development mode:
+      # DEBUG: ghost:*,ghost-config
+      DEBUG: ghost-storage-cloudinary:*
       # DEBUG: ghost:*,ghost-config,ghost-storage-cloudinary:*
     volumes:
+      - ./config.development.json:/var/lib/ghost/config.development.json
+      - ./config.production.json:/var/lib/ghost/config.production.json
       # - ./content:/var/lib/ghost/content
-      - /mnt/user/appdata/blog/content:/var/lib/ghost/content
+      # - /mnt/user/appdata/blog/content:/var/lib/ghost/content
     labels:
       - "traefik.port=3080"
       - traefik.frontend.rule="Host(`blog.cattivi.com`) || (Host(`shebanator.com`)"
+    depends_on:
+      - blog_mysql
 
   blog_mysql:
     container_name: blog_mysql
-    image: mysql:8.0
+    hostname: blog_mysql
+    image: mariadb:latest
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: 'db'
-      # So you don't have to use root, but you can if you like
-      # MYSQL_ROOT_USER: root
-      # You can use whatever password you like
-      # MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      # Password for root access
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      # - ./mysql-data:/var/lib/mysql
-      - /mnt/user/appdata/blog/mysql:/var/lib/mysql
+      - ./mysql-data:/var/lib/mysql
+      # - /mnt/user/appdata/blog/mysql:/var/lib/mysql
