@@ -1,0 +1,28 @@
+{
+  "url": "http://10.40.0.9:3080",
+  "server": {
+    "port": 2368,
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "client": "mysql",
+    "connection": {
+      "host": "blog_mysql.docker.local",
+      "port": 3306,
+      "user": "${MYSQL_ROOT_USER}",
+      "password": "${MYSQL_ROOT_PASSWORD}",
+      "database": "ghost"
+    }
+  },
+  "mail": {
+    "transport": "Direct"
+  },
+  "logging": {
+    "transports": [
+      "stdout"
+    ]
+  },
+  "paths": {
+    "contentPath": "/var/lib/ghost/content"
+  },
+}
