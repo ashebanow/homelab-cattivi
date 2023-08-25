@@ -1,0 +1,26 @@
+version: '3'
+#---------------------------------------------------------------------#
+#     Homarr - A simple, yet powerful dashboard for your server.     #
+#---------------------------------------------------------------------#
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      # For debugging locally:
+      # - ./data/configs:/app/data/configs
+      # - ./data/icons:/app/public/icons
+      - /mnt/user/appdata/homarr/configs:/app/data/configs
+      - /mnt/user/appdata/homarr/icons:/app/public/icons
+
+      - ./default.json:/app/data/configs/default.json
+      - ./icons/infisical.svg:/app/public/icons/infisical.svg
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '7575:7575'
+    environment:
+      - TZ=America/Los_Angeles
+    labels:
+      - "traefik.port=7575"
+      - "traefik.frontend.rule=Host:homarr.cattivi.com"
