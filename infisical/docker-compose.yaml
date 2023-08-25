@@ -14,24 +14,26 @@ services:
       - secrets-frontend
       - secrets-backend
     networks:
-      - secrets
+      - secrets-network
 
   secrets-backend:
     container_name: secrets-backend
     restart: unless-stopped
     depends_on:
+      - secrets-redis
       - secrets-mongo
     image: infisical/backend
     env_file: .env
     environment:
       - NODE_ENV=production
     networks:
-      - secrets
+      - secrets-network
 
   secrets-frontend:
     container_name: secrets-frontend
     restart: unless-stopped
     depends_on:
+      - secrets-redis
       - secrets-backend
     image: infisical/frontend
     env_file: .env
@@ -39,21 +41,35 @@ services:
       # - NEXT_PUBLIC_POSTHOG_API_KEY=${POSTHOG_PROJECT_API_KEY}
       - INFISICAL_TELEMETRY_ENABLED=${TELEMETRY_ENABLED}
     networks:
-      - secrets
+      - secrets-network
 
-  secret-scanning-git-app:
-    container_name: secret-scanning-git-app
-    restart: unless-stopped
-    depends_on:
-      - secrets-backend
-      - secrets-frontend
-      - secrets-mongo
+  # secrets-scanning-git-app:
+  #   container_name: secrets-scanning-git-app
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - secrets-backend
+  #     - secrets-frontend
+  #     - secrets-mongo
+  #   ports:
+  #     - "7001:3001"
+  #   image: infisical/staging_deployment_secret-scanning-git-app
+  #   env_file: .env
+  #   networks:
+  #     - secrets-network
+
+  secrets-redis:
+    image: redis
+    container_name: secrets-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
     ports:
-      - "7001:3001"
-    image: infisical/staging_deployment_secret-scanning-git-app
-    env_file: .env
+      - 6379:6379
     networks:
-      - secrets
+      - secrets-network
+    volumes:
+      # for debug purposes:
+      - ./data/redis:/data
+      # - /mnt/user/appdata/secrets/redis:/data
 
   secrets-mongo:
     container_name: secrets-mongo
@@ -65,10 +81,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
     volumes:
       # for debug purposes:
-      # - ./data/db:/data/db
-      - /mnt/user/appdata/secrets/db:/data/db
+      - ./data/db:/data/db
+      # - /mnt/user/appdata/secrets/db:/data/db
     networks:
-      - infisical
+      - secrets-network
 
 networks:
-  secrets:
+  secrets-network:
