@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:2.18.4
+    ports:
+      - 9001:9001 # for portainer->portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - ./data:/data    # for testing purposes on unbuntu dev box
+      - ./data/volumes:/var/lib/docker/volumes
+      # - /mnt/user/appdata/portainer-agent/volumes:/var/lib/docker/volumes
+    restart: unless-stopped
