@@ -72,6 +72,16 @@ providers:
   docker:
     exposedByDefault: false  # Default is true
     endpoint: "unix:///var/run/docker.sock"
+    # Unfortunately traefik doesn't allow multiple docker endpoints.
+    # Need to use swarm.
+    #
+    # endpoint: "ssh://ashebanow@storage:9001"
+    # endpoint: "ssh://ashebanow@virt1:9001"
+    # virt2 VM:
+    # endpoint: "ssh://ashebanow@virt2:9001"
+    # liquid-ubuntu WSL2:
+    # endpoint: "ssh://traefik@172.26.103.196:9001"
+    
   file:
     # watch for dynamic configuration changes
     directory: /etc/traefik
