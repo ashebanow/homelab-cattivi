@@ -7,11 +7,10 @@ services:
     volumes:
       # - ./data:/app/data
       - /mnt/user/appdata/uptime/data:/app/data
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     ports:
       - 3001:3001  # <Host Port>:<Container Port>
     restart: unless-stopped
     labels:
       - "traefik.port=3001"
       - "traefik.frontend.rule=Host:uptime.cattivi.com"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
