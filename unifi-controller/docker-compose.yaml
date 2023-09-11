@@ -1,27 +1,56 @@
-version: "2.1"
-
 services:
   unifi-controller:
-    image: lscr.io/linuxserver/unifi-controller:latest
+    image: lscr.io/linuxserver/unifi-network-application:latest
     container_name: unifi-controller
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Pacific/Los_Angeles
+      # FIXME: use secrets and real passwords!
+      - MONGO_USER=unifi
+      - MONGO_PASS=changeme
+      - MONGO_HOST=unifi-db
+      - MONGO_PORT=27017
+      - MONGO_DBNAME=unifi
       # - MEM_LIMIT=1024 #optional
       # - MEM_STARTUP=1024 #optional
-    volumes:
-      - /mnt/user/appdata/unifi-controller/config:/config
     ports:
       - 8443:8443
       - 3478:3478/udp
       - 10001:10001/udp
       - 8080:8080
-      - 1900:1900/udp #optional
-      - 8880:8880 #optional
-      - 6789:6789 #optional
-      - 5514:5514/udp #optional
+      # - 1900:1900/udp #optional
+      # - 8843:8843 #optional
+      # - 8880:8880 #optional
+      # - 6789:6789 #optional
+      # - 5514:5514/udp #optional
+    volumes:
+      - /mnt/user/appdata/unifi-controller/config:/config
+    networks:
+      - infisical
     restart: unless-stopped
+    depends_on:
+      - unifi-db
     labels:
       - traefik.http.routers.portainer.rule=Host(`unifi-controller.cattivi.com`)
       - traefik.http.services.portainer.loadbalancer.server.port=8443
+
+  unifi-db:
+    container_name: unifi-db
+    image: mongo
+    environment:
+      # FIXME: use secrets and real passwords!
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=changeme
+      - MONGO_USER=unifi
+      - MONGO_PASS=changeme
+    volumes:
+      # for debug purposes:
+      - ./data/db:/data/db
+      # - /mnt/user/appdata/unifi-controller/db:/data/db
+    networks:
+      - infisical
+    restart: unless-stopped
+
+networks:
+  infisical:
