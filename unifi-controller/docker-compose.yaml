@@ -19,12 +19,14 @@ services:
       - 3478:3478/udp
       - 10001:10001/udp
       - 8080:8080
-      # - 1900:1900/udp #optional
-      # - 8843:8843 #optional
-      # - 8880:8880 #optional
-      # - 6789:6789 #optional
-      # - 5514:5514/udp #optional
+      - 1900:1900/udp #optional
+      - 8843:8843 #optional
+      - 8880:8880 #optional
+      - 6789:6789 #optional
+      - 5514:5514/udp #optional
     volumes:
+      # for debug purposes:
+      # - ./data/config:/config
       - /mnt/user/appdata/unifi-controller/config:/config
     networks:
       - infisical
@@ -32,7 +34,7 @@ services:
     depends_on:
       - unifi-db
     labels:
-      - traefik.http.routers.portainer.rule=Host(`unifi-controller.cattivi.com`)
+      - traefik.http.routers.portainer.rule=Host(`unifi-controller.homelab.cattivi.com`)
       - traefik.http.services.portainer.loadbalancer.server.port=8443
 
   unifi-db:
@@ -46,8 +48,8 @@ services:
       - MONGO_PASS=changeme
     volumes:
       # for debug purposes:
-      - ./data/db:/data/db
-      # - /mnt/user/appdata/unifi-controller/db:/data/db
+      # - ./data/db:/data/db
+      - /mnt/user/appdata/unifi-controller/db:/data/db
     networks:
       - infisical
     restart: unless-stopped
