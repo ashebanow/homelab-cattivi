@@ -14,3 +14,6 @@ services:
       - /mnt/user/appdata/ci/home:/var/jenkins_home
       # - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.port=4080"
+      - "traefik.frontend.rule=Host:('ci.cattivi.com')"

@@ -13,4 +13,4 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.port=3001"
-      - "traefik.frontend.rule=Host:uptime.cattivi.com"
+      - "traefik.frontend.rule=Host:('uptime.cattivi.com')"

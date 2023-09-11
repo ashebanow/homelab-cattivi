@@ -34,8 +34,8 @@ services:
     depends_on:
       - unifi-db
     labels:
-      - traefik.http.routers.portainer.rule=Host(`unifi-controller.homelab.cattivi.com`)
-      - traefik.http.services.portainer.loadbalancer.server.port=8443
+      - traefik.frontend.rule=Host(`unifi-controller.cattivi.com`)
+      - traefik.port=8443
 
   unifi-db:
     container_name: unifi-db

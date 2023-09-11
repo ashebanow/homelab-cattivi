@@ -20,4 +20,4 @@ services:
         restart: unless-stopped
     labels:
       - "traefik.port=8765"
-      - "traefik.frontend.rule=Host:speedtest.cattivi.com"
+      - "traefik.frontend.rule=Host:('speedtest.cattivi.com')"

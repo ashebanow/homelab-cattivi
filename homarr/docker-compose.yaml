@@ -23,4 +23,4 @@ services:
       - TZ=America/Los_Angeles
     labels:
       - "traefik.port=7575"
-      - "traefik.frontend.rule=Host:homarr.cattivi.com"
+      - "traefik.frontend.rule=Host:('homarr.cattivi.com')"
