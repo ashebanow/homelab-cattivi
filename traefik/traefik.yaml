@@ -22,7 +22,7 @@ api:
  insecure: true  # Don't do this in production!
 
 # Ping configuration
-ping:
+ping: {}
 
 # Entry Points configuration
 # ---

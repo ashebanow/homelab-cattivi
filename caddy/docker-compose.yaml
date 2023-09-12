@@ -10,9 +10,17 @@ services:
       - "4431:443"
       - "4431:443/udp"
     environment:
-      - CATTIVI_SITE_ADDRESS=10.40.0.124
+      # - CATTIVI_SITE_ADDRESS=10.40.0.124
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./site:/srv
       - /mnt/user/appdata/caddy/data:/data
       - /mnt/user/appdata/caddy/config:/config
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.caddy.rule=Host(`cattivi.com`)"
+      - "traefik.http.routers.caddy.entrypoints=websecure"
+      - "traefik.http.routers.caddy.service=caddy"
+      - "traefik.http.routers.caddy.tls.certresolver=staging"
+      # - "traefik.http.routers.caddy.tls.certresolver=production"
+      - "traefik.http.services.caddy.loadbalancer.server.port=4431"

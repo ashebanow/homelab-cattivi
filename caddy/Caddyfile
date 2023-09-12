@@ -1,5 +1,5 @@
 # cattivi.com eventually
-{$CATTIVI_SITE_ADDRESS:storage} {
+{$CATTIVI_SITE_ADDRESS:storage.local} {
         root * /srv
         encode zstd gzip
         templates
