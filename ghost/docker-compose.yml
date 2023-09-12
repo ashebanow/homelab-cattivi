@@ -31,7 +31,7 @@ services:
       - ./config.development.json:/var/lib/ghost/config.development.json
       - ./config.production.json:/var/lib/ghost/config.production.json
       # - ./content:/var/lib/ghost/content
-      # - /mnt/user/appdata/blog/content:/var/lib/ghost/content
+      - /mnt/user/appdata/blog/content:/var/lib/ghost/content
     depends_on:
       - blog_mysql
     labels:
@@ -40,7 +40,7 @@ services:
       - "traefik.http.routers.blog.entrypoints=websecure"
       - "traefik.http.routers.blog.service=blog"
       - "traefik.http.routers.blog.tls.blog=staging"
-      # - "traefik.http.routers.blog.tls.blog=staging"
+      # - "traefik.http.routers.blog.tls.blog=production"
       - "traefik.http.services.blog.loadbalancer.server.port=3080"
 
 
@@ -55,5 +55,5 @@ services:
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - ./mysql-data:/var/lib/mysql
-      # - /mnt/user/appdata/blog/mysql:/var/lib/mysql
+      # - ./mysql-data:/var/lib/mysql
+      - /mnt/user/appdata/blog/mysql:/var/lib/mysql
