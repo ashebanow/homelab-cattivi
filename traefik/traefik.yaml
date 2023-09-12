@@ -18,8 +18,8 @@ accesslog:
 # Disable API and Dashboard
 # ---
 api:
- dashboard: false  # true by default
- insecure: false  # Don't do this in production!
+ dashboard: true  # true by default
+ insecure: true  # Don't do this in production!
 
 # Ping configuration
 ping:

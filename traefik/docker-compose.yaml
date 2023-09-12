@@ -42,10 +42,11 @@ services:
         published: 443
         protocol: tcp
         mode: host
-      # - target: 8080 # dashboard w/o insecure api wont work
-      #   published: 8080
-      #   protocol: tcp
-      #   mode: host
+      # FIXME: turn OFF for production use!!!
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
     volumes:
       - ./traefik.yaml:/etc/traefik/traefik.yaml
       - ./certs/acme-staging.json:/etc/traefik/certs/t/acme-staging.json # staging certs
