@@ -24,7 +24,7 @@ services:
       - TZ=America/Los_Angeles
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homarr.rule=Host('homarr.cattivi.com')"
+      - "traefik.http.routers.homarr.rule=Host(`homarr.cattivi.com`)"
       # - "traefik.http.routers.homarr.entrypoints=websecure"
       - "traefik.http.routers.homarr.service=homarr"
       # - "traefik.http.routers.portainer.tls.certresolver=staging"

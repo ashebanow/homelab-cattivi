@@ -16,7 +16,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ci.rule=Host('ci.cattivi.com')"
+      - "traefik.http.routers.ci.rule=Host(`ci.cattivi.com`)"
       # - "traefik.http.routers.ci.entrypoints=websecure"
       - "traefik.http.routers.ci.service=ci"
       # - "traefik.http.routers.portainer.tls.certresolver=staging"

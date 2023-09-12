@@ -22,7 +22,7 @@ services:
       TZ: "Pacific/Los_Angeles"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.glances.rule=Host('glances.cattivi.com')"
+      - "traefik.http.routers.glances.rule=Host(`glances.cattivi.com`)"
       # - "traefik.http.routers.glances.entrypoints=websecure"
       - "traefik.http.routers.glances.service=glances"
       # - "traefik.http.routers.portainer.tls.certresolver=staging"

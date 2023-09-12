@@ -53,7 +53,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.unifi-controller.rule=Host('unifi-controller.cattivi.com')"
+      - "traefik.http.routers.unifi-controller.rule=Host(`unifi-controller.cattivi.com`)"
       # - "traefik.http.routers.unifi-controller.entrypoints=websecure"
       - "traefik.http.routers.unifi-controller.service=unifi-controller"
       # - "traefik.http.routers.portainer.tls.certresolver=staging"
