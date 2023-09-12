@@ -25,6 +25,6 @@ services:
       - "traefik.http.routers.glances.rule=Host(`glances.cattivi.com`)"
       - "traefik.http.routers.glances.entrypoints=websecure"
       - "traefik.http.routers.glances.service=glances"
-      - "traefik.http.routers.portainer.tls.certresolver=staging"
-      # - "traefik.http.routers.portainer.tls.certresolver=production"
+      - "traefik.http.routers.glances.tls.certresolver=staging"
+      # - "traefik.http.routers.glances.tls.certresolver=production"
       - "traefik.http.services.glances.loadbalancer.server.port=61208"

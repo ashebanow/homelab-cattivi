@@ -17,7 +17,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.ci.rule=Host(`ci.cattivi.com`)"
-      # - "traefik.http.routers.ci.entrypoints=websecure"
+      - "traefik.http.routers.ci.entrypoints=websecure"
       - "traefik.http.routers.ci.service=ci"
-      # - "traefik.http.routers.portainer.tls.certresolver=staging"
+      - "traefik.http.routers.ci.tls.certresolver=staging"
+      # - "traefik.http.routers.ci.tls.certresolver=production"
       - "traefik.http.services.ci.loadbalancer.server.port=4080"

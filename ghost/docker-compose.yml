@@ -39,9 +39,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.blog.rule=Host(`blog.cattivi.com`) || (Host(`shebanator.com`)"
-      # - "traefik.http.routers.blog.entrypoints=websecure"
+      - "traefik.http.routers.blog.entrypoints=websecure"
       - "traefik.http.routers.blog.service=blog"
-      # - "traefik.http.routers.portainer.tls.certresolver=staging"
+      - "traefik.http.routers.blog.tls.blog=staging"
+      # - "traefik.http.routers.blog.tls.blog=staging"
       - "traefik.http.services.blog.loadbalancer.server.port=3080"
 
 

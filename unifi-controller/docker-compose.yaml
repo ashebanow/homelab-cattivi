@@ -54,9 +54,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.unifi-controller.rule=Host(`unifi-controller.cattivi.com`)"
-      # - "traefik.http.routers.unifi-controller.entrypoints=websecure"
+      - "traefik.http.routers.unifi-controller.entrypoints=websecure"
       - "traefik.http.routers.unifi-controller.service=unifi-controller"
-      # - "traefik.http.routers.portainer.tls.certresolver=staging"
+      - "traefik.http.routers.unifi-controller.tls.certresolver=staging"
+      # - "traefik.http.routers.unifi-controller.tls.certresolver=production"
       - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
 
 networks:

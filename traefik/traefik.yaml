@@ -35,15 +35,13 @@ entryPoints:
         entryPoint:
           to: websecure
           scheme: https
-
-
   websecure:
     address: :443
 
 certificatesResolvers:
   staging:
     acme:
-      email: ashebanow@gmail.com
+      email: ashebanow@cattivi.com
       storage: /etc/traefik/certs/acme-staging.json
       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
       dnsChallenge:
@@ -51,11 +49,12 @@ certificatesResolvers:
         delayBeforeCheck: 0
   production:
     acme:
-      email: ashebanow@gmail.com
+      email: ashebanow@cattivi.com
       storage: /etc/traefik/certs/acme-production.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
-      httpChallenge:
-        entryPoint: web
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
 
 # (Optional) Overwrite Default Certificates
 # tls:
@@ -77,10 +76,10 @@ providers:
     # Unfortunately traefik doesn't allow multiple docker endpoints.
     # Need to use swarm.
     #
-    # endpoint: "ssh://ashebanow@storage:9001"
-    # endpoint: "ssh://ashebanow@virt1:9001"
-    # virt2 VM:
-    # endpoint: "ssh://ashebanow@virt2:9001"
+    # endpoint: "ssh://ashebanow@storage.local:9001"
+    # endpoint: "ssh://ashebanow@virt1.local:9001"
+    # endpoint: "ssh://ashebanow@virt2.local:9001"
+    #
     # liquid-ubuntu WSL2:
     # endpoint: "ssh://traefik@172.26.103.196:9001"
     
