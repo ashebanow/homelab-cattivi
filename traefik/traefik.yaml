@@ -49,7 +49,7 @@ certificatesResolvers:
       dnsChallenge:
         provider: cloudflare
         delayBeforeCheck: 0
-  production:````
+  production:
     acme:
       email: ashebanow@gmail.com
       storage: /etc/traefik/certs/acme-production.json
