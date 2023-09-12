@@ -21,6 +21,9 @@ api:
  dashboard: false  # true by default
  insecure: false  # Don't do this in production!
 
+# Ping configuration
+ping:
+
 # Entry Points configuration
 # ---
 entryPoints:
