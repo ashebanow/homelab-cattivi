@@ -58,13 +58,3 @@ services:
       # - HTPASSWD_FILE=/run/secrets/htpasswd # HTPASSWD_FILE can be whatever as it is not used/called anywhere.
       # - DOMAINNAME_CLOUD_SERVER # Passing the domain name to traefik container to be able to use the variable in rules. 
     restart: unless-stopped
-
-  whoami:
-    image: "traefik/whoami"
-    container_name: "whoami"
-    networks:
-      t2_proxy:
-      socket_proxy:
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"

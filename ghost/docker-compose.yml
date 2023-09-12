@@ -35,8 +35,11 @@ services:
       # - ./content:/var/lib/ghost/content
       # - /mnt/user/appdata/blog/content:/var/lib/ghost/content
     labels:
-      - traefik.port="3080"
-      - traefik.frontend.rule="Host(`blog.cattivi.com`) || (Host(`shebanator.com`)"
+      - "traefik.enable=true"
+      - "traefik.http.routers.blog.rule=Host('blog.cattivi.com') || (Host(`shebanator.com`)"
+      - "traefik.http.routers.blog.entrypoints=websecure"
+      - "traefik.http.routers.blog.service=frontend"
+      - "traefik.http.services.blog.loadbalancer.server.port=3080"
     depends_on:
       - blog_mysql
 

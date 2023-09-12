@@ -22,5 +22,8 @@ services:
     environment:
       - TZ=America/Los_Angeles
     labels:
-      - "traefik.port=7575"
-      - "traefik.frontend.rule=Host:('homarr.cattivi.com')"
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host('dashboard.cattivi.com')"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.service=frontend"
+      - "traefik.http.services.dashboard.loadbalancer.server.port=7575"

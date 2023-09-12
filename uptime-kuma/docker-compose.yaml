@@ -12,5 +12,8 @@ services:
       - 3001:3001  # <Host Port>:<Container Port>
     restart: unless-stopped
     labels:
-      - "traefik.port=3001"
-      - "traefik.frontend.rule=Host:('uptime.cattivi.com')"
+      - "traefik.enable=true"
+      - "traefik.http.routers.uptime.rule=Host('uptime.cattivi.com')"
+      - "traefik.http.routers.uptime.entrypoints=websecure"
+      - "traefik.http.routers.uptime.service=frontend"
+      - "traefik.http.services.uptime.loadbalancer.server.port=3001"

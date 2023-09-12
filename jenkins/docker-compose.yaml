@@ -15,5 +15,8 @@ services:
       # - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - "traefik.port=4080"
-      - "traefik.frontend.rule=Host:('ci.cattivi.com')"
+      - "traefik.enable=true"
+      - "traefik.http.routers.ci.rule=Host('ci.cattivi.com')"
+      - "traefik.http.routers.ci.entrypoints=websecure"
+      - "traefik.http.routers.ci.service=frontend"
+      - "traefik.http.services.ci.loadbalancer.server.port=4080"
