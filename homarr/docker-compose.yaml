@@ -3,14 +3,6 @@ version: '3'
 #---------------------------------------------------------------------#
 #     Homarr - A simple, yet powerful dashboard for your server.     #
 #---------------------------------------------------------------------#
-labels:
-  - "traefik.enable=true"
-  - "traefik.http.routers.dashboard.rule=Host('dashboard.cattivi.com')"
-  - "traefik.http.routers.dashboard.entrypoints=websecure"
-  - "traefik.http.routers.dashboard.service=homarr"
-  # - "traefik.http.routers.portainer.tls.certresolver=staging"
-  - "traefik.http.services.dashboard.loadbalancer.server.port=7575"
-
 services:
   homarr:
     container_name: homarr
@@ -30,3 +22,10 @@ services:
       - '7575:7575'
     environment:
       - TZ=America/Los_Angeles
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host('dashboard.cattivi.com')"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.service=homarr"
+      # - "traefik.http.routers.portainer.tls.certresolver=staging"
+      - "traefik.http.services.dashboard.loadbalancer.server.port=7575"

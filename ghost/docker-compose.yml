@@ -1,13 +1,5 @@
 version: '3.9'
 
-labels:
-  - "traefik.enable=true"
-  - "traefik.http.routers.blog.rule=Host('blog.cattivi.com') || (Host(`shebanator.com`)"
-  - "traefik.http.routers.blog.entrypoints=websecure"
-  - "traefik.http.routers.blog.service=blog"
-  # - "traefik.http.routers.portainer.tls.certresolver=staging"
-  - "traefik.http.services.blog.loadbalancer.server.port=3080"
-
 services:
   blog:
     container_name: blog
@@ -44,6 +36,14 @@ services:
       # - /mnt/user/appdata/blog/content:/var/lib/ghost/content
     depends_on:
       - blog_mysql
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.blog.rule=Host('blog.cattivi.com') || (Host(`shebanator.com`)"
+      - "traefik.http.routers.blog.entrypoints=websecure"
+      - "traefik.http.routers.blog.service=blog"
+      # - "traefik.http.routers.portainer.tls.certresolver=staging"
+      - "traefik.http.services.blog.loadbalancer.server.port=3080"
+
 
   blog_mysql:
     container_name: blog_mysql
