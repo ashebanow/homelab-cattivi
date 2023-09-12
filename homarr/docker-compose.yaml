@@ -24,8 +24,8 @@ services:
       - TZ=America/Los_Angeles
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host('dashboard.cattivi.com')"
-      # - "traefik.http.routers.dashboard.entrypoints=websecure"
-      - "traefik.http.routers.dashboard.service=dashboard"
+      - "traefik.http.routers.homarr.rule=Host('homarr.cattivi.com')"
+      # - "traefik.http.routers.homarr.entrypoints=websecure"
+      - "traefik.http.routers.homarr.service=homarr"
       # - "traefik.http.routers.portainer.tls.certresolver=staging"
-      - "traefik.http.services.dashboard.loadbalancer.server.port=7575"
+      - "traefik.http.services.homarr.loadbalancer.server.port=7575"
