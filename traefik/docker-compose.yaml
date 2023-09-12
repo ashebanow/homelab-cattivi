@@ -56,8 +56,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - TZ=$TZ
-      # - CF_API_EMAIL_FILE=/run/secrets/cf_email
-      # - CF_API_KEY_FILE=/run/secrets/cf_api_key
-      # - HTPASSWD_FILE=/run/secrets/htpasswd # HTPASSWD_FILE can be whatever as it is not used/called anywhere.
-      # - DOMAINNAME_CLOUD_SERVER # Passing the domain name to traefik container to be able to use the variable in rules. 
+      - CF_DNS_API_TOKEN="$CF_DNS_API_TOKEN"
     restart: unless-stopped

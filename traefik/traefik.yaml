@@ -29,31 +29,33 @@ ping:
 entryPoints:
   web:
     address: :80
-    # Redirect to HTTPS
-    # http:
-    #   redirections:
-    #     entryPoint:
-    #       to: websecure
-    #       scheme: https
+    Redirect to HTTPS
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
 
   websecure:
     address: :443
 
-# certificatesResolvers:
-#   staging:
-#     acme:
-#       email: ashebanow@gmail.com
-#       storage: /etc/traefik/certs/t/acme-staging.json
-#       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
-#       httpChallenge:
-#         entryPoint: web
-#   production:
-#     acme:
-#       email: ashebanow@gmail.com
-#       storage: /etc/traefik/certs/acme-production.json
-#       caServer: "https://acme-v02.api.letsencrypt.org/directory"
-#       httpChallenge:
-#         entryPoint: web
+certificatesResolvers:
+  staging:
+    acme:
+      email: ashebanow@gmail.com
+      storage: /etc/traefik/certs/acme-staging.json
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
+  production:````
+    acme:
+      email: ashebanow@gmail.com
+      storage: /etc/traefik/certs/acme-production.json
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      httpChallenge:
+        entryPoint: web
 
 # (Optional) Overwrite Default Certificates
 # tls:
@@ -64,9 +66,9 @@ entryPoints:
 #         keyFile: /etc/traefik/certs/cert-key.pem
 
 # (Optional) Disable TLS version 1.0 and 1.1
-#   options:
-#     default:
-#       minVersion: VersionTLS12
+  options:
+    default:
+      minVersion: VersionTLS12
 
 providers:
   docker:
