@@ -29,7 +29,7 @@ ping:
 entryPoints:
   web:
     address: :80
-    Redirect to HTTPS
+    # Redirect to HTTPS
     http:
       redirections:
         entryPoint:
