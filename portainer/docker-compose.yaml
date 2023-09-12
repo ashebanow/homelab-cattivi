@@ -1,7 +1,15 @@
 version: '3'
 
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.portainer.rule=Host('portainer.cattivi.com')"
+  - "traefik.http.routers.portainer.entrypoints=websecure"
+  - "traefik.http.routers.portainer.service=portainer"
+  # - "traefik.http.routers.portainer.tls.certresolver=staging"
+  - "traefik.http.services.portainer.loadbalancer.server.port=9443"
+
 services:
-  app:
+  portainer:
     container_name: portainer
     image: portainer/portainer-ee:latest
     ports:
@@ -12,10 +20,3 @@ services:
       # - ./data:/data    # for testing purposes on unbuntu dev box
       - /mnt/user/appdata/portainer:/data
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.portainer.rule=Host('portainer.cattivi.com')"
-      - "traefik.http.routers.portainer.entrypoints=websecure"
-      - "traefik.http.routers.portainer.service=frontend"
-      - "traefik.http.routers.portainer.tls.certresolver=leresolver"
-      - "traefik.http.services.portainer.loadbalancer.server.port=9443"

@@ -1,5 +1,13 @@
 version: '3.9'
 
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.glances.rule=Host('glances.cattivi.com')"
+  - "traefik.http.routers.glances.entrypoints=websecure"
+  - "traefik.http.routers.glances.service=glances"
+  # - "traefik.http.routers.portainer.tls.certresolver=staging"
+  - "traefik.http.services.glances.loadbalancer.server.port=61208"
+
 configs:
   glances_config:
     file: ./glances.conf
@@ -20,9 +28,3 @@ services:
     environment:
       GLANCES_OPT: "-C /glances/config/glances.conf -w"
       TZ: "Pacific/Los_Angeles"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.glances.rule=Host('glances.cattivi.com')"
-      - "traefik.http.routers.glances.entrypoints=websecure"
-      - "traefik.http.routers.glances.service=frontend"
-      - "traefik.http.services.glances.loadbalancer.server.port=61208"

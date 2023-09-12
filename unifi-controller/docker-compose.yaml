@@ -1,3 +1,11 @@
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.unifi-controller.rule=Host('unifi-controller.cattivi.com')"
+  - "traefik.http.routers.unifi-controller.entrypoints=websecure"
+  - "traefik.http.routers.unifi-controller.service=unifi-controller"
+  # - "traefik.http.routers.portainer.tls.certresolver=staging"
+  - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
+
 services:
   unifi-controller:
     image: lscr.io/linuxserver/unifi-network-application:latest
@@ -33,12 +41,6 @@ services:
     restart: unless-stopped
     depends_on:
       - unifi-db
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.unifi-controller.rule=Host('unifi-controller.cattivi.com')"
-      - "traefik.http.routers.unifi-controller.entrypoints=websecure"
-      - "traefik.http.routers.unifi-controller.service=frontend"
-      - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
 
   unifi-db:
     container_name: unifi-db

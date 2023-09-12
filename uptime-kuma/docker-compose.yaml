@@ -1,5 +1,13 @@
 version: '3.3'
 
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.uptime.rule=Host('uptime.cattivi.com')"
+  - "traefik.http.routers.uptime.entrypoints=websecure"
+  - "traefik.http.routers.uptime.service=uptime"
+  # - "traefik.http.routers.portainer.tls.certresolver=staging"
+  - "traefik.http.services.uptime.loadbalancer.server.port=3001"
+
 services:
   uptime:
     container_name: uptime
@@ -11,9 +19,3 @@ services:
     ports:
       - 3001:3001  # <Host Port>:<Container Port>
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.uptime.rule=Host('uptime.cattivi.com')"
-      - "traefik.http.routers.uptime.entrypoints=websecure"
-      - "traefik.http.routers.uptime.service=frontend"
-      - "traefik.http.services.uptime.loadbalancer.server.port=3001"

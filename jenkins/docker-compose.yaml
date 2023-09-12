@@ -1,5 +1,13 @@
 version: '3.7'
 
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.ci.rule=Host('ci.cattivi.com')"
+  - "traefik.http.routers.ci.entrypoints=websecure"
+  - "traefik.http.routers.ci.service=ci"
+  # - "traefik.http.routers.portainer.tls.certresolver=staging"
+  - "traefik.http.services.ci.loadbalancer.server.port=4080"
+
 services:
   ci:
     container_name: ci
@@ -14,9 +22,3 @@ services:
       - /mnt/user/appdata/ci/home:/var/jenkins_home
       # - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ci.rule=Host('ci.cattivi.com')"
-      - "traefik.http.routers.ci.entrypoints=websecure"
-      - "traefik.http.routers.ci.service=frontend"
-      - "traefik.http.services.ci.loadbalancer.server.port=4080"

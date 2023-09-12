@@ -26,8 +26,7 @@ api:
 entryPoints:
   web:
     address: :80
-    # (Optional) Redirect to HTTPS
-    # ---
+    # Redirect to HTTPS
     # http:
     #   redirections:
     #     entryPoint:
@@ -37,20 +36,18 @@ entryPoints:
   websecure:
     address: :443
 
-# Configure your CertificateResolver here...
-# ---
 # certificatesResolvers:
 #   staging:
 #     acme:
 #       email: ashebanow@gmail.com
-#       storage: /data/letsencrypt/acme.json
+#       storage: /etc/traefik/certs/t/acme-staging.json
 #       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
 #       httpChallenge:
 #         entryPoint: web
 #   production:
 #     acme:
 #       email: ashebanow@gmail.com
-#       storage: /etc/traefik/certs/acme.json
+#       storage: /etc/traefik/certs/acme-production.json
 #       caServer: "https://acme-v02.api.letsencrypt.org/directory"
 #       httpChallenge:
 #         entryPoint: web

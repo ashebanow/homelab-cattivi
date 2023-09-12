@@ -48,6 +48,8 @@ services:
       #   mode: host
     volumes:
       - ./traefik.yaml:/etc/traefik/traefik.yaml
+      - ./certs/acme-staging.json:/etc/traefik/certs/t/acme-staging.json # staging certs
+      - ./certs/acme-production.json:/etc/traefik/certs/t/acme-production.json # production certs
       # - ./data:/data
       - /mnt/user/appdata/traefik:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
