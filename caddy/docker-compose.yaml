@@ -6,21 +6,17 @@ services:
     image: caddy:latest
     restart: unless-stopped
     ports:
+      - "2019:2019" # admin port
       - "8001:80"
       - "4431:443"
       - "4431:443/udp"
-    # environment:
-      # - CATTIVI_SITE_ADDRESS=10.40.0.124
+    environment:
+      DOMAIN: "https://cattivi.com"  
+      EMAIL: "ashebanow@cattivi.com"                 
+      LOG_FILE: "/data/access.log"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./site:/srv
       - /mnt/user/appdata/caddy/data:/data
       - /mnt/user/appdata/caddy/config:/config
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.caddy.rule=Host(`cattivi.com`)"
-      - "traefik.http.routers.caddy.entrypoints=websecure"
-      - "traefik.http.routers.caddy.service=caddy"
-      - "traefik.http.routers.caddy.tls.certresolver=staging"
-      # - "traefik.http.routers.caddy.tls.certresolver=production"
-      - "traefik.http.services.caddy.loadbalancer.server.port=4431"
+      - /mnt/user/appdata/caddy/test_code:/wdata
