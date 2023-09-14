@@ -24,6 +24,8 @@
 }
 
 cattivi.com {
+  # import cloudflare-only
+
 	# https://caddyserver.com/docs/caddyfile/directives/push
 	push
 
@@ -107,9 +109,9 @@ cattivi.com {
 	# 	health_status   200
 	# }
 }
-www.cattivi.com {
-    redir https://cattivi.com{uri}
-}
+# www.cattivi.com {
+#     redir https://cattivi.com{uri}
+# }
 
 # blog.cattivi.com {
 #     import cloudflare-only
@@ -128,13 +130,13 @@ www.cattivi.com {
 #   }
 # }
 
-homarr.cattivi.com {
-  handle {
-    import cloudflare-only
+# homarr.cattivi.com {
+#   handle {
+#     import cloudflare-only
 
-    reverse_proxy http://localhost:7575
-  }
-}
+#     reverse_proxy http://localhost:7575
+#   }
+# }
 
 # portainer.cattivi.com {
 #   handle {
@@ -176,10 +178,10 @@ homarr.cattivi.com {
 #   }
 # }
 
-:80 {
-    respond "<h1>HTTP request did not specify site domain</h1>" 403
-}
+# :80 {
+#     respond "<h1>HTTP request did not specify site domain</h1>" 403
+# }
 
-:443 {
-    respond "<h1>HTTP request did not specify site domain</h1>" 403
-}
+# :443 {
+#     respond "<h1>HTTP request did not specify site domain</h1>" 403
+# }
