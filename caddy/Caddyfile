@@ -6,9 +6,9 @@
   # admin off
 
   email ashebanow@cattivi.com
-  acme_dns cloudflare {env.CF_DNS_API_TOKEN}
-  # Optional staging lets encrypt for testing. Comment out for production.
-  acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+  # acme_dns cloudflare {env.CF_DNS_API_TOKEN}
+  # # Optional staging lets encrypt for testing. Comment out for production.
+  # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
 # Caddy snippet to be used with subdomains to block all traffic
@@ -24,7 +24,7 @@
 }
 
 cattivi.com {
-  # import cloudflare-only
+  import cloudflare-only
 
   # https://caddyserver.com/docs/caddyfile/directives/push
   push
@@ -58,7 +58,7 @@ cattivi.com {
     X-XSS-Protection 1; mode=block
 
     # ensures the connection cannot be establish through an insecure HTTP connection 
-    Strict-Transport-Security max-age=31536000; includeSubDomains; preload
+    # Strict-Transport-Security max-age=31536000; includeSubDomains; preload
 
     # clickjacking protection
     X-Frame-Options DENY
