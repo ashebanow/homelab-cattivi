@@ -34,7 +34,7 @@ cattivi.com {
 
 glances.cattivi.com {
   handle {
-    # import cloudflare-only
+    import cloudflare-only
 
     reverse_proxy https://localhost:61208
   }
@@ -42,7 +42,7 @@ glances.cattivi.com {
 
 homarr.cattivi.com {
   handle {
-    # import cloudflare-only
+    import cloudflare-only
 
     reverse_proxy http://localhost:7575
   }
@@ -50,7 +50,7 @@ homarr.cattivi.com {
 
 portainer.cattivi.com {
   handle {
-    # import cloudflare-only
+    import cloudflare-only
 
     reverse_proxy https://localhost:9443
   }
@@ -58,7 +58,7 @@ portainer.cattivi.com {
 
 speedtest.cattivi.com {
   handle {
-    # import cloudflare-only
+    import cloudflare-only
 
     reverse_proxy http://localhost:8765
   }
@@ -66,7 +66,7 @@ speedtest.cattivi.com {
 
 unifi-controller.cattivi.com {
   handle {
-    # import cloudflare-only
+    import cloudflare-only
 
     reverse_proxy https://localhost:8443
   }
@@ -74,7 +74,7 @@ unifi-controller.cattivi.com {
 
 uptime.cattivi.com {
   handle {
-    # import cloudflare-only
+    import cloudflare-only
 
     reverse_proxy https://localhost:3001
   }
