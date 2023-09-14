@@ -81,10 +81,13 @@ http://cattivi.com {
   respond /health 200
   
   # https://caddyserver.com/docs/caddyfile/directives/log
-  # log {
-  # 	output stdout
-  # 	format console
-  # }
+  log {
+    output file /var/log/access.log {
+      roll_size 500mb
+      roll_keep 5
+      roll_keep_for 720h
+    }
+  }
   
   # https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
   # reverse_proxy /blog* http://localhost:3080
