@@ -26,7 +26,7 @@
   respond @blocked "<h1>HTTP/HTTPS access through Cloudflare only</h1>" 403
 }
 
-cattivi.com {
+http://cattivi.com {
   import cloudflare-only
 
   # https://caddyserver.com/docs/caddyfile/directives/push
