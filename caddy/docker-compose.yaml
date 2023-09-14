@@ -7,9 +7,9 @@ services:
     restart: unless-stopped
     ports:
       - "2019:2019" # admin port
-      - "8001:80"
-      - "4431:443"
-      - "4431:443/udp"
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
     environment:
       DOMAIN: "https://cattivi.com"  
       EMAIL: "ashebanow@cattivi.com"                 

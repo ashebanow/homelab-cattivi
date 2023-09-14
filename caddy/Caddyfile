@@ -1,10 +1,3 @@
-{
-  log {
-      output file /var/log/caddy/access.log
-      format json
-  }
-}
-
 #
 # Caddy snippet to be used with subdomains to block all traffic
 # that is not originated from Cloudflare.
@@ -89,10 +82,10 @@ uptime.cattivi.com {
   }
 }
 
-:8001 {
+:80 {
     respond "<h1>HTTP request did not specify site domain</h1>" 403
 }
 
-:4431 {
+:443 {
     respond "<h1>HTTP request did not specify site domain</h1>" 403
 }
