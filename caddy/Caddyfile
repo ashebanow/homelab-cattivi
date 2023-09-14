@@ -1,14 +1,14 @@
 {
-	# Enable Debug mode
-	debug
+  # Enable Debug mode
+  debug
 
-	# Disable admin API
-	# admin off
+  # Disable admin API
+  # admin off
 
-	email ashebanow@cattivi.com
+  email ashebanow@cattivi.com
   acme_dns cloudflare {env.CF_DNS_API_TOKEN}
-	# Optional staging lets encrypt for testing. Comment out for production.
-	acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+  # Optional staging lets encrypt for testing. Comment out for production.
+  acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
 # Caddy snippet to be used with subdomains to block all traffic
@@ -26,18 +26,18 @@
 cattivi.com {
   # import cloudflare-only
 
-	# https://caddyserver.com/docs/caddyfile/directives/push
-	push
+  # https://caddyserver.com/docs/caddyfile/directives/push
+  push
 
-	# https://caddyserver.com/docs/caddyfile/directives/metrics
-	metrics /metrics
+  # https://caddyserver.com/docs/caddyfile/directives/metrics
+  metrics /metrics
 
   root * /srv
  
   # Templates give static sites some dynamic features
   templates
 
-	# https://caddyserver.com/docs/caddyfile/directives/encode
+  # https://caddyserver.com/docs/caddyfile/directives/encode
   encode gzip zstd
 
   # Make HTML file extension optional
@@ -46,44 +46,44 @@ cattivi.com {
   # Serve everything else from the file system
   file_server
 
-	# https://caddyserver.com/docs/caddyfile/directives/header
-	header {
-		# Hide "Server: Caddy"
-		-Server
-		
-		# prevent attacks such as Cross Site Scripting (XSS)
-		Content-Security-Policy default-src 'self' *.cattivi.com
-		
-		# enable the cross-site scripting (XSS) filter built into modern web browsers
-		X-XSS-Protection 1; mode=block
+  # https://caddyserver.com/docs/caddyfile/directives/header
+  header {
+    # Hide "Server: Caddy"
+    -Server
+    
+    # prevent attacks such as Cross Site Scripting (XSS)
+    Content-Security-Policy default-src 'self' *.cattivi.com
+    
+    # enable the cross-site scripting (XSS) filter built into modern web browsers
+    X-XSS-Protection 1; mode=block
 
-		# ensures the connection cannot be establish through an insecure HTTP connection 
-		Strict-Transport-Security max-age=31536000; includeSubDomains; preload
+    # ensures the connection cannot be establish through an insecure HTTP connection 
+    Strict-Transport-Security max-age=31536000; includeSubDomains; preload
 
-		# clickjacking protection
-		X-Frame-Options DENY
+    # clickjacking protection
+    X-Frame-Options DENY
 
-		# provides clickjacking protection. Disable iframes
-		X-Frame-Options: SAMEORIGIN
+    # provides clickjacking protection. Disable iframes
+    X-Frame-Options: SAMEORIGIN
 
-		# disable clients from sniffing the media type
-		X-Content-Type-Options nosniff
+    # disable clients from sniffing the media type
+    X-Content-Type-Options nosniff
 
-		# keep referrer data off of HTTP connections
-		Referrer-Policy no-referrer-when-downgrade
-	}
+    # keep referrer data off of HTTP connections
+    Referrer-Policy no-referrer-when-downgrade
+  }
 
-	# https://caddyserver.com/docs/caddyfile/directives/respond
-	# Replace backends health checks and provide one for this LB
-	respond /health 200
-	
-	# https://caddyserver.com/docs/caddyfile/directives/log
-	# log {
-	# 	output stdout
-	# 	format console
-	# }
-	
-	# https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
+  # https://caddyserver.com/docs/caddyfile/directives/respond
+  # Replace backends health checks and provide one for this LB
+  respond /health 200
+  
+  # https://caddyserver.com/docs/caddyfile/directives/log
+  # log {
+  # 	output stdout
+  # 	format console
+  # }
+  
+  # https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
   # reverse_proxy /blog* http://localhost:3080
   # reverse_proxy /glances* http://localhost:61208
   reverse_proxy /homarr* http://localhost:7575
@@ -93,21 +93,21 @@ cattivi.com {
   # reverse_proxy /unifi* https://localhost:8443
   # reverse_proxy /uptime* https://localhost:3001
   # reverse_proxy * {
-	# 	# Specify backend here
-	# 	to 127.0.0.1:8001
-	# 	to 127.0.0.1:8002
-	# 	to 127.0.0.1:8003
+  # 	# Specify backend here
+  # 	to 127.0.0.1:8001
+  # 	to 127.0.0.1:8002
+  # 	to 127.0.0.1:8003
 
-	# 	lb_policy round_robin
-	# 	lb_try_duration 1s
-	# 	lb_try_interval 250ms
+  # 	lb_policy round_robin
+  # 	lb_try_duration 1s
+  # 	lb_try_interval 250ms
 
-	# 	health_path     /health # Backend health check path
-	# 	# health_port     80 # Default same as backend port
-	# 	health_interval 10s
-	# 	health_timeout  2s
-	# 	health_status   200
-	# }
+  # 	health_path     /health # Backend health check path
+  # 	# health_port     80 # Default same as backend port
+  # 	health_interval 10s
+  # 	health_timeout  2s
+  # 	health_status   200
+  # }
 }
 # www.cattivi.com {
 #     redir https://cattivi.com{uri}
