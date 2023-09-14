@@ -12,7 +12,6 @@
 }
 
 cattivi.com {
-  reverse_proxy /blog-admin* http://localhost:3080/ghost/
   reverse_proxy /blog* http://localhost:3080
   reverse_proxy /glances* http://localhost:61208
   reverse_proxy /homarr* http://localhost:7575
