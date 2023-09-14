@@ -11,7 +11,6 @@
 	acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
-#
 # Caddy snippet to be used with subdomains to block all traffic
 # that is not originated from Cloudflare.
 #
@@ -77,20 +76,20 @@ cattivi.com {
 	respond /health 200
 	
 	# https://caddyserver.com/docs/caddyfile/directives/log
-	log {
-		output stdout
-		format console
-	}
+	# log {
+	# 	output stdout
+	# 	format console
+	# }
 	
 	# https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
-  reverse_proxy /blog* http://localhost:3080
-  reverse_proxy /glances* http://localhost:61208
+  # reverse_proxy /blog* http://localhost:3080
+  # reverse_proxy /glances* http://localhost:61208
   reverse_proxy /homarr* http://localhost:7575
-  reverse_proxy /portainer* https://localhost:9443
-  reverse_proxy /speedtest* http://localhost:8765
-  reverse_proxy /storage* https://localhost:9443
-  reverse_proxy /unifi* https://localhost:8443
-  reverse_proxy /uptime* https://localhost:3001
+  # reverse_proxy /portainer* https://localhost:9443
+  # reverse_proxy /speedtest* http://localhost:8765
+  # reverse_proxy /storage* https://localhost:9443
+  # reverse_proxy /unifi* https://localhost:8443
+  # reverse_proxy /uptime* https://localhost:3001
   # reverse_proxy * {
 	# 	# Specify backend here
 	# 	to 127.0.0.1:8001
@@ -112,22 +111,22 @@ www.cattivi.com {
     redir https://cattivi.com{uri}
 }
 
-blog.cattivi.com {
-    import cloudflare-only
+# blog.cattivi.com {
+#     import cloudflare-only
 
-    reverse_proxy localhost:3080
-}
-www.blog.cattivi.com {
-    redir https://blog.cattivi.com{uri}
-}
+#     reverse_proxy localhost:3080
+# }
+# www.blog.cattivi.com {
+#     redir https://blog.cattivi.com{uri}
+# }
 
-glances.cattivi.com {
-  handle {
-    import cloudflare-only
+# glances.cattivi.com {
+#   handle {
+#     import cloudflare-only
 
-    reverse_proxy http://localhost:61208
-  }
-}
+#     reverse_proxy http://localhost:61208
+#   }
+# }
 
 homarr.cattivi.com {
   handle {
@@ -137,45 +136,45 @@ homarr.cattivi.com {
   }
 }
 
-portainer.cattivi.com {
-  handle {
-    import cloudflare-only
+# portainer.cattivi.com {
+#   handle {
+#     import cloudflare-only
 
-    reverse_proxy https://localhost:9443
-  }
-}
+#     reverse_proxy https://localhost:9443
+#   }
+# }
 
-speedtest.cattivi.com {
-  handle {
-    import cloudflare-only
+# speedtest.cattivi.com {
+#   handle {
+#     import cloudflare-only
 
-    reverse_proxy http://localhost:8765
-  }
-}
+#     reverse_proxy http://localhost:8765
+#   }
+# }
 
-storage.cattivi.com {
-  handle {
-    import cloudflare-only
+# storage.cattivi.com {
+#   handle {
+#     import cloudflare-only
 
-    reverse_proxy https://localhost:4432
-  }
-}
+#     reverse_proxy https://localhost:4432
+#   }
+# }
 
-unifi.cattivi.com {
-  handle {
-    import cloudflare-only
+# unifi.cattivi.com {
+#   handle {
+#     import cloudflare-only
 
-    reverse_proxy https://localhost:8443
-  }
-}
+#     reverse_proxy https://localhost:8443
+#   }
+# }
 
-uptime.cattivi.com {
-  handle {
-    import cloudflare-only
+# uptime.cattivi.com {
+#   handle {
+#     import cloudflare-only
 
-    reverse_proxy https://localhost:3001
-  }
-}
+#     reverse_proxy https://localhost:3001
+#   }
+# }
 
 :80 {
     respond "<h1>HTTP request did not specify site domain</h1>" 403
