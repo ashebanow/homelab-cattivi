@@ -36,15 +36,6 @@ www.cattivi.com {
     redir https://cattivi.com{uri}
 }
 
-blog-admin.cattivi.com {
-    import cloudflare-only
-
-    reverse_proxy http://localhost:3080/ghost/
-}
-www.blog-admin.cattivi.com {
-    redir https://blog-admin.cattivi.com{uri}
-}
-
 blog.cattivi.com {
     import cloudflare-only
 
