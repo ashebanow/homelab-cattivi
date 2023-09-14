@@ -12,6 +12,8 @@
 }
 
 cattivi.com {
+  reverse_proxy /blog-admin* http://localhost:3080/ghost/
+  reverse_proxy /blog* http://localhost:3080
   reverse_proxy /glances* http://localhost:61208
   reverse_proxy /homarr* http://localhost:7575
   reverse_proxy /portainer* https://localhost:9443
@@ -21,9 +23,35 @@ cattivi.com {
   reverse_proxy /uptime* https://localhost:3001
 
   root * /srv
-  encode zstd gzip
+# Templates give static sites some dynamic features
   templates
+  # Compress responses according to Accept-Encoding headers
+  encode gzip zstd
+  # Make HTML file extension optional
+  try_files {path}.html {path}
+  # Serve everything else from the file system
   file_server
+}
+www.cattivi.com {
+    redir https://cattivi.com{uri}
+}
+
+blog-admin.cattivi.com {
+    import cloudflare-only
+
+    reverse_proxy http://localhost:3080/ghost/
+}
+www.blog-admin.cattivi.com {
+    redir https://blog-admin.cattivi.com{uri}
+}
+
+blog.cattivi.com {
+    import cloudflare-only
+
+    reverse_proxy localhost:3080
+}
+www.blog.cattivi.com {
+    redir https://blog.cattivi.com{uri}
 }
 
 glances.cattivi.com {
