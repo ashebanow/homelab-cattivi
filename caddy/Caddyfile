@@ -18,44 +18,65 @@
   }
 
   cattivi.com {
-    handle {
-      import cloudflare-only
-
-      root * /srv
-      encode zstd gzip
-      templates
-      file_server
-    }
     reverse_proxy /glances* https://localhost:61208
     reverse_proxy /homarr* http://localhost:7575
     reverse_proxy /portainer* https://localhost:9443
     reverse_proxy /speedtest* http://localhost:8765
     reverse_proxy /unifi-controller* https://localhost:8443
     reverse_proxy /uptime* https://localhost:3001
+
+    root * /srv
+    encode zstd gzip
+    templates
+    file_server
   }
 
   glances.cattivi.com {
-    reverse_proxy https://localhost:61208
+    handle {
+      import cloudflare-only
+
+      reverse_proxy https://localhost:61208
+    }
   }
 
   homarr.cattivi.com {
-    reverse_proxy http://localhost:7575
+    handle {
+      import cloudflare-only
+
+      reverse_proxy http://localhost:7575
+    }
   }
 
   portainer.cattivi.com {
-    reverse_proxy https://localhost:9443
+    handle {
+      import cloudflare-only
+
+      reverse_proxy https://localhost:9443
+    }
   }
 
   speedtest.cattivi.com {
-    reverse_proxy http://localhost:8765
+    handle {
+      import cloudflare-only
+
+      reverse_proxy http://localhost:8765
+    }
   }
 
   unifi-controller.cattivi.com {
-    reverse_proxy https://localhost:8443
+    handle {
+      import cloudflare-only
+
+      reverse_proxy https://localhost:8443
+    }
   }
 
   uptime.cattivi.com {
-    reverse_proxy https://localhost:3001
+    handle {
+      import cloudflare-only
+
+      reverse_proxy https://localhost:3001
+    }
   }
 
   :8001 {
