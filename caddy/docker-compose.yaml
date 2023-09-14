@@ -1,9 +1,9 @@
-version: '3.9'
-
 services:
   caddy:
     container_name: web
-    image: caddy:latest
+    # image: caddy:latest
+    build:
+      dockerfile: ./Dockerfile
     restart: unless-stopped
     ports:
       - "2019:2019" # admin port
@@ -20,3 +20,6 @@ services:
       - /mnt/user/appdata/caddy/data:/data
       - /mnt/user/appdata/caddy/config:/config
       - /mnt/user/appdata/caddy/test_code:/wdata
+      # - ./data:/data
+      # - ./config:/config
+      # - ./test_code:/wdata
