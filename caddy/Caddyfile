@@ -5,9 +5,9 @@
   # Disable admin API
   # admin off
 
-  # we don't want http force redirects, since all our external requests
+  # we don't want  https forced, since all our external requests
   # come from cloudflare tunnel which has its own cert management.
-  auto_https disable_redirects
+  auto_https off
   email ashebanow@cattivi.com
   # acme_dns cloudflare {env.CF_DNS_API_TOKEN}
   # # Optional staging lets encrypt for testing. Comment out for production.
@@ -112,17 +112,11 @@ cattivi.com {
   # 	health_status   200
   # }
 }
-# www.cattivi.com {
-#     redir https://cattivi.com{uri}
-# }
 
 # blog.cattivi.com {
 #     import cloudflare-only
 
 #     reverse_proxy localhost:3080
-# }
-# www.blog.cattivi.com {
-#     redir https://blog.cattivi.com{uri}
 # }
 
 # glances.cattivi.com {
