@@ -19,11 +19,12 @@
 }
 
 cattivi.com {
-  reverse_proxy /glances* https://localhost:61208
+  reverse_proxy /glances* http://localhost:61208
   reverse_proxy /homarr* http://localhost:7575
   reverse_proxy /portainer* https://localhost:9443
   reverse_proxy /speedtest* http://localhost:8765
-  reverse_proxy /unifi-controller* https://localhost:8443
+  reverse_proxy /storage* https://localhost:9443
+  reverse_proxy /unifi* https://localhost:8443
   reverse_proxy /uptime* https://localhost:3001
 
   root * /srv
@@ -36,7 +37,7 @@ glances.cattivi.com {
   handle {
     import cloudflare-only
 
-    reverse_proxy https://localhost:61208
+    reverse_proxy http://localhost:61208
   }
 }
 
@@ -64,7 +65,15 @@ speedtest.cattivi.com {
   }
 }
 
-unifi-controller.cattivi.com {
+storage.cattivi.com {
+  handle {
+    import cloudflare-only
+
+    reverse_proxy https://localhost:4432
+  }
+}
+
+unifi.cattivi.com {
   handle {
     import cloudflare-only
 
