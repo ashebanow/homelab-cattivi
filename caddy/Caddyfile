@@ -26,100 +26,12 @@
   respond @blocked "<h1>HTTP/HTTPS access through Cloudflare only</h1>" 403
 }
 
-http://cattivi.com {
-  import cloudflare-only
-
-  # https://caddyserver.com/docs/caddyfile/directives/push
-  push
-
-  # https://caddyserver.com/docs/caddyfile/directives/metrics
-  metrics /metrics
-
-  root * /srv
- 
-  # Templates give static sites some dynamic features
-  templates
-
-  # https://caddyserver.com/docs/caddyfile/directives/encode
-  encode gzip zstd
-
-  # Make HTML file extension optional
-  try_files {path}.html {path}
- 
-  # Serve everything else from the file system
-  file_server
-
-  # https://caddyserver.com/docs/caddyfile/directives/header
-  header {
-    # Hide "Server: Caddy"
-    -Server
-    
-    # prevent attacks such as Cross Site Scripting (XSS)
-    Content-Security-Policy default-src 'self' *.cattivi.com
-    
-    # enable the cross-site scripting (XSS) filter built into modern web browsers
-    X-XSS-Protection 1; mode=block
-
-    # ensures the connection cannot be establish through an insecure HTTP connection 
-    # Strict-Transport-Security max-age=31536000; includeSubDomains; preload
-
-    # clickjacking protection
-    X-Frame-Options DENY
-
-    # provides clickjacking protection. Disable iframes
-    X-Frame-Options: SAMEORIGIN
-
-    # disable clients from sniffing the media type
-    X-Content-Type-Options nosniff
-
-    # keep referrer data off of HTTP connections
-    Referrer-Policy no-referrer-when-downgrade
-  }
-
-  # https://caddyserver.com/docs/caddyfile/directives/respond
-  # Replace backends health checks and provide one for this LB
-  respond /health 200
-  
-  # https://caddyserver.com/docs/caddyfile/directives/log
-  log {
-    output file /var/log/access.log {
-      roll_size 500mb
-      roll_keep 5
-      roll_keep_for 720h
-    }
-  }
-  
-  # https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
-  # reverse_proxy /blog* http://localhost:3080
-  # reverse_proxy /glances* http://localhost:61208
-  reverse_proxy /homarr* http://localhost:7575
-  # reverse_proxy /portainer* https://localhost:9443
-  # reverse_proxy /speedtest* http://localhost:8765
-  # reverse_proxy /storage* https://localhost:9443
-  # reverse_proxy /unifi* https://localhost:8443
-  # reverse_proxy /uptime* https://localhost:3001
-  # reverse_proxy * {
-  # 	# Specify backend here
-  # 	to 127.0.0.1:8001
-  # 	to 127.0.0.1:8002
-  # 	to 127.0.0.1:8003
-
-  # 	lb_policy round_robin
-  # 	lb_try_duration 1s
-  # 	lb_try_interval 250ms
-
-  # 	health_path     /health # Backend health check path
-  # 	# health_port     80 # Default same as backend port
-  # 	health_interval 10s
-  # 	health_timeout  2s
-  # 	health_status   200
-  # }
-}
-
 # blog.cattivi.com {
+#   handle {
 #     import cloudflare-only
 
 #     reverse_proxy localhost:3080
+#   }
 # }
 
 # glances.cattivi.com {
@@ -130,13 +42,13 @@ http://cattivi.com {
 #   }
 # }
 
-# homarr.cattivi.com {
-#   handle {
-#     import cloudflare-only
+dashboard.cattivi.com {
+  handle {
+    import cloudflare-only
 
-#     reverse_proxy http://localhost:7575
-#   }
-# }
+    reverse_proxy http://localhost:7575
+  }
+}
 
 # portainer.cattivi.com {
 #   handle {
