@@ -1,9 +1,7 @@
 services:
   web:
     container_name: web
-    # image: caddy:latest
-    build:
-      dockerfile: ./Dockerfile
+    image: caddy:latest
     restart: unless-stopped
     ports:
       # - "2019:2019" # admin port
