@@ -26,27 +26,35 @@
   respond @blocked "<h1>HTTP/HTTPS access through Cloudflare only</h1>" 403
 }
 
+cattivi.com, www.cattivi.com {
+  handle {
+    # import cloudflare-only
+
+    reverse_proxy http://172.20.0.2:80
+  }
+}
+
 # blog.cattivi.com {
 #   handle {
 #     import cloudflare-only
 
-#     reverse_proxy localhost:3080
+#     reverse_proxy http://blog.docker.local:3080
 #   }
 # }
 
-# glances.cattivi.com {
-#   handle {
-#     import cloudflare-only
+glances.cattivi.com {
+  handle {
+    # import cloudflare-only
 
-#     reverse_proxy http://localhost:61208
-#   }
-# }
+    reverse_proxy http://localhost:61208
+  }
+}
 
 dashboard.cattivi.com {
   handle {
-    import cloudflare-only
+    # import cloudflare-only
 
-    reverse_proxy http://localhost:7575
+    reverse_proxy http://172.22.0.2:7575
   }
 }
 
