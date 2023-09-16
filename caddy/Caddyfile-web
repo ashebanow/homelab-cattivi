@@ -3,7 +3,7 @@
   debug
 
   # Disable admin API
-  # admin off
+  admin off
 
   # we don't want  https forced, since all our external requests
   # come from cloudflare tunnel which has its own cert management.

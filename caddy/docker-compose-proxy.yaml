@@ -15,8 +15,8 @@ services:
       EMAIL: "ashebanow@cattivi.com"                 
       LOG_FILE: "/data/access.log"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./site:/srv
+      - ./Caddyfile-proxy:/etc/caddy/Caddyfile:ro
+      # - ./site:/srv
       - /mnt/user/appdata/reverse-proxy/data:/data
       - /mnt/user/appdata/reverse-proxy/config:/config
       - /mnt/user/appdata/reverse-proxy/test_code:/wdata
