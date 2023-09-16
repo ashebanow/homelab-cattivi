@@ -46,7 +46,7 @@ glances.cattivi.com {
   handle {
     # import cloudflare-only
 
-    reverse_proxy http://localhost:61208
+    reverse_proxy http://storage:61208
   }
 }
 
@@ -62,7 +62,7 @@ dashboard.cattivi.com {
 #   handle {
 #     import cloudflare-only
 
-#     reverse_proxy https://localhost:9443
+#     reverse_proxy https://172.17.0.2:9443
 #   }
 # }
 
@@ -70,7 +70,7 @@ dashboard.cattivi.com {
 #   handle {
 #     import cloudflare-only
 
-#     reverse_proxy http://localhost:8765
+#     reverse_proxy http://172.27.0.2:80
 #   }
 # }
 
@@ -94,7 +94,7 @@ dashboard.cattivi.com {
 #   handle {
 #     import cloudflare-only
 
-#     reverse_proxy https://localhost:3001
+#     reverse_proxy https://172.28.0.2:3001
 #   }
 # }
 
