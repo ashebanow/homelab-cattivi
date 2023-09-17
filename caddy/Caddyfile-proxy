@@ -30,7 +30,7 @@ cattivi.com, www.cattivi.com {
   handle {
     # import cloudflare-only
 
-    reverse_proxy http://172.20.0.2:80
+    reverse_proxy http://172.20.0.2:5080
   }
 }
 

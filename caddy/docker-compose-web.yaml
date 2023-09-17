@@ -5,9 +5,9 @@ services:
     restart: unless-stopped
     ports:
       # - "2019:2019" # admin port
-      - "80:80"     # we should just stop publishing 80 and 443, rely on reverse-proxy
-      - "443:443"
-      - "443:443/udp"
+      - "5080:80"     # we should just stop publishing 80 and 443, rely on reverse-proxy
+      - "5443:443"
+      - "5443:443/udp"
     environment:
       DOMAIN: "https://cattivi.com"  
       EMAIL: "ashebanow@cattivi.com"                 
