@@ -3,6 +3,7 @@ version: '3.7'
 services:
   ci:
     container_name: ci
+    hostname: ci
     image: jenkins/jenkins:lts
     restart: unless-stopped
     privileged: true

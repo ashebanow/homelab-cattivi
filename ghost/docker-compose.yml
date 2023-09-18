@@ -3,7 +3,7 @@ version: '3.9'
 services:
   blog:
     container_name: blog
-    hostname: blog.cattivi.com
+    hostname: blog
     build: .
     restart: unless-stopped
     ports:

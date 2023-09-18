@@ -3,6 +3,7 @@ version: '3.3'
 services:
   uptime:
     container_name: uptime
+    hostname: uptime
     image: louislam/uptime-kuma:1
     volumes:
       # - ./data:/app/data

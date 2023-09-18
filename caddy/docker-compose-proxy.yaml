@@ -1,6 +1,7 @@
 services:
   reverse-proxy:
     container_name: reverse-proxy
+    hostname: reverse-proxy
     # image: caddy:latest
     build:
       dockerfile: ./Dockerfile

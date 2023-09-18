@@ -7,6 +7,7 @@ configs:
 services:
   glances:
     container_name: glances
+    hostname: glances
     image: nicolargo/glances:latest-full
     restart: unless-stopped
     pid: "host"

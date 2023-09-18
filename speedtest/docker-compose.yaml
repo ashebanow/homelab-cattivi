@@ -3,6 +3,7 @@ version: '3.3'
 services:
   speedtest:
     container_name: speedtest
+    hostname: speedtest
     image: henrywhitaker3/speedtest-tracker:latest
     ports:
       - 8765:80
