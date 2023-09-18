@@ -38,5 +38,5 @@ services:
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /mnt/user/appdata/dashy/conf.yml:/app/public/conf.yml
+      - /mnt/cache/appdata/dashy/conf.yml:/app/public/conf.yml
       - ./icons:/app/public/item-icons

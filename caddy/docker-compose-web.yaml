@@ -16,9 +16,9 @@ services:
     volumes:
       - ./Caddyfile-web:/etc/caddy/Caddyfile:ro
       - ./site:/srv
-      - /mnt/user/appdata/web/data:/data
-      - /mnt/user/appdata/web/config:/config
-      - /mnt/user/appdata/web/test_code:/wdata
+      - /mnt/cache/appdata/web/data:/data
+      - /mnt/cache/appdata/web/config:/config
+      - /mnt/cache/appdata/web/test_code:/wdata
       # - ./data:/data
       # - ./config:/config
       # - ./test_code:/wdata

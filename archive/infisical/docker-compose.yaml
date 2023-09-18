@@ -53,7 +53,7 @@ services:
     volumes:
       # for debug purposes:
       - ./data/redis:/data
-      # - /mnt/user/appdata/secrets/redis:/data
+      # - /mnt/cache/appdata/secrets/redis:/data
 
   mongo:
     container_name: infisical-mongo
@@ -66,7 +66,7 @@ services:
     volumes:
       # for debug purposes:
       - ./data/db:/data/db
-      # - /mnt/user/appdata/secrets/db:/data/db
+      # - /mnt/cache/appdata/secrets/db:/data/db
     networks:
       - infisical
 

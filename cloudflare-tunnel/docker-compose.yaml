@@ -13,6 +13,6 @@ services:
     command: tunnel run
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/user/appdata/cloudflare-tunnel/data:/home/nonroot/.cloudflared/
+      - /mnt/cache/appdata/cloudflare-tunnel/data:/home/nonroot/.cloudflared/
     environment:
       - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN}

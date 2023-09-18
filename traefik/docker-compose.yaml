@@ -53,7 +53,7 @@ services:
       - ./certs/acme-staging.json:/etc/traefik/certs/t/acme-staging.json # staging certs
       - ./certs/acme-production.json:/etc/traefik/certs/t/acme-production.json # production certs
       # - ./data:/data
-      - /mnt/user/appdata/traefik:/data
+      - /mnt/cache/appdata/traefik:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - TZ=$TZ

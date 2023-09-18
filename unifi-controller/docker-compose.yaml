@@ -29,7 +29,7 @@ services:
     volumes:
       # for debug purposes:
       # - ./data/config:/config
-      - /mnt/user/appdata/unifi-controller/config:/config
+      - /mnt/cache/appdata/unifi-controller/config:/config
     networks:
       - infisical
     restart: unless-stopped
@@ -48,7 +48,7 @@ services:
     volumes:
       # for debug purposes:
       # - ./data/db:/data/db
-      - /mnt/user/appdata/unifi-controller/db:/data/db
+      - /mnt/cache/appdata/unifi-controller/db:/data/db
     networks:
       - infisical
     restart: unless-stopped

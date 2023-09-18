@@ -18,9 +18,9 @@ services:
     volumes:
       - ./Caddyfile-proxy:/etc/caddy/Caddyfile:ro
       # - ./site:/srv
-      - /mnt/user/appdata/reverse-proxy/data:/data
-      - /mnt/user/appdata/reverse-proxy/config:/config
-      - /mnt/user/appdata/reverse-proxy/test_code:/wdata
+      - /mnt/cache/appdata/reverse-proxy/data:/data
+      - /mnt/cache/appdata/reverse-proxy/config:/config
+      - /mnt/cache/appdata/reverse-proxy/test_code:/wdata
       # - ./data:/data
       # - ./config:/config
       # - ./test_code:/wdata

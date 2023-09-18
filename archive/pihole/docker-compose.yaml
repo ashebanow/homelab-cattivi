@@ -16,5 +16,5 @@ services:
     volumes:
       - etcd:/etc/pihole
       - dnsmasq:/etc/dnsmasq.d
-      - /mnt/user/appdata/pihole:/data
+      - /mnt/cache/appdata/pihole:/data
     restart: unless-stopped

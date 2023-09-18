@@ -13,8 +13,8 @@ services:
       # For debugging locally:
       # - ./data/configs:/app/data/configs
       # - ./data/icons:/app/public/icons
-      - /mnt/user/appdata/homarr/configs:/app/data/configs
-      - /mnt/user/appdata/homarr/icons:/app/public/icons
+      - /mnt/cache/appdata/homarr/configs:/app/data/configs
+      - /mnt/cache/appdata/homarr/icons:/app/public/icons
 
       - ./default.json:/app/data/configs/default.json
       - ./icons/infisical.svg:/app/public/icons/infisical.svg

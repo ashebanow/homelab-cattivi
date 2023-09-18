@@ -16,7 +16,7 @@ services:
       retries: 5
       timeout: 5s
     volumes:
-      - /mnt/user/appdata/authentik_postgresql/data:/var/lib/postgresql/data
+      - /mnt/cache/appdata/authentik_postgresql/data:/var/lib/postgresql/data
     environment:
       INFISICAL_TOKEN: ${INFISICAL_TOKEN}
       POSTGRES_PASSWORD: ${PG_PASS:?database password required}
@@ -39,7 +39,7 @@ services:
       retries: 5
       timeout: 3s
     volumes:
-      - /mnt/user/appdata/authentik_redis/data:/data
+      - /mnt/cache/appdata/authentik_redis/data:/data
 
   authentik:
     container_name: authentik
@@ -93,9 +93,9 @@ services:
       # - ./media:/media
       # - ./certs:/certs
       # - ./custom-templates:/templates
-      - /mnt/user/appdata/authentik/media:/media
-      - /mnt/user/appdata/authentik/certs:/certs
-      - /mnt/user/appdata/authentik/templates:/templates
+      - /mnt/cache/appdata/authentik/media:/media
+      - /mnt/cache/appdata/authentik/certs:/certs
+      - /mnt/cache/appdata/authentik/templates:/templates
     env_file:
       - .env
     depends_on:
