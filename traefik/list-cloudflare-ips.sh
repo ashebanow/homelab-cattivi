@@ -10,6 +10,6 @@ readarray -t -O"${#ips[@]}" ips < <(curl -s https://www.cloudflare.com/ips-v6)
 sorted=($(printf '%s\n' "${ips[@]}"|sort))
 # sorted=($(printf '%s\n' "${ips[@]}"|sort -t . -n -k 1,4))
 for ip in "${sorted[@]}"; do
-  echo -n "$ip "
+  echo "$ip"
 done
 echo

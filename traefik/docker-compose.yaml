@@ -1,8 +1,6 @@
 # based in part on:
 # https://github.com/htpcBeginner/docker-traefik/docker-compose-t2.yml
 
-version: '3.9'
-
 networks:
   proxy_network:
     name: proxy_network
@@ -13,7 +11,6 @@ networks:
         - subnet: 10.60.0.0/24
           gateway: 10.60.0.1
 
-
 services:
   reverse-proxy:
     container_name: reverse-proxy
@@ -22,8 +19,11 @@ services:
     restart: unless-stopped
 
     environment:
-      - TZ=$TZ
-      - CF_DNS_API_TOKEN="$CF_DNS_API_TOKEN"
+      - BASIC_AUTH_PASSWORD_HASH=${BASIC_AUTH_PASSWORD_HASH}
+      - BASIC_AUTH_USER=${BASIC_AUTH_USER}
+      - CLOUDFLARE_DNS_API_TOKEN="${CLOUDFLARE_DNS_API_TOKEN}"
+      - CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
+      - TZ=${TZ}
 
     extra_hosts:
       - storage.docker.internal:10.50.0.70
@@ -39,7 +39,7 @@ services:
       - traefik.http.routers.api.service=api@internal # Enable Traefik API.
       # protect dashboard with basic auth and restrict access to private class subnets only:
       - traefik.http.routers.api.middlewares=local-ipwhitelist@file,basic-auth@file
-      - traefik.http.middlewares.basic-auth-global.basicauth.users=admin:YXNoZWJhbm93QGNhdHRpdmkuY29tOnJodDJpdFEzNGhaVjNOVVA=
+      - traefik.http.middlewares.basic-auth-global.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASSWORD_HASH}
 
     networks:
       proxy_network:
