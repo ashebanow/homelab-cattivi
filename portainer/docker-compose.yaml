@@ -1,5 +1,6 @@
-version: '3'
-
+# NOTE: This is not actually used in production, since we installed
+# Portainer using UNRAID. We did change their config to match as much
+# as possible.
 services:
   portainer:
     container_name: portainer

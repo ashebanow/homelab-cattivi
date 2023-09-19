@@ -11,7 +11,8 @@ networks:
       driver: default
       config:
         - subnet: 10.60.0.0/24
-        - gateway: 10.60.0.1
+          gateway: 10.60.0.1
+
 
 services:
   reverse-proxy:
