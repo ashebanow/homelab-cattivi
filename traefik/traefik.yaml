@@ -82,12 +82,12 @@ entryPoints:
       # Reuse list of Cloudflare Trusted IP's above for HTTPS requests
       trustedIPs: *trustedIps
     http:
-      tls:
-        # Generate a wildcard domain certificate
-        certResolver: default
-        domains:
-          - main: cattivi.com
-            sans: '*.cattivi.com'
+      # tls:
+      #   # Generate a wildcard domain certificate
+      #   certResolver: default
+      #   domains:
+      #     - main: cattivi.com
+      #       sans: '*.cattivi.com'
       middlewares:
         - security-headers@file # reference to a dynamic middleware for setting http security headers per default
         - rate-limit@file # reference to a dynamic middleware for enabling rate limiting per default
@@ -96,23 +96,23 @@ entryPoints:
 serverTransport:
   insecureSkipVerify: true
 
-certificatesResolvers:
-  default:
-    acme:
-      email: ashebanow@cattivi.com
+# certificatesResolvers:
+#   default:
+#     acme:
+#       email: ashebanow@cattivi.com
 
-      storage: /etc/traefik/certs/acme-staging.json
-      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+#       storage: /etc/traefik/certs/acme-staging.json
+#       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
 
-      # storage: /etc/traefik/certs/acme-production.json
-      # caServer: "https://acme-v02.api.letsencrypt.org/directory"
+#       # storage: /etc/traefik/certs/acme-production.json
+#       # caServer: "https://acme-v02.api.letsencrypt.org/directory"
 
-      dnsChallenge:
-        provider: cloudflare
-        resolvers:
-          1.1.1.1:53
-          1.0.0.1:53
-        delayBeforeCheck: 90 # To delay DNS check & reduce LE hitrate
+#       dnsChallenge:
+#         provider: cloudflare
+#         resolvers:
+#           1.1.1.1:53
+#           1.0.0.1:53
+#         delayBeforeCheck: 90 # To delay DNS check & reduce LE hitrate
 
 # (Optional) Overwrite Default Certificates
 # tls:
