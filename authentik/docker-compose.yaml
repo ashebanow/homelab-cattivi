@@ -101,3 +101,7 @@ services:
     depends_on:
       - authentik_postgresql
       - authentik_redis
+
+networks:
+ proxy_network:
+   external: true

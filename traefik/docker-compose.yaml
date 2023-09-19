@@ -4,58 +4,62 @@
 version: '3.9'
 
 networks:
-  t2_proxy:
-    name: t2_proxy
+  proxy_network:
+    name: proxy_network
     driver: bridge
     ipam:
+      driver: default
       config:
-        - subnet: 192.168.90.0/24
-  default:
-    driver: bridge
-  socket_proxy:
-    name: socket_proxy
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.91.0/24
+        - subnet: 10.60.0.0/24
+        - gateway: 10.60.0.1
 
 services:
   reverse-proxy:
-    image: traefik:v2.10.4
     container_name: reverse-proxy
     hostname: reverse-proxy
+    image: traefik:v2.10.4
+
     security_opt:
       - no-new-privileges:true
+
     networks:
-      t2_proxy:
-        ipv4_address: 192.168.90.254 # You can specify a static IP
-      socket_proxy:
+      proxy_network:
+        ipv4_address: 10.60.0.4 # You can specify a static IP
+
     healthcheck:
       test: ["CMD", "traefik", "healthcheck", "--ping"]
       interval: 15s
       retries: 3
+
     ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: host
-      - target: 443
-        published: 443
-        protocol: tcp
-        mode: host
-      # FIXME: turn OFF for production use!!!
-      - target: 8080
-        published: 8080
-        protocol: tcp
-        mode: host
+      - 80:80 # HTTP
+      - 443:443 # HTTPS
+      - 127.0.0.1:8080:8080 # MGMT WEB UI
+
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # - ./data:/etc/traefik
+      - /mnt/cache/appdata/traefik/data:/etc/traefik
+      # - ./logs:/logs
+      - /mnt/cache/appdata/traefik/logs:/logs
       - ./traefik.yaml:/etc/traefik/traefik.yaml
+      - ./file-watcher.yaml:/etc/traefik/file-watcher.yaml
       - ./certs/acme-staging.json:/etc/traefik/certs/t/acme-staging.json # staging certs
       - ./certs/acme-production.json:/etc/traefik/certs/t/acme-production.json # production certs
-      # - ./data:/data
-      - /mnt/cache/appdata/traefik:/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+
     environment:
       - TZ=$TZ
       - CF_DNS_API_TOKEN="$CF_DNS_API_TOKEN"
+
     restart: unless-stopped
+
+    extra_hosts:
+      - storage.docker.internal:10.50.0.70
+
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`reverse-proxy.cattivi.com`) # Define the subdomain for the traefik dashboard.
+      - traefik.http.routers.api.service=api@internal # Enable Traefik API.
+      # protect dashboard with basic auth and restrict access to private class subnets only:
+      - traefik.http.routers.api.middlewares=local-ipwhitelist@file,basic-auth@file
+      - traefik.http.middlewares.basic-auth-global.basicauth.users=admin:YXNoZWJhbm93QGNhdHRpdmkuY29tOnJodDJpdFEzNGhaVjNOVVA=
