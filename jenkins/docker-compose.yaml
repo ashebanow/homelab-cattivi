@@ -14,7 +14,7 @@ services:
       - "traefik.http.routers.ci.rule=Host(`ci.cattivi.com`)"
       - "traefik.http.routers.ci.entrypoints=websecure"
       - "traefik.http.routers.ci.service=ci"
-      - "traefik.http.routers.ci.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.ci.tls.certresolver=default"
       - "traefik.http.services.ci.loadbalancer.server.port=4080"
 
     networks:

@@ -5,7 +5,7 @@ global:
 # Log information
 # ---
 log:
-  level: INFO  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: DEBUG  # DEBUG, INFO, WARNING, ERROR, CRITICAL
 
 # Accesslog
 # ---
@@ -29,8 +29,9 @@ accesslog:
 # Disable API and Dashboard
 # ---
 api:
- dashboard: true  # true by default
- insecure: true  # Don't do this in production!
+  dashboard: true  # true by default
+  insecure: true  # Don't do this in production!
+  debug: true  # Don't do this in production!
 
 # Ping configuration
 ping:
@@ -82,7 +83,7 @@ entryPoints:
     http:
       tls:
         # Generate a wildcard domain certificate
-        certResolver: letsencrypt
+        certResolver: default
         domains:
           - main: cattivi.com
             sans: '*.cattivi.com'
@@ -90,13 +91,12 @@ entryPoints:
         - security-headers@file # reference to a dynamic middleware for setting http security headers per default
         - rate-limit@file # reference to a dynamic middleware for enabling rate limiting per default
 
-# The setting below is to allow insecure backend connections
-# for self-signed certs.
+# Allow insecure backend connections for self-signed certs.
 serverTransport:
   insecureSkipVerify: true
 
 certificatesResolvers:
-  letsencrypt:
+  default:
     acme:
       email: ashebanow@cattivi.com
 
@@ -108,7 +108,10 @@ certificatesResolvers:
 
       dnsChallenge:
         provider: cloudflare
-        delayBeforeCheck: 0
+        resolvers:
+          1.1.1.1:53
+          1.0.0.1:53
+        delayBeforeCheck: 90 # To delay DNS check & reduce LE hitrate
 
 # (Optional) Overwrite Default Certificates
 # tls:
@@ -127,11 +130,10 @@ providers:
   providersThrottleDuration: 2s
 
   docker:
+    endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false  # Default is true
     network: proxy_network
-    # Default host rule to containername.domain.example
-    defaultRule: "Host(`{{ index .Labels \"com.docker.compose.service\"}}.cattivi.com`)"
-    endpoint: "unix:///var/run/docker.sock"
+    watch: true
 
     # Unfortunately traefik doesn't allow multiple docker endpoints.
     # Need to use swarm.

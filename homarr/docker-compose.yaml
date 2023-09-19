@@ -18,7 +18,7 @@ services:
       - "traefik.http.routers.homarr.rule=Host(`homarr.cattivi.com`)"
       - "traefik.http.routers.homarr.entrypoints=websecure"
       - "traefik.http.routers.homarr.service=homarr"
-      - "traefik.http.routers.homarr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.homarr.tls.certresolver=default"
       - "traefik.http.services.homarr.loadbalancer.server.port=7575"
 
     networks:

@@ -18,7 +18,7 @@ services:
       - "traefik.http.routers.speedtest.rule=Host(`speedtest.cattivi.com`)"
       - "traefik.http.routers.speedtest.entrypoints=websecure"
       - "traefik.http.routers.speedtest.service=speedtest"
-      - "traefik.http.routers.speedtest.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.speedtest.tls.certresolver=default"
       - "traefik.http.services.speedtest.loadbalancer.server.port=8765"
 
     logging:
