@@ -10,21 +10,22 @@ log:
 # Accesslog
 # ---
 accesslog:
-  filePath: "/logs/traefik.log"
+  filePath: "/logs/access.log"
   format: json
+  bufferingSize: 100
   filters:
     statusCodes:
       - "200" # log successful http requests
       - "400-599" # log failed http requests
     #retryAttempts: true
     #minDuration: "10ms"
-  # collect logs as in-memory buffer before writing into log file
-  bufferingSize: 0
   fields:
     headers:
       defaultMode: drop # drop all headers per default
       names:
-          User-Agent: keep # log user agent strings
+        Authorization: drop # don't log auth
+        Content-Type: keep
+        User-Agent: redact # log user agent strings
 
 # Disable API and Dashboard
 # ---
