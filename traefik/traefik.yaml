@@ -84,7 +84,7 @@ entryPoints:
         certResolver: letsencrypt
         domains:
           - main: cattivi.com
-          - sans: '*.cattivi.com'
+            sans: '*.cattivi.com'
       middlewares:
         - security-headers@file # reference to a dynamic middleware for setting http security headers per default
         - rate-limit@file # reference to a dynamic middleware for enabling rate limiting per default
