@@ -1,19 +1,19 @@
-version: '3.9'
-
 services:
   blog:
+    build: .
     container_name: blog
     hostname: blog
-    build: .
     restart: unless-stopped
-    ports:
-      - 3080:2368
+
+    depends_on:
+      - blog-mysql
+
     environment:
       url: http://localhost:3080
       # url: http://10.40.0.24:3080
 
       database__client: mysql
-      database__connection__host: blog_mysql
+      database__connection__host: blog-mysql
       database__connection__user: ${MYSQL_USER}
       database__connection__password: ${MYSQL_PASSWORD}
       database__connection__database: ${MYSQL_DATABASE}
@@ -27,33 +27,48 @@ services:
       # DEBUG: ghost:*,ghost-config
       DEBUG: ghost-storage-cloudinary:*
       # DEBUG: ghost:*,ghost-config,ghost-storage-cloudinary:*
-    volumes:
-      - ./config.development.json:/var/lib/ghost/config.development.json
-      - ./config.production.json:/var/lib/ghost/config.production.json
-      # - ./content:/var/lib/ghost/content
-      - /mnt/cache/appdata/blog/content:/var/lib/ghost/content
-    depends_on:
-      - blog_mysql
+
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.blog.rule=Host(`blog.cattivi.com`)"
       - "traefik.http.routers.blog.entrypoints=websecure"
       - "traefik.http.routers.blog.service=blog"
-      - "traefik.http.routers.blog.tls.blog=staging"
-      # - "traefik.http.routers.blog.tls.blog=production"
+      - "traefik.http.routers.blog.tls.blog=letsencrypt"
       - "traefik.http.services.blog.loadbalancer.server.port=3080"
 
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.7
 
-  blog_mysql:
-    container_name: blog_mysql
-    hostname: blog_mysql
+    ports:
+      - 3080:2368
+
+    volumes:
+      - ./config.development.json:/var/lib/ghost/config.development.json
+      - ./config.production.json:/var/lib/ghost/config.production.json
+      # - ./content:/var/lib/ghost/content
+      - /mnt/cache/appdata/blog/content:/var/lib/ghost/content
+
+  blog-mysql:
+    container_name: blog-mysql
+    hostname: blog-mysql
     image: mariadb:latest
     restart: unless-stopped
+
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.21
+
     volumes:
       # - ./mysql-data:/var/lib/mysql
       - /mnt/cache/appdata/blog/mysql:/var/lib/mysql
+
+networks:
+ proxy_network:
+   external: true

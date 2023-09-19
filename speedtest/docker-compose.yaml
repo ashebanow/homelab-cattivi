@@ -5,27 +5,38 @@ services:
     container_name: speedtest
     hostname: speedtest
     image: henrywhitaker3/speedtest-tracker:latest
-    ports:
-      - 8765:80
-    volumes:
-      - /mnt/cache/appdata/speedtest/config:/config
+    restart: unless-stopped
+
     environment:
       - TZ=America/Los_Angeles
       # - PGID=
       # - PUID=
       - OOKLA_EULA_GDPR=true
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "10"
-        max-size: "200k"
-    restart: unless-stopped
+
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.speedtest.rule=Host(`speedtest.cattivi.com`)"
       - "traefik.http.routers.speedtest.entrypoints=websecure"
       - "traefik.http.routers.speedtest.service=speedtest"
-      - "traefik.http.routers.speedtest.tls.certresolver=staging"
-    # - "traefik.http.routers.speedtest.tls.certresolver=production"
+      - "traefik.http.routers.speedtest.tls.certresolver=letsencrypt"
       - "traefik.http.services.speedtest.loadbalancer.server.port=8765"
 
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"
+        max-size: "200k"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.11
+
+    ports:
+      - 8765:80
+
+    volumes:
+      - /mnt/cache/appdata/speedtest/config:/config
+
+networks:
+ proxy_network:
+   external: true

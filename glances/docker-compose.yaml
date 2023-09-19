@@ -9,23 +9,26 @@ services:
     container_name: glances
     hostname: glances
     image: nicolargo/glances:latest-full
-    restart: unless-stopped
+    network_mode: "host"
     pid: "host"
     privileged: true
-    network_mode: "host"
+    restart: unless-stopped
+
     configs:
       - source: glances_config
-        target: /glances/config/glances.conf
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - target: /glances/config/glances.conf
+
     environment:
       GLANCES_OPT: "-C /glances/config/glances.conf -w"
       TZ: "Pacific/Los_Angeles"
+
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.glances.rule=Host(`glances.cattivi.com`)"
       - "traefik.http.routers.glances.entrypoints=websecure"
       - "traefik.http.routers.glances.service=glances"
-      - "traefik.http.routers.glances.tls.certresolver=staging"
-      # - "traefik.http.routers.glances.tls.certresolver=production"
+      - "traefik.http.routers.glances.tls.certresolver=letsencrypt"
       - "traefik.http.services.glances.loadbalancer.server.port=61208"
+
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"

@@ -8,18 +8,28 @@ services:
     restart: unless-stopped
     privileged: true
     user: root
-    ports:
-      - 4080:8080
-      - 50000:50000
-    volumes:
-      - /mnt/cache/appdata/ci/home:/var/jenkins_home
-      # - ./jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.ci.rule=Host(`ci.cattivi.com`)"
       - "traefik.http.routers.ci.entrypoints=websecure"
       - "traefik.http.routers.ci.service=ci"
-      - "traefik.http.routers.ci.tls.certresolver=staging"
-      # - "traefik.http.routers.ci.tls.certresolver=production"
+      - "traefik.http.routers.ci.tls.certresolver=letsencrypt"
       - "traefik.http.services.ci.loadbalancer.server.port=4080"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.10
+
+    ports:
+      - 4080:8080
+      - 50000:50000
+
+    volumes:
+      - /mnt/cache/appdata/ci/home:/var/jenkins_home
+      # - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+ proxy_network:
+   external: true

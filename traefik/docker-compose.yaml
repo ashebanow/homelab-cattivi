@@ -18,23 +18,39 @@ services:
     container_name: reverse-proxy
     hostname: reverse-proxy
     image: traefik:v2.10.4
+    restart: unless-stopped
 
-    security_opt:
-      - no-new-privileges:true
+    environment:
+      - TZ=$TZ
+      - CF_DNS_API_TOKEN="$CF_DNS_API_TOKEN"
 
-    networks:
-      proxy_network:
-        ipv4_address: 10.60.0.4 # You can specify a static IP
+    extra_hosts:
+      - storage.docker.internal:10.50.0.70
 
     healthcheck:
       test: ["CMD", "traefik", "healthcheck", "--ping"]
       interval: 15s
       retries: 3
 
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`reverse-proxy.cattivi.com`) # Define the subdomain for the traefik dashboard.
+      - traefik.http.routers.api.service=api@internal # Enable Traefik API.
+      # protect dashboard with basic auth and restrict access to private class subnets only:
+      - traefik.http.routers.api.middlewares=local-ipwhitelist@file,basic-auth@file
+      - traefik.http.middlewares.basic-auth-global.basicauth.users=admin:YXNoZWJhbm93QGNhdHRpdmkuY29tOnJodDJpdFEzNGhaVjNOVVA=
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.4
+
     ports:
       - 80:80 # HTTP
       - 443:443 # HTTPS
       - 127.0.0.1:8080:8080 # MGMT WEB UI
+
+    security_opt:
+      - no-new-privileges:true
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -44,22 +60,3 @@ services:
       - /mnt/cache/appdata/traefik/logs:/logs
       - ./traefik.yaml:/etc/traefik/traefik.yaml
       - ./file-watcher.yaml:/etc/traefik/file-watcher.yaml
-      - ./certs/acme-staging.json:/etc/traefik/certs/t/acme-staging.json # staging certs
-      - ./certs/acme-production.json:/etc/traefik/certs/t/acme-production.json # production certs
-
-    environment:
-      - TZ=$TZ
-      - CF_DNS_API_TOKEN="$CF_DNS_API_TOKEN"
-
-    restart: unless-stopped
-
-    extra_hosts:
-      - storage.docker.internal:10.50.0.70
-
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.api.rule=Host(`reverse-proxy.cattivi.com`) # Define the subdomain for the traefik dashboard.
-      - traefik.http.routers.api.service=api@internal # Enable Traefik API.
-      # protect dashboard with basic auth and restrict access to private class subnets only:
-      - traefik.http.routers.api.middlewares=local-ipwhitelist@file,basic-auth@file
-      - traefik.http.middlewares.basic-auth-global.basicauth.users=admin:YXNoZWJhbm93QGNhdHRpdmkuY29tOnJodDJpdFEzNGhaVjNOVVA=

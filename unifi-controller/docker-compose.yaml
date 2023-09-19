@@ -4,6 +4,11 @@ services:
     image: lscr.io/linuxserver/unifi-network-application:latest
     container_name: unifi-controller
     hostname: unifi-controller
+    restart: unless-stopped
+
+    depends_on:
+      - unifi-mongo
+
     environment:
       - PUID=1000
       - PGID=1000
@@ -11,11 +16,24 @@ services:
       # FIXME: use secrets and real passwords!
       - MONGO_USER=unifi
       - MONGO_PASS=changeme
-      - MONGO_HOST=unifi-db
+      - MONGO_HOST=unifi-mongo
       - MONGO_PORT=27017
       - MONGO_DBNAME=unifi
       # - MEM_LIMIT=1024 #optional
       # - MEM_STARTUP=1024 #optional
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unifi-controller.rule=Host(`unifi-controller.cattivi.com`)"
+      - "traefik.http.routers.unifi-controller.entrypoints=websecure"
+      - "traefik.http.routers.unifi-controller.service=unifi-controller"
+      - "traefik.http.routers.unifi-controller.tls.certresolver=letsencrypt"
+      - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.16
+
     ports:
       - 8443:8443
       - 3478:3478/udp
@@ -26,40 +44,34 @@ services:
       - 8880:8880 #optional
       - 6789:6789 #optional
       - 5514:5514/udp #optional
+
     volumes:
       # for debug purposes:
       # - ./data/config:/config
       - /mnt/cache/appdata/unifi-controller/config:/config
-    networks:
-      - infisical
-    restart: unless-stopped
-    depends_on:
-      - unifi-db
 
-  unifi-db:
-    container_name: unifi-db
+  unifi-mongo:
+    container_name: unifi-mongo
+    hostname: unifi-mongo
     image: mongo
+    restart: unless-stopped
+
     environment:
       # FIXME: use secrets and real passwords!
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=changeme
       - MONGO_USER=unifi
       - MONGO_PASS=changeme
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.17
+
     volumes:
       # for debug purposes:
       # - ./data/db:/data/db
       - /mnt/cache/appdata/unifi-controller/db:/data/db
-    networks:
-      - infisical
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.unifi-controller.rule=Host(`unifi-controller.cattivi.com`)"
-      - "traefik.http.routers.unifi-controller.entrypoints=websecure"
-      - "traefik.http.routers.unifi-controller.service=unifi-controller"
-      - "traefik.http.routers.unifi-controller.tls.certresolver=staging"
-      # - "traefik.http.routers.unifi-controller.tls.certresolver=production"
-      - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
 
 networks:
-  infisical:
+ proxy_network:
+   external: true

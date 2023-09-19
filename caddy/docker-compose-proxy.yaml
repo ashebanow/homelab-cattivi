@@ -1,23 +1,42 @@
+networks:
+  proxy_network:
+    name: proxy_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.60.0.0/24
+        - gateway: 10.60.0.1
+
 services:
   reverse-proxy:
+    build:
+      dockerfile: ./Dockerfile
     container_name: reverse-proxy
     hostname: reverse-proxy
     # image: caddy:latest
-    build:
-      dockerfile: ./Dockerfile
     restart: unless-stopped
+
+    environment:
+      DOMAIN: "https://cattivi.com"  
+      EMAIL: "ashebanow@cattivi.com"                 
+      LOG_FILE: "/data/access.log"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.4
+
     ports:
       # - "2019:2019" # admin port
       - "80:80"     # we should just stop publishing 80 and 443, rely on reverse-proxy
       - "443:443"
       - "443:443/udp"
-    environment:
-      DOMAIN: "https://cattivi.com"  
-      EMAIL: "ashebanow@cattivi.com"                 
-      LOG_FILE: "/data/access.log"
+
+    security_opt:
+      - no-new-privileges:true
+
     volumes:
       - ./Caddyfile-proxy:/etc/caddy/Caddyfile:ro
-      # - ./site:/srv
       - /mnt/cache/appdata/reverse-proxy/data:/data
       - /mnt/cache/appdata/reverse-proxy/config:/config
       - /mnt/cache/appdata/reverse-proxy/test_code:/wdata

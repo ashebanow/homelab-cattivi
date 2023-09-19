@@ -5,10 +5,12 @@
   # Disable admin API
   # admin off
 
+  # cert owner
+  email ashebanow@cattivi.com
+
   # we don't want  https forced, since all our external requests
   # come from cloudflare tunnel which has its own cert management.
   auto_https off
-  email ashebanow@cattivi.com
   # acme_dns cloudflare {env.CF_DNS_API_TOKEN}
   # # Optional staging lets encrypt for testing. Comment out for production.
   # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
