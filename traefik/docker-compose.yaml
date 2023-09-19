@@ -59,6 +59,7 @@ services:
       - /mnt/cache/appdata/traefik/data:/etc/traefik
       # - ./logs:/logs
       - /mnt/cache/appdata/traefik/logs:/logs
-      - ./certs:/etc/traefik/certs:rw
+      - ./certs/acme-production.json:/etc/traefik/certs/acme-production.json
+      - ./certs/acme-staging.json:/etc/traefik/certs/acme-staging.json
       - ./traefik.yaml:/etc/traefik/traefik.yaml
       - ./file-watcher.yaml:/etc/traefik/file-watcher.yaml
