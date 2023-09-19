@@ -1,23 +1,20 @@
 http:
 
-  ## EXTERNAL ROUTING EXAMPLE - Only use if you want to proxy something manually ##
-  #routers:
-  #  homeassistant:
-  #    entryPoints:
-  #      - https
-  #      - http
-  #    rule: 'Host(`ha.example.com`)'
-  #    service: homeassistant
-  #    middlewares:
-  #      - "local-ipwhitelist@file"
+  routers:
+   glances:
+     entryPoints:
+       - http
+     rule: 'Host(`glances.cattivi.com`)'
+     service: glances
+     middlewares:
+       - "local-ipwhitelist@file"
 
-  ## SERVICES EXAMPLE ##
-  #services:
-  #  homeassistant:
-  #    loadBalancer:
-  #      serversTransport: insecureTransport
-  #      servers:
-  #        - url: http://192.168.1.10:8123
+  services:
+   glances:
+     loadBalancer:
+       serversTransport: insecureTransport
+       servers:
+         - url: http://10.50.0.70:61208
 
   # allow self-signed certificates for proxied web services
   serversTransports:
