@@ -25,7 +25,7 @@ accesslog:
       names:
         Authorization: drop # don't log auth
         Content-Type: keep
-        User-Agent: redact # log user agent strings
+        User-Agent: keep # log user agent strings
 
 # Disable API and Dashboard
 # ---
