@@ -9,8 +9,11 @@ services:
     restart: unless-stopped
 
     environment:
-      - GLANCES_OPT="-C /etc/glances/glances.conf -w"
-      - TZ="Pacific/Los_Angeles"
+      - GLANCES_OPT=-w -C /etc/glances/glances.conf
+      - TZ=Pacific/Los_Angeles
+
+    # ports:
+      # - 61208:61208
 
     volumes:
       - "./glances.conf:/etc/glances/glances.conf"
