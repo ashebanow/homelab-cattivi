@@ -1,9 +1,3 @@
-version: '3.9'
-
-configs:
-  glances_config:
-    file: ./glances.conf
-
 services:
   glances:
     container_name: glances
@@ -14,13 +8,10 @@ services:
     privileged: true
     restart: unless-stopped
 
-    configs:
-      - source: glances_config
-      - target: /glances/config/glances.conf
-
     environment:
-      GLANCES_OPT: "-C /glances/config/glances.conf -w"
-      TZ: "Pacific/Los_Angeles"
+      - GLANCES_OPT: "-C /etc/glances/glances.conf --webserver"
+      - TZ: "Pacific/Los_Angeles"
 
     volumes:
+      - "./glances.conf:/etc/glances/glances.conf"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
