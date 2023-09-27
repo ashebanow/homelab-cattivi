@@ -1,0 +1,44 @@
+{
+  "server": {
+    "port": 2368,
+    "host": "0.0.0.0"
+  },
+  "mail": {
+    "transport": "Direct"
+  },
+  "logging": {
+    "transports": [
+      "stdout"
+    ]
+  },
+  "paths": {
+    "contentPath": "/var/lib/ghost/content"
+  },
+  "storage": {
+    "active": "ghost-storage-cloudinary",
+    "ghost-storage-cloudinary": {
+      "useDatedFolder": false,
+      "auth" : {
+        "cloud_name": "${CLOUDINARY_CLOUD_NAME}",
+        "api_key": "${CLOUDINARY_API_KEY}",
+        "api_secret": "${CLOUDINARY_API_SECRET}"
+      },
+      "upload": {
+        "use_filename": true,
+        "unique_filename": false,
+        "overwrite": false,
+        "folder": "shebanator-blog-images",
+        "tags": [ "blog", "shebanator" ]
+      },
+      "fetch": {
+          "quality": "auto:good",
+          "secure": false,
+          "cdn_subdomain": true
+      },
+      "plugins": {}
+    }
+  },
+  "imageOptimization": {
+    "resize": false
+  }
+}
