@@ -1,0 +1,43 @@
+services:
+  web:
+    container_name: web
+    hostname: web
+    image: caddy:latest
+    restart: unless-stopped
+
+    environment:
+      DOMAIN: "https://cattivi.com"  
+      EMAIL: "ashebanow@cattivi.com"                 
+      LOG_FILE: "/data/access.log"
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`web.cattivi.com`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.service=web"
+      # - "traefik.http.routers.web.tls.certresolver=default"
+      - "traefik.http.services.web.loadbalancer.server.port=443"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.5
+
+    ports:
+      # - "2019:2019" # admin port
+      - "5080:80"     # we should just stop publishing 80 and 443, rely on reverse-proxy
+      - "5443:443"
+      - "5443:443/udp"
+
+    volumes:
+      - ./Caddyfile-web:/etc/caddy/Caddyfile:ro
+      - ./site:/srv
+      - /mnt/cache/appdata/web/data:/data
+      - /mnt/cache/appdata/web/config:/config
+      - /mnt/cache/appdata/web/test_code:/wdata
+      # - ./data:/data
+      # - ./config:/config
+      # - ./test_code:/wdata
+
+networks:
+ proxy_network:
+   external: true

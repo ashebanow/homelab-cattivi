@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  ci:
+    container_name: ci
+    hostname: ci
+    image: jenkins/jenkins:lts
+    restart: unless-stopped
+    privileged: true
+    user: root
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ci.rule=Host(`ci.cattivi.com`)"
+      - "traefik.http.routers.ci.entrypoints=websecure"
+      - "traefik.http.routers.ci.service=ci"
+      # - "traefik.http.routers.ci.tls.certresolver=default"
+      - "traefik.http.services.ci.loadbalancer.server.port=4080"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.10
+
+    ports:
+      - 4080:8080
+      - 50000:50000
+
+    volumes:
+      - /mnt/cache/appdata/ci/home:/var/jenkins_home
+      # - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+ proxy_network:
+   external: true
