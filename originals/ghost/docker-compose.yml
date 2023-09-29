@@ -9,8 +9,7 @@ services:
       - blog-mysql
 
     environment:
-      url: http://localhost:3080
-      # url: http://10.40.0.24:3080
+      url: http://10.60.0.7:3080
 
       database__client: mysql
       database__connection__host: blog-mysql
