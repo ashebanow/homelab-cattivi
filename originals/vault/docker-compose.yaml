@@ -1,0 +1,40 @@
+services:
+  vault:
+    container_name: vault
+    hostname: vault
+    image: hashicorp/vault:1.15
+    restart: unless-stopped
+
+    cap_add:
+      - IPC_LOCK
+
+    command: ["server", "${VAULT_ROOT_TOKEN}"]
+
+    environment:
+      - TZ=America/Los_Angeles
+      - VAULT_LOCAL_CONFIG='{"backend": {"file": {"path": "/vault/file"}}, "listener": {"tcp": {"address": "0.0.0.0:8200", "tls_disable": 1}}, "ui": true}'
+
+    labels:
+      - "traefik.enable=false"
+      - "traefik.http.routers.vault.rule=Host(`vault.cattivi.com`)"
+      - "traefik.http.routers.vault.entrypoints=websecure"
+      - "traefik.http.routers.vault.service=web"
+      # - "traefik.http.routers.web.tls.certresolver=default"
+      - "traefik.http.services.vault.loadbalancer.server.port=443"
+      - "net.unraid.docker.icon=https://raw.githubusercontent.com/KasteM34/unraid-templates/main/vault/vault.png"
+      - "net.unraid.docker.webui='http://10.60.0.24::8200/ui"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.24
+
+    ports:
+      - 8200:8200
+
+    volumes:
+      - "/mnt/cache/appdata/vault/file/:/vault/file:rw"
+      - "/mnt/cache/appdata/vault/logs/:/vault/logs:rw"
+
+networks:
+ proxy_network:
+   external: true
