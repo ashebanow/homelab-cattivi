@@ -8,7 +8,7 @@ services:
     cap_add:
       - IPC_LOCK
 
-    command: ["server", "${VAULT_ROOT_TOKEN}"]
+    command: ["server", "$${VAULT_ROOT_TOKEN}"]
 
     environment:
       - TZ=America/Los_Angeles
