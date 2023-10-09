@@ -8,11 +8,10 @@ services:
     cap_add:
       - IPC_LOCK
 
-    command: ["server", "$${VAULT_ROOT_TOKEN}"]
+    command: ["server", "-config=/etc/vault/vault.hcl", "${VAULT_ROOT_TOKEN}"]
 
     environment:
-      - TZ=America/Los_Angeles
-      - VAULT_LOCAL_CONFIG='{"backend": {"file": {"path": "/vault/file"}}, "listener": {"tcp": {"address": "0.0.0.0:8200", "tls_disable": 1}}, "ui": true}'
+      - TZ="America/Los_Angeles"
 
     labels:
       - "traefik.enable=false"
@@ -32,6 +31,7 @@ services:
       - 8200:8200
 
     volumes:
+      - ./vault.hcl:/etc/vault/vault.hcl
       - "/mnt/cache/appdata/vault/file/:/vault/file:rw"
       - "/mnt/cache/appdata/vault/logs/:/vault/logs:rw"
 
