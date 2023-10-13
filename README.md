@@ -14,3 +14,6 @@ For each app:
         config:
           - subnet: 10.60.0.0/24
             gateway: 10.60.0.1
+
+
+Github home: https://github.com/ashebanow/docker-compose-templates.git
