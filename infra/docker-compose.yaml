@@ -1,10 +1,30 @@
-# The network stack has services that provide secure, authenticated
-# access to the homelab network.
+# The Infra stack has services that underly our homelab:
+# storage, authentication, secrets, databases, etc.
 
 services:
   # TODO:
   #   hashi vault
   #   cloudflare-tunnel
+
+  mysql:
+    container_name: mysql
+    hostname: mysql
+    image: mariadb:latest
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # MYSQL_DATABASE: ${MYSQL_DATABASE}
+      # MYSQL_USER: "${MYSQL_USER}"
+      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.21
+
+    volumes:
+      # - ./mysql-data:/var/lib/mysql
+      - /mnt/cache/appdata/mysql:/var/lib/mysql
 
   # From https://goauthentik.io/docs/installation/docker-compose
   authentik_postgresql:

@@ -1,4 +1,4 @@
-# The Web stack has web servers and services that are
+# The Frontend stack has web servers and services that are
 # exposed to the public.
 
 services:

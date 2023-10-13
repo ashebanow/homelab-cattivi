@@ -7,6 +7,7 @@ services:
   #   speedtest
   #   unifi-controller?
   #   uptime-kuma
+  #   grafana/loki/etc?
 
   glances:
     container_name: glances
