@@ -1,10 +1,42 @@
 # The Infra stack has services that underly our homelab:
-# storage, authentication, secrets, databases, etc.
+# MySQL, Hashicorp Vault, Authentik, Cloudflare Tunnel, etc.
 
 services:
-  # TODO:
-  #   hashi vault
-  #   cloudflare-tunnel
+  vault:
+    container_name: vault
+    hostname: vault
+    image: hashicorp/vault:1.15
+    restart: unless-stopped
+
+    cap_add:
+      - IPC_LOCK
+
+    command: ["server", "-config=/etc/vault/vault.hcl", "${VAULT_ROOT_TOKEN}"]
+
+    environment:
+      - TZ="America/Los_Angeles"
+
+    labels:
+      - "traefik.enable=false"
+      - "traefik.http.routers.vault.rule=Host(`vault.cattivi.com`)"
+      - "traefik.http.routers.vault.entrypoints=websecure"
+      - "traefik.http.routers.vault.service=web"
+      # - "traefik.http.routers.web.tls.certresolver=default"
+      - "traefik.http.services.vault.loadbalancer.server.port=443"
+      - "net.unraid.docker.icon=https://raw.githubusercontent.com/KasteM34/unraid-templates/main/vault/vault.png"
+      - "net.unraid.docker.webui='http://10.60.0.24::8200/ui"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.24
+
+    ports:
+      - 8200:8200
+
+    volumes:
+      - ./vault.hcl:/etc/vault/vault.hcl
+      - "/mnt/cache/appdata/vault/file/:/vault/file:rw"
+      - "/mnt/cache/appdata/vault/logs/:/vault/logs:rw"
 
   mysql:
     container_name: mysql
@@ -124,6 +156,20 @@ services:
     depends_on:
       - authentik_postgresql
       - authentik_redis
+
+  # Based largely on https://github.com/jonas-merkle/container-cloudflare-tunnel
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared
+    container_name: cloudflare-tunnel
+    hostname: cloudflare-tunnel
+    restart: unless-stopped
+    network_mode: "host"
+    command: tunnel run
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/cache/appdata/cloudflare-tunnel/data:/home/nonroot/.cloudflared/
+    environment:
+      - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN}
 
 networks:
  proxy_network:

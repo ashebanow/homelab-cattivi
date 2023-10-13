@@ -3,7 +3,6 @@
 
 services:
   # TODO:
-  #   homarr
   #   speedtest
   #   unifi-controller?
   #   uptime-kuma
@@ -28,3 +27,43 @@ services:
     volumes:
       - "./glances.conf:/etc/glances/glances.conf"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  homarr:
+    container_name: homarr
+    hostname: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+
+    environment:
+      - TZ=America/Los_Angeles
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homarr.rule=Host(`homarr.cattivi.com`)"
+      - "traefik.http.routers.homarr.entrypoints=websecure"
+      - "traefik.http.routers.homarr.service=homarr"
+      # - "traefik.http.routers.homarr.tls.certresolver=default"
+      - "traefik.http.services.homarr.loadbalancer.server.port=7575"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.19
+
+    ports:
+      - '7575:7575'
+
+    volumes:
+      # For debugging locally:
+      # - ./homarr-data/configs:/app/data/configs
+      # - ./homarr-data/icons:/app/public/icons
+      - ./homarr-icons/infisical.svg:/app/public/icons/infisical.svg
+
+      - /mnt/cache/appdata/homarr/configs:/app/data/configs
+      - /mnt/cache/appdata/homarr/icons:/app/public/icons
+
+      - ./homarr-default.json:/app/data/configs/default.json
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+ proxy_network:
+   external: true
