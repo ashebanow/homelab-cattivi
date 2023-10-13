@@ -1,9 +1,12 @@
----
-version: "3.4"
-
-# From https://goauthentik.io/docs/installation/docker-compose
+# The network stack has services that provide secure, authenticated
+# access to the homelab network.
 
 services:
+  # TODO:
+  #   hashi vault
+  #   cloudflare-tunnel
+
+  # From https://goauthentik.io/docs/installation/docker-compose
   authentik_postgresql:
     container_name: authentik_postgresql
     image: docker.io/library/postgres:12-alpine

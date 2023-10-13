@@ -1,4 +1,10 @@
+# The Web stack has web servers and services that are
+# exposed to the public.
+
 services:
+  # TODO:
+  #   traefik
+
   web:
     container_name: web
     hostname: web

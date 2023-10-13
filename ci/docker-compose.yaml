@@ -1,4 +1,5 @@
-version: '3.7'
+# The CI stack provides continuous integration for our custom
+# apps and services.
 
 services:
   ci:

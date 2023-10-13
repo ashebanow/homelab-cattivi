@@ -1,4 +1,13 @@
+# The tools stack has miscellaneous tools we use to
+# monitor and analyze the homelab's operation.
+
 services:
+  # TODO:
+  #   homarr
+  #   speedtest
+  #   unifi-controller?
+  #   uptime-kuma
+
   glances:
     container_name: glances
     hostname: glances
