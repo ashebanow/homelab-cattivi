@@ -1,7 +1,20 @@
 # The Infra stack has services that underly our homelab:
 # MySQL, Hashicorp Vault, Authentik, Cloudflare Tunnel, etc.
 
+#####################################################################
+networks:
+  proxy_network:
+    name: proxy_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.60.0.0/24
+          gateway: 10.60.0.1
+
 services:
+
+  #####################################################################
   vault:
     container_name: vault
     hostname: vault
@@ -38,6 +51,7 @@ services:
       - "/mnt/cache/appdata/vault/file/:/vault/file:rw"
       - "/mnt/cache/appdata/vault/logs/:/vault/logs:rw"
 
+  #####################################################################
   mysql:
     container_name: mysql
     hostname: mysql
@@ -58,6 +72,7 @@ services:
       # - ./mysql-data:/var/lib/mysql
       - /mnt/cache/appdata/mysql:/var/lib/mysql
 
+  #####################################################################
   # From https://goauthentik.io/docs/installation/docker-compose
   authentik_postgresql:
     container_name: authentik_postgresql
@@ -157,6 +172,7 @@ services:
       - authentik_postgresql
       - authentik_redis
 
+  #####################################################################
   # Based largely on https://github.com/jonas-merkle/container-cloudflare-tunnel
   cloudflare-tunnel:
     image: cloudflare/cloudflared
@@ -170,7 +186,3 @@ services:
       - /mnt/cache/appdata/cloudflare-tunnel/data:/home/nonroot/.cloudflared/
     environment:
       - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN}
-
-networks:
- proxy_network:
-   external: true

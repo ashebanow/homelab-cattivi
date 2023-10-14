@@ -1,0 +1,148 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false  # true by default
+
+# Log information
+# ---
+log:
+  level: DEBUG  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+
+# Accesslog
+# ---
+accesslog:
+  filePath: "/logs/access.log"
+  format: json
+  bufferingSize: 100
+  filters:
+    statusCodes:
+      - "200" # log successful http requests
+      - "400-599" # log failed http requests
+    #retryAttempts: true
+    #minDuration: "10ms"
+  fields:
+    headers:
+      defaultMode: drop # drop all headers per default
+      names:
+        Authorization: drop # don't log auth
+        Content-Type: keep
+        User-Agent: keep # log user agent strings
+
+# Disable API and Dashboard
+# ---
+api:
+  dashboard: true  # true by default
+  insecure: true  # Don't do this in production!
+  debug: true  # Don't do this in production!
+
+# Ping configuration
+ping:
+
+# Entry Points configuration
+# ---
+entryPoints:
+  web:
+    address: :80
+    # Redirect to HTTPS
+    forwardedHeaders:
+      trustedIPs: &trustedIps
+        # Start of Clouflare public IP list for HTTP requests
+        # Run ./list-cloudflare-ips.sh to update the list.
+        - 103.21.244.0/22
+        - 103.22.200.0/22
+        - 103.31.4.0/22
+        - 104.16.0.0/13
+        - 104.24.0.0/14
+        - 108.162.192.0/18
+        - 131.0.72.0/22
+        - 141.101.64.0/18
+        - 162.158.0.0/15
+        - 172.64.0.0/13
+        - 173.245.48.0/20
+        - 188.114.96.0/20
+        - 190.93.240.0/20
+        - 197.234.240.0/22
+        - 198.41.128.0/17
+        - 2400:cb00::/32
+        - 2405:8100::/32
+        - 2405:b500::/32
+        - 2606:4700::/32
+        - 2803:f800::/32
+        - 2a06:98c0::/29
+        - 2c0f:f248::/32
+        # End of Cloudlare public IP list
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: :443
+    forwardedHeaders:
+      # Reuse list of Cloudflare Trusted IP's above for HTTPS requests
+      trustedIPs: *trustedIps
+    http:
+      # tls:
+      #   # Generate a wildcard domain certificate
+      #   certResolver: default
+      #   domains:
+      #     - main: cattivi.com
+      #       sans: '*.cattivi.com'
+      middlewares:
+        - security-headers@file # reference to a dynamic middleware for setting http security headers per default
+        - rate-limit@file # reference to a dynamic middleware for enabling rate limiting per default
+
+# Allow insecure backend connections for self-signed certs.
+serverTransport:
+  insecureSkipVerify: true
+
+# certificatesResolvers:
+#   default:
+#     acme:
+#       email: ashebanow@cattivi.com
+
+#       storage: /etc/traefik/certs/acme-staging.json
+#       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+#       # storage: /etc/traefik/certs/acme-production.json
+#       # caServer: "https://acme-v02.api.letsencrypt.org/directory"
+
+#       dnsChallenge:
+#         provider: cloudflare
+#         resolvers:
+#           1.1.1.1:53
+#           1.0.0.1:53
+#         delayBeforeCheck: 90 # To delay DNS check & reduce LE hitrate
+
+# (Optional) Overwrite Default Certificates
+# tls:
+#   stores:
+#     default:
+#       defaultCertificate:
+#         certFile: /etc/traefik/certs/cert.pem
+#         keyFile: /etc/traefik/certs/cert-key.pem
+
+# (Optional) Disable TLS version 1.0 and 1.1
+options:
+  default:
+    minVersion: VersionTLS12
+
+providers:
+  providersThrottleDuration: 2s
+
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false  # Default is true
+    network: proxy_network
+    watch: true
+
+    # Unfortunately traefik doesn't allow multiple docker endpoints.
+    # Need to use swarm.
+    #
+    # endpoint: "ssh://ashebanow@storage.local:9001"
+    # endpoint: "ssh://ashebanow@virt1.local:9001"
+    # endpoint: "ssh://ashebanow@virt2.local:9001"
+    
+  file:
+    filename: /etc/traefik/file-watcher.yaml
+    watch: true

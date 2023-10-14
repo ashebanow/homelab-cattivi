@@ -3,11 +3,9 @@
 
 services:
   # TODO:
-  #   speedtest
-  #   unifi-controller?
-  #   uptime-kuma
   #   grafana/loki/etc?
 
+  #####################################################################
   glances:
     container_name: glances
     hostname: glances
@@ -28,6 +26,7 @@ services:
       - "./glances.conf:/etc/glances/glances.conf"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
+  #####################################################################
   homarr:
     container_name: homarr
     hostname: homarr
@@ -64,6 +63,144 @@ services:
       - ./homarr-default.json:/app/data/configs/default.json
       - /var/run/docker.sock:/var/run/docker.sock
 
+  #####################################################################
+  speedtest:
+    container_name: speedtest
+    hostname: speedtest
+    image: henrywhitaker3/speedtest-tracker:latest
+    restart: unless-stopped
+
+    environment:
+      - TZ=America/Los_Angeles
+      # - PGID=
+      # - PUID=
+      - OOKLA_EULA_GDPR=true
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.speedtest.rule=Host(`speedtest.cattivi.com`)"
+      - "traefik.http.routers.speedtest.entrypoints=websecure"
+      - "traefik.http.routers.speedtest.service=speedtest"
+      # - "traefik.http.routers.speedtest.tls.certresolver=default"
+      - "traefik.http.services.speedtest.loadbalancer.server.port=8765"
+
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"
+        max-size: "200k"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.11
+
+    ports:
+      - 8765:80
+
+    volumes:
+      - /mnt/cache/appdata/speedtest/config:/config
+
+  #####################################################################
+  unifi-controller:
+    image: lscr.io/linuxserver/unifi-network-application:latest
+    container_name: unifi-controller
+    hostname: unifi-controller
+    restart: unless-stopped
+
+    depends_on:
+      - unifi-mongo
+
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Pacific/Los_Angeles
+      # FIXME: use secrets and real passwords!
+      - MONGO_USER=unifi
+      - MONGO_PASS=changeme
+      - MONGO_HOST=unifi-mongo
+      - MONGO_PORT=27017
+      - MONGO_DBNAME=unifi
+      # - MEM_LIMIT=1024 #optional
+      # - MEM_STARTUP=1024 #optional
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unifi-controller.rule=Host(`unifi-controller.cattivi.com`)"
+      - "traefik.http.routers.unifi-controller.entrypoints=websecure"
+      - "traefik.http.routers.unifi-controller.service=unifi-controller"
+      # - "traefik.http.routers.unifi-controller.tls.certresolver=default"
+      - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.16
+
+    ports:
+      - 8443:8443
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+      - 1900:1900/udp #optional
+      - 8843:8843 #optional
+      - 8880:8880 #optional
+      - 6789:6789 #optional
+      - 5514:5514/udp #optional
+
+    volumes:
+      # for debug purposes:
+      # - ./unifi-data/config:/config
+      - /mnt/cache/appdata/unifi-controller/config:/config
+
+  unifi-mongo:
+    container_name: unifi-mongo
+    hostname: unifi-mongo
+    image: mongo
+    restart: unless-stopped
+
+    environment:
+      # FIXME: use secrets and real passwords!
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=changeme
+      - MONGO_USER=unifi
+      - MONGO_PASS=changeme
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.17
+
+    volumes:
+      # for debug purposes:
+      # - ./unifi-data/db:/data/db
+      - /mnt/cache/appdata/unifi-controller/db:/data/db
+
+  #####################################################################
+  uptime:
+    container_name: uptime
+    hostname: uptime
+    image: louislam/uptime-kuma:latest
+    restart: unless-stopped
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.uptime.rule=Host(`uptime.cattivi.com`)"
+      - "traefik.http.routers.uptime.entrypoints=websecure"
+      - "traefik.http.routers.uptime.service=uptime"
+      # - "traefik.http.routers.uptime.tls.certresolver=default"
+      - "traefik.http.services.uptime.loadbalancer.server.port=3001"
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.14
+
+    ports:
+      - 3001:3001
+
+    volumes:
+      # - ./uptime-data:/app/data
+      - /mnt/cache/appdata/uptime/data:/app/data
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+#####################################################################
 networks:
  proxy_network:
    external: true
