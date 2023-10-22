@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:latest
 
 # Install dependencies only when needed
-FROM ghcr.io/benphelps/homepage:latest AS deps
+FROM ghcr.io/gethomepage/homepage:latest AS deps
 
 WORKDIR /app
 
