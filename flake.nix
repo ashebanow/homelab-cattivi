@@ -16,16 +16,26 @@
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            packer
-            terraform
-            tflint
+            checkov
+            damon
+            hcledit
+            infracost
+            jq
+            levant
             nomad
-            vault
             nomad-autoscaler
             nomad-pack
-            levant
-            damon
+            packer
+            pre-commit
+            terraform
+            terraform-docs
             terragrunt
+            terrascan
+            tflint
+            tflint
+            tfsec
+            tfupdate
+            vault
           ];
         };
       });
