@@ -2,6 +2,7 @@
   description =
     "A Nix-flake-based development environment for Terraform, Packer, and Nomad";
 
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
 
   outputs = { self, nixpkgs }:
@@ -15,25 +16,16 @@
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            checkov
+	    consul
             damon
-            hcledit
-            infracost
-            jq
             levant
             nomad
             nomad-autoscaler
             nomad-pack
             packer
-            pre-commit
             terraform
-            terraform-docs
             terragrunt
-            terrascan
             tflint
-            tflint
-            tfsec
-            tfupdate
             vault
           ];
         };
