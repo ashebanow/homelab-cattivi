@@ -6,7 +6,7 @@
 				"name": "Caddy",
 				"uri": "https://storage.local:4431/",
 				"description": "Web Server",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/caddy.png"
+				"icon": "caddy"
 			}
 		]
 	},
@@ -23,19 +23,19 @@
 				"name": "Traefik",
 				"uri": "http://storage.local:8080/dashboard/#/",
 				"description": "Traefik Reverse Proxy",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/traefik.png"
+				"icon": "traefik"
 			},
 			{
-				"name": "Storage (Unraid)",
+				"name": "Storage",
 				"uri": "https://storage.local:4432",
-				"description": "zzzz",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/unraid.svg"
+				"description": "Unraid Storage",
+				"icon": "unraid"
 			},
 			{
 				"name": "Portainer",
 				"uri": "https://storage.local:9443",
 				"description": "Container Management",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/portainer.svg"
+				"icon": "portainer"
 			},
 			{
 				"name": "Vault",
@@ -59,7 +59,7 @@
 				"name": "Unifi Controller",
 				"uri": "https://storage.local:8443/",
 				"description": "Unifi Device Management",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/unifi-controller.png"
+				"icon": "unifi-controller"
 			}
 		]
 	},
@@ -70,24 +70,24 @@
 				"name": "Uptime Kuma",
 				"uri": "http://storage.local:3001",
 				"description": "Uptime Metrics",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/uptime-kuma.png"
+				"icon": "uptime-kuma"
 			},
 			{
 				"name": "Glances",
 				"uri": "http://storage.local:61208/",
 				"description": "Comprehensive Perf Dashboard",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/glances.png"
+				"icon": "glances"
 			},
 			{
 				"name": "Speedtest",
 				"uri": "http://storage.local:8765",
 				"description": "Internet Speed Test",
-				"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/openspeedtest.png"
+				"icon": "openspeedtest"
 			},
 			{
 				"name": "Crashplan Pro",
 				"uri": "http://10.50.0.123:7810/",
-				"description": "zzzz",
+				"description": "Cloud Backups",
 				"icon": "https://access.tufts.edu/sites/default/files/styles/app_store_product_image/public/2021-09/crashplan_icon_146200.png?itok=ZjpJwzLx"
 			}
 		]

@@ -1,19 +1,23 @@
-version: "3"
-
 services:
-  homepage:
+  starbase80:
+    container_name: starbase80
+    hostname: starbase80
     image: jordanroher/starbase-80
+    restart: unless-stopped
+
     ports:
       - 4173:4173
+
     environment:
       - TITLE=Homelab
       - HEADER=true
       - HEADERLINE=false
       - HEADERTOP=false
-      - CATEGORIES=small
+      - CATEGORIES=normal # or small
       - BGCOLOR=beige
       - BGCOLORDARK=#ddd
       - NEWWINDOW=true
+
     volumes:
       - ./config.json:/app/src/config.json # required
       # - ./public/favicon.ico:/app/public/favicon.ico # optional
