@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  homepage:
+    image: jordanroher/starbase-80
+    ports:
+      - 4173:4173
+    environment:
+      - TITLE=Homelab
+      - HEADER=true
+      - HEADERLINE=false
+      - HEADERTOP=false
+      - CATEGORIES=small
+      - BGCOLOR=beige
+      - BGCOLORDARK=#ddd
+      - NEWWINDOW=true
+    volumes:
+      - ./config.json:/app/src/config.json # required
+      # - ./public/favicon.ico:/app/public/favicon.ico # optional
+      - ./public/logo.png:/app/public/logo.png # Joker icons created by riajulislam - Flaticon
+      - ./public/icons:/app/public/icons # or wherever, JSON icon paths are relative to /app/public
