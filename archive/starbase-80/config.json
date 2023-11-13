@@ -91,5 +91,28 @@
 				"icon": "https://access.tufts.edu/sites/default/files/styles/app_store_product_image/public/2021-09/crashplan_icon_146200.png?itok=ZjpJwzLx"
 			}
 		]
+	},
+	{
+		"category": "Third Party Links",
+		"services": [
+			{
+				"name": "Cattivi DNS",
+				"uri": "https://dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/cattivi.com/dns/records",
+				"description": "Manage DNS on CloudFlare",
+				"icon": "cloudflare"
+			},
+			{
+				"name": "Cloudflare Domain Management",
+				"uri": "https://dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/domains",
+				"description": "Manage domains on CloudFlare",
+				"icon": "cloudflare"
+			},
+			{
+				"name": "Cloudflare Zero Trust",
+				"uri": "https://one.dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/home",
+				"description": "Manage Zero Trust settings on CloudFlare",
+				"icon": "cloudflare-zero-trust"
+			}
+		]
 	}
 ]
