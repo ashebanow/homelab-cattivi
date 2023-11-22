@@ -1,0 +1,26 @@
+#####################################################################
+# Based largely on https://github.com/netbootxyz/docker-netbootxyz/blob/master/docker-compose.yml.example
+
+services:
+  netboot:
+    image: ghcr.io/netbootxyz/netbootxyz
+    container_name: netboot
+    # environment:
+      # - MENU_VERSION=2.0.47 # optional
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.11
+    volumes:
+      # - ./netboot_config:/config # optional
+      # - ./netboot_assets:/assets # optional
+      - /mnt/cache/appdata/netboot/netboot_config:/config # optional
+      - /mnt/cache/appdata/netboot/netboot_assets:/assets # optional
+    ports:
+      - 1080:3000       # web admin port
+      - 69:69/udp
+      # - 1080:80       # optional nginx for asset serving
+    restart: unless-stopped
+
+networks:
+ proxy_network:
+   external: true
