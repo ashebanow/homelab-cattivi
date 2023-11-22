@@ -5,11 +5,23 @@ networks:
   proxy_network:
     name: proxy_network
     driver: bridge
+    attachable: true
     ipam:
       driver: default
       config:
         - subnet: 10.60.0.0/24
           gateway: 10.60.0.1
+          aux_addresses: [
+            auth 10.60.0.3
+            reverse-proxy 10.60.0.4
+            portainer 10.60.0.5
+            portainer-agent-virt1 10.60.0.6
+            portainer-agent-virt2 10.60.0.7
+            unifi 10.60.0.8
+            unifi-db 10.60.0.9
+            rancher 10.60.0.10
+            netboot 10.60.0.11
+          ]
 
 services:
   reverse-proxy:
