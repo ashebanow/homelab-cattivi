@@ -6,15 +6,26 @@ networks:
   proxy_network:
     name: proxy_network
     driver: bridge
+    attachable: true
     ipam:
       driver: default
       config:
         - subnet: 10.60.0.0/24
           gateway: 10.60.0.1
+          aux_addresses: [
+            auth 10.60.0.3
+            reverse-proxy 10.60.0.4
+            portainer 10.60.0.5
+            portainer-agent-virt1 10.60.0.6
+            portainer-agent-virt2 10.60.0.7
+            unifi 10.60.0.8
+            unifi-db 10.60.0.9
+            rancher 10.60.0.10
+            netboot 10.60.0.11
+          ]
 
+#####################################################################
 services:
-  #####################################################################
-
   reverse-proxy:
     container_name: reverse-proxy
     hostname: reverse-proxy
@@ -28,8 +39,8 @@ services:
       - CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
       - TZ=${TZ}
 
-    extra_hosts:
-      - storage.docker.internal:10.50.0.70
+    # extra_hosts:
+    #   - storage.docker.internal:10.50.0.123
 
     healthcheck:
       test: ["CMD", "traefik", "healthcheck", "--ping"]
@@ -139,3 +150,22 @@ services:
       - /mnt/cache/appdata/cloudflare-tunnel/data:/home/nonroot/.cloudflared/
     environment:
       - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN}
+
+  #####################################################################
+  # Based largely on https://github.com/netbootxyz/docker-netbootxyz/blob/master/docker-compose.yml.example
+  netboot:
+    image: ghcr.io/netbootxyz/netbootxyz
+    container_name: netboot
+    # environment:
+      # - MENU_VERSION=2.0.47 # optional
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.25
+    volumes:
+      - ./netboot_config:/config # optional
+      - ./netboot_assets:/assets # optional
+    ports:
+      - 1080:3000       # web admin port
+      - 69:69/udp
+      # - 1080:80       # optional nginx for asset serving
+    restart: unless-stopped
