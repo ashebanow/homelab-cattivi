@@ -3,23 +3,37 @@
 
 services:
   netboot:
-    image: ghcr.io/netbootxyz/netbootxyz
     container_name: netboot
+    image: ghcr.io/netbootxyz/netbootxyz
+    restart: unless-stopped
+
+    # commenting out so we use latest always
     # environment:
       # - MENU_VERSION=2.0.47 # optional
+
+    labels:
+      - "traefik.enable=false"
+      - "traefik.http.routers.netboot.rule=Host(`netboot.cattivi.com`)"
+      - "traefik.http.routers.netboot.entrypoints=websecure"
+      - "traefik.http.routers.netboot.service=web"
+      # - "traefik.http.routers.web.tls.certresolver=default"
+      - "traefik.http.services.netboot.loadbalancer.server.port=443"
+      - "net.unraid.docker.icon=https://raw.githubusercontent.com/KasteM34/unraid-templates/main/vault/vault.png"
+
     networks:
       proxy_network:
         ipv4_address: 10.60.0.11
-    volumes:
-      # - ./netboot_config:/config # optional
-      # - ./netboot_assets:/assets # optional
-      - /mnt/cache/appdata/netboot/netboot_config:/config # optional
-      - /mnt/cache/appdata/netboot/netboot_assets:/assets # optional
+
     ports:
       - 1080:3000       # web admin port
       - 69:69/udp
       # - 1080:80       # optional nginx for asset serving
-    restart: unless-stopped
+
+    volumes:
+      - /mnt/cache/appdata/netboot/netboot_config:/config # optional
+      - /mnt/cache/appdata/netboot/netboot_assets:/assets # optional
+      # - ./netboot_config:/config # optional
+      # - ./netboot_assets:/assets # optional
 
 networks:
  proxy_network:
