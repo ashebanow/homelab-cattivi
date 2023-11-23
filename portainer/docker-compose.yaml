@@ -18,7 +18,7 @@ services:
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.13
+        ipv4_address: 10.60.0.5
 
     ports:
       # - 8000:8000 # for ssh to edge agents, optional

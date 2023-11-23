@@ -45,8 +45,7 @@ services:
       - "traefik.http.services.homarr.loadbalancer.server.port=7575"
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.19
+      proxy_network
 
     ports:
       - '7575:7575'
@@ -91,8 +90,7 @@ services:
         max-size: "200k"
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.11
+      proxy_network
 
     ports:
       - 8765:80
@@ -133,7 +131,7 @@ services:
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.16
+        ipv4_address: 10.60.0.8
 
     ports:
       - 8443:8443
@@ -166,7 +164,7 @@ services:
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.17
+        ipv4_address: 10.60.0.9
 
     volumes:
       # for debug purposes:
@@ -189,8 +187,7 @@ services:
       - "traefik.http.services.uptime.loadbalancer.server.port=3001"
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.14
+      proxy_network
 
     ports:
       - 3001:3001

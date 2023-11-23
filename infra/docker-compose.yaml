@@ -11,6 +11,8 @@ networks:
       driver: default
       config:
         - subnet: 10.60.0.0/24
+          # 128 dhcp hosts allowed, 128 static addresses````````
+          ip_range: 10.60.0.128/25
           gateway: 10.60.0.1
           aux_addresses: [
             auth 10.60.0.3
@@ -19,7 +21,7 @@ networks:
             portainer-agent-virt1 10.60.0.6
             portainer-agent-virt2 10.60.0.7
             unifi 10.60.0.8
-            unifi-db 10.60.0.9
+            unifi-mongo 10.60.0.9
             rancher 10.60.0.10
             netboot 10.60.0.11
           ]
@@ -56,8 +58,7 @@ services:
       - traefik.http.middlewares.basic-auth-global.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASSWORD_HASH}
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.4
+      proxy_network
 
     ports:
       - 80:80 # HTTP
@@ -104,8 +105,7 @@ services:
       - "net.unraid.docker.webui='http://10.60.0.24::8200/ui"
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.24
+      proxy_network
 
     ports:
       - 8200:8200
@@ -129,8 +129,7 @@ services:
       # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.21
+      proxy_network
 
     volumes:
       # - ./mysql-data:/var/lib/mysql

@@ -21,8 +21,7 @@ services:
       - "traefik.http.services.ci.loadbalancer.server.port=4080"
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.10
+      proxy_network
 
     ports:
       - 4080:8080

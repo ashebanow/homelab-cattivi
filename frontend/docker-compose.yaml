@@ -24,8 +24,7 @@ services:
       - "traefik.http.services.web.loadbalancer.server.port=443"
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.5
+      proxy_network
 
     ports:
       # - "2019:2019" # admin port
