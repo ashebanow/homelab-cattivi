@@ -60,6 +60,12 @@
 				"uri": "https://storage.local:8443/",
 				"description": "Unifi Device Management",
 				"icon": "unifi-controller"
+			},
+			{
+				"name": "NetBoot.xyz",
+				"uri": "http://storage.local:1080/",
+				"description": "PXE Network Boot Server",
+				"icon": "netboot"
 			}
 		]
 	},
