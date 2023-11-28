@@ -41,7 +41,13 @@
 				"name": "Vault",
 				"uri": "https://storage.local:8200",
 				"description": "Hashicorp Vault - TOP SEKRET",
-				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/hashicorp-black.svg"
+				"icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
+			},
+			{
+				"name": "Terraform",
+				"uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
+				"description": "Terraform Cloud",
+				"icon": "terraform"
 			},
 			{
 				"name": "Harvester",
