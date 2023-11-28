@@ -32,33 +32,15 @@
 				"icon": "unraid"
 			},
 			{
-				"name": "Portainer",
-				"uri": "https://storage.local:9443",
-				"description": "Container Management",
-				"icon": "portainer"
-			},
-			{
-				"name": "Vault",
-				"uri": "https://storage.local:8200",
-				"description": "Hashicorp Vault - TOP SEKRET",
-				"icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
-			},
-			{
-				"name": "Terraform",
-				"uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
-				"description": "Terraform Cloud",
-				"icon": "terraform"
-			},
-			{
 				"name": "Harvester",
 				"uri": "https://10.50.0.237/",
-				"description": "VM Cluster Management",
+				"description": "HCI Kubernetes/VM Hypervisor",
 				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/harvester.svg"
 			},
 			{
 				"name": "Rancher",
 				"uri": "https://storage.local:4444/",
-				"description": "K8S Cluster Management",
+				"description": "K8S Cluster & VM Management",
 				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
 			},
 			{
@@ -78,6 +60,24 @@
 	{
 		"category": "Admin Tools",
 		"services": [
+			{
+				"name": "Terraform",
+				"uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
+				"description": "Terraform Cloud",
+				"icon": "terraform"
+			},
+			{
+				"name": "Portainer",
+				"uri": "https://storage.local:9443",
+				"description": "Container Management",
+				"icon": "portainer"
+			},
+			{
+				"name": "Vault",
+				"uri": "https://storage.local:8200",
+				"description": "Hashicorp Vault - TOP SEKRET",
+				"icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
+			},
 			{
 				"name": "Uptime Kuma",
 				"uri": "http://storage.local:3001",
