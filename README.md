@@ -1,4 +1,4 @@
-Docker compose files for my homelab config.
+My terraform-based homelab config.
 
 For each app:
   networks:
@@ -15,5 +15,4 @@ For each app:
           - subnet: 10.60.0.0/24
             gateway: 10.60.0.1
 
-
-Github home: https://github.com/ashebanow/docker-compose-templates.git
+Github home: https://github.com/ashebanow/homelab-cattivi.git

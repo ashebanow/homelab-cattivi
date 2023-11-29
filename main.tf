@@ -1,11 +1,12 @@
+# Root of the Fairview Homelab for cattivi.com and cattivi.local
+
 terraform {
-  # Assumes s3 bucket and dynamo DB table already set up
-  backend "s3" {
-    bucket         = "devops-directive-tf-state"
-    key            = "homelab-fairview/terraform.tfstate"
-    region         = "us-west-1"
-    dynamodb_table = "terraform-state-locking"
-    encrypt        = true
+  cloud {
+    organization = "Cattivi"
+
+    workspaces {
+      name = "networking-fairview"
+    }
   }
 
   required_providers {
