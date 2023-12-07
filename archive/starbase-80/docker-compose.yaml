@@ -18,8 +18,9 @@ services:
       - BGCOLORDARK=#ddd
       - NEWWINDOW=true
 
-    networks:
-      proxy_network
+    network:
+      proxy_network:
+        ipv4_address: 10.60.0.12
 
     volumes:
       - ./config.json:/app/src/config.json # required
