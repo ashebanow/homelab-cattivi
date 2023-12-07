@@ -68,7 +68,7 @@
 			},
 			{
 				"name": "Portainer",
-				"uri": "https://storage.local:9443",
+				"uri": "http://storage.local:9443/",
 				"description": "Container Management",
 				"icon": "portainer"
 			},
