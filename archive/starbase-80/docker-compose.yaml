@@ -15,7 +15,7 @@ services:
       - HEADERTOP=false
       - CATEGORIES=normal # or small
       - BGCOLOR=beige
-      - BGCOLORDARK=violet-950
+      - BGCOLORDARK=#1e1045
       - NEWWINDOW=true
 
     networks:
