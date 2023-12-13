@@ -90,7 +90,8 @@ services:
         max-size: "200k"
 
     networks:
-      proxy_network
+      proxy_network:
+        ipv4_address: 10.60.0.12
 
     ports:
       - 8765:80
