@@ -91,7 +91,7 @@ services:
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.12
+        ipv4_address: 10.60.0.13
 
     ports:
       - 8765:80
