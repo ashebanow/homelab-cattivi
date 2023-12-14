@@ -13,12 +13,6 @@
 	{
 		"category": "Infrastructure",
 		"services": [
-			// {
-			// 	"name": "Gateway",
-			// 	"uri": "https://10.40.0.1:4431",
-			// 	"description": "OpnSense Gateway & Firewall",
-			// 	"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/opnsense.svg"
-			// },
 			{
 				"name": "Traefik",
 				"uri": "http://storage.local:8080/dashboard/#/",
