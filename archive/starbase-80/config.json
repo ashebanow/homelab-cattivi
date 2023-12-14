@@ -13,12 +13,12 @@
 	{
 		"category": "Infrastructure",
 		"services": [
-			{
-				"name": "Gateway",
-				"uri": "https://10.40.0.1:4431",
-				"description": "OpnSense Gateway & Firewall",
-				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/opnsense.svg"
-			},
+			// {
+			// 	"name": "Gateway",
+			// 	"uri": "https://10.40.0.1:4431",
+			// 	"description": "OpnSense Gateway & Firewall",
+			// 	"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/opnsense.svg"
+			// },
 			{
 				"name": "Traefik",
 				"uri": "http://storage.local:8080/dashboard/#/",
@@ -61,12 +61,6 @@
 		"category": "Admin Tools",
 		"services": [
 			{
-				"name": "Terraform",
-				"uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
-				"description": "Terraform Cloud",
-				"icon": "terraform"
-			},
-			{
 				"name": "Portainer",
 				"uri": "http://storage.local:9443/",
 				"description": "Container Management",
@@ -107,6 +101,12 @@
 	{
 		"category": "Third Party Links",
 		"services": [
+			{
+				"name": "Terraform",
+				"uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
+				"description": "Terraform Cloud",
+				"icon": "terraform"
+			},
 			{
 				"name": "Cattivi DNS",
 				"uri": "https://dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/cattivi.com/dns/records",
