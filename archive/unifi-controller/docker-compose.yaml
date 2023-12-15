@@ -1,30 +1,32 @@
 
 services:
   unifi-controller:
-    image: lscr.io/linuxserver/unifi-network-application:latest
     container_name: unifi-controller
-    hostname: unifi-controller
-    restart: unless-stopped
-
     depends_on:
       - unifi-mongo
+    image: "jacobalberty/unifi:${TAG:-latest}"
+    init: true
+    restart: unless-stopped
+    user: unifi
+
+    volumes:
+      - unifi-dir:/unifi
+      - unifi-data:/unifi/data
+      - unifi-log:/unifi/log
+      - unifi-cert:/unifi/cert
+      - unifi-init:/unifi/init.d
+      - unifi-run:/var/run/unifi
+      # Mount local folder for backups and autobackups
+      # - ./backup:/unifi/data/backup
 
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Pacific/Los_Angeles
-      # FIXME: use secrets and real passwords!
-      - MONGO_USER=unifi
-      - MONGO_PASS=changeme
-      - MONGO_HOST=unifi-mongo
-      - MONGO_PORT=27017
-      - MONGO_DBNAME=unifi
-      # - MEM_LIMIT=1024 #optional
-      # - MEM_STARTUP=1024 #optional
+      DB_URI: mongodb://mongo/unifi
+      STATDB_URI: mongodb://mongo/unifi_stat
+      DB_NAME: unifi
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.unifi-controller.rule=Host(`unifi-controller.cattivi.com`)"
+      - "traefik.http.routers.unifi-controller.rule=Host(`unifi.cattivi.com`)"
       - "traefik.http.routers.unifi-controller.entrypoints=websecure"
       - "traefik.http.routers.unifi-controller.service=unifi-controller"
       # - "traefik.http.routers.unifi-controller.tls.certresolver=default"
@@ -32,46 +34,56 @@ services:
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.16
+        ipv4_address: 10.60.0.8
 
     ports:
-      - 8443:8443
-      - 3478:3478/udp
-      - 10001:10001/udp
-      - 8080:8080
-      - 1900:1900/udp #optional
-      - 8843:8843 #optional
-      - 8880:8880 #optional
-      - 6789:6789 #optional
-      - 5514:5514/udp #optional
+      - "3478:3478/udp" # STUN
+      - "6789:6789/tcp" # Speed test
+      - "8080:8080/tcp" # Device/ controller comm.
+      - "8443:8443/tcp" # Controller GUI/API as seen in a web browser
+      - "8880:8880/tcp" # HTTP portal redirection
+      - "8843:8843/tcp" # HTTPS portal redirection
+      - "10001:10001/udp" # AP discovery
 
-    volumes:
-      # for debug purposes:
-      # - ./data/config:/config
-      - /mnt/cache/appdata/unifi-controller/config:/config
+    sysctls:
+      net.ipv4.ip_unprivileged_port_start: 0
 
   unifi-mongo:
-    container_name: unifi-mongo
-    hostname: unifi-mongo
-    image: mongo
+    image: mongo:3.6
+    container_name: unifi_mongo
     restart: unless-stopped
 
-    environment:
-      # FIXME: use secrets and real passwords!
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=changeme
-      - MONGO_USER=unifi
-      - MONGO_PASS=changeme
+    volumes:
+      - unifi-db:/data/db
+      - unifi-dbcfg:/data/configdb
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.17
+        ipv4_address: 10.60.0.9
+
+  unifi-logs:
+    image: bash
+    container_name: unifi-logs
+    depends_on:
+      - unifi-controller
+    restart: on-failure
+
+    command: bash -c 'tail -F /unifi/log/*.log'
 
     volumes:
-      # for debug purposes:
-      # - ./data/db:/data/db
-      - /mnt/cache/appdata/unifi-controller/db:/data/db
+      - unifi-log:/unifi/log
+
 
 networks:
  proxy_network:
    external: true
+
+volumes:
+  unifi-db:
+  unifi-dbcfg:
+  unifi-data:
+  unifi-log:
+  unifi-cert:
+  unifi-init:
+  unifi-dir:
+  unifi-run:
