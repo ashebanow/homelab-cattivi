@@ -30,6 +30,7 @@
 # * Switches
 # * Servers running Harvester, Rancher, with a Vault instance installed.
 # * Terraform Cloud
+# * Vault Secrets (for bootstrapping harvester etc.)
 # * Cabling, PCs, and so forth
 
 
