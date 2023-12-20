@@ -1,7 +1,7 @@
 
 services:
-  unifi-controller:
-    container_name: unifi-controller
+  controller:
+    container_name: unifi
     depends_on:
       - unifi-mongo
     image: "jacobalberty/unifi:${TAG:-latest}"
@@ -23,14 +23,22 @@ services:
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
       DB_NAME: unifi
+      UNIFI_URL: unifi.cattivi.com
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.unifi-controller.rule=Host(`unifi.cattivi.com`)"
-      - "traefik.http.routers.unifi-controller.entrypoints=websecure"
-      - "traefik.http.routers.unifi-controller.service=unifi-controller"
-      # - "traefik.http.routers.unifi-controller.tls.certresolver=default"
-      - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
+      - "traefik.http.routers.unifi.entrypoints=http"
+      - "traefik.http.routers.unifi.rule=Host(`${UNIFI_URL}`)"
+      - "traefik.http.middlewares.unifi-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.unifi.middlewares=unifi-https-redirect"
+      - "traefik.http.routers.unifi-secure.entrypoints=https"
+      - "traefik.http.routers.unifi-secure.rule=Host(`${UNIFI_URL}`)"
+      - "traefik.http.routers.unifi-secure.tls=true"
+      # - "traefik.http.routers.unifi-secure.tls.certresolver=default"
+      - "traefik.docker.network=proxy_network"
+      - "traefik.http.routers.unifi-secure.service=unifi"
+      - "traefik.http.services.unifi.loadbalancer.server.port=8443"
+      - "traefik.http.services.unifi.loadbalancer.server.scheme=https"
 
     networks:
       proxy_network:
@@ -58,17 +66,19 @@ services:
       - unifi-dbcfg:/data/configdb
 
     networks:
-      proxy_network:
-        ipv4_address: 10.60.0.9
+      proxy_network
 
   unifi-logs:
     image: bash
     container_name: unifi-logs
     depends_on:
-      - unifi-controller
+      - controller
     restart: on-failure
 
     command: bash -c 'tail -F /unifi/log/*.log'
+
+    networks:
+      proxy_network
 
     volumes:
       - unifi-log:/unifi/log
