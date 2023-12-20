@@ -3,7 +3,7 @@ services:
     container_name: unifi
     depends_on:
       - unifi-mongo
-    image: "jacobalberty/unifi:${TAG:-latest}"
+    image: "jacobalberty/unifi:stable-6"
     init: true
     restart: unless-stopped
     user: unifi
@@ -73,6 +73,7 @@ services:
     depends_on:
       - controller
     restart: on-failure
+    tty: true
 
     command: bash -c 'tail -F /unifi/log/*.log'
 
