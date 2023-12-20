@@ -20,18 +20,6 @@
 				"icon": "unraid"
 			},
 			{
-				"name": "Portainer",
-				"uri": "http://storage.local:9443/",
-				"description": "Container Management",
-				"icon": "portainer"
-			},
-			{
-				"name": "Vault",
-				"uri": "https://storage.local:8200",
-				"description": "Hashicorp Vault - TOP SEKRET",
-				"icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
-			},
-			{
 				"name": "Traefik",
 				"uri": "http://storage.local:8080/dashboard/#/",
 				"description": "Traefik Reverse Proxy",
@@ -42,12 +30,6 @@
 				"uri": "https://10.50.0.237/",
 				"description": "HCI Kubernetes/VM Hypervisor",
 				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/harvester.svg"
-			},
-			{
-				"name": "Rancher",
-				"uri": "https://storage.local:4444/",
-				"description": "K8S Cluster & VM Management",
-				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
 			},
 			{
 				"name": "Unifi Controller",
@@ -66,6 +48,30 @@
 	{
 		"category": "Admin Tools",
 		"services": [
+			{
+				"name": "Rancher",
+				"uri": "https://storage.local:4444/",
+				"description": "K8S Cluster & VM Management",
+				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
+			},
+			{
+				"name": "Portainer",
+				"uri": "http://storage.local:9443/",
+				"description": "Container Management",
+				"icon": "portainer"
+			},
+			{
+				"name": "Dockge",
+				"uri": "http://storage.local:5001/",
+				"description": "Docker Stack Management",
+				"icon": "https://github.com/louislam/dockge/raw/master/frontend/public/icon.svg"
+			},
+			{
+				"name": "Vault",
+				"uri": "https://storage.local:8200",
+				"description": "Hashicorp Vault - TOP SEKRET",
+				"icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
+			},
 			{
 				"name": "Uptime Kuma",
 				"uri": "http://storage.local:3001",
