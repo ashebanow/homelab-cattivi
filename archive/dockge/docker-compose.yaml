@@ -8,7 +8,7 @@ services:
       - DOCKGE_STACKS_DIR=/opt/stacks
 
     networks:
-      proxy_network
+      - proxy_network
 
     ports:
       # Host Port : Container Port
