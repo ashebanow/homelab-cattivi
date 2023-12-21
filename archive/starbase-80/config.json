@@ -102,6 +102,12 @@
 		"category": "Third Party Links",
 		"services": [
 			{
+				"name": "Unifi Site Manager",
+				"uri": "https://unifi.ui.com/",
+				"description": "Admin site for switches, gateways, etc.",
+				"icon": "/icons/ubiquiti.svg"
+			},
+			{
 				"name": "Terraform",
 				"uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
 				"description": "Terraform Cloud",
