@@ -1,20 +1,46 @@
-version: '3'
+# From: https://github.com/chriscrowe/docker-pihole-unbound/tree/main/one-container
 
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: cbcrowe/pihole-unbound:latest
+    hostname: ${HOSTNAME}
+    domainname: ${DOMAIN_NAME}
+    restart: unless-stopped
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.14
+
     ports:
+      - ${PIHOLE_SECURE_WEBPORT:-443}:443/tcp
       - 53:53/tcp
       - 53:53/udp
-      - 67:67/udp
-      - 80:80/tcp
-      - 443:443/tcp
+      - ${PIHOLE_WEBPORT:-80}:80/tcp #Allows use of different port to access pihole web interface when other docker containers use port 80
+      - 5335:5335/tcp # Uncomment to enable unbound access on local server
+      - 22/tcp # Uncomment to enable SSH
+
     environment:
-      - TZ=Europe/Berlin
-      - WEBPASSWORD=your-secret-password
+      - FTLCONF_LOCAL_IPV4=${PIHOLE_FTLCONF_LOCAL_IPV4}
+      - TZ=${PIHOLE_TZ:-UTC}
+      - WEBPASSWORD=${PIHOLE_WEBPASSWORD}
+      - WEBTHEME=${PIHOLE_WEBTHEME:-default-dark}
+      - REV_SERVER=${PIHOLE_REV_SERVER:-false}
+      - REV_SERVER_TARGET=${PIHOLE_REV_SERVER_TARGET}
+      - REV_SERVER_DOMAIN=${PIHOLE_REV_SERVER_DOMAIN}
+      - REV_SERVER_CIDR=${PIHOLE_REV_SERVER_CIDR}
+      - PIHOLE_DNS_=127.0.0.1#5335
+      - DNSSEC="true"
+      - DNSMASQ_LISTENING=single
+
     volumes:
-      - etcd:/etc/pihole
-      - dnsmasq:/etc/dnsmasq.d
-      - /mnt/cache/appdata/pihole:/data
-    restart: unless-stopped
+      - etc_pihole-unbound:/etc/pihole:rw
+      - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
+
+networks:
+ proxy_network:
+   external: true
+
+volumes:
+  etc_pihole-unbound:
+  etc_pihole_dnsmasq-unbound:
