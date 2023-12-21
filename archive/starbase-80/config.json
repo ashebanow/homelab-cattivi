@@ -1,18 +1,13 @@
 [
-    {
-    "category": "Frontends",
+  {
+    "category": "Services",
     "services": [
       {
         "name": "Caddy",
         "uri": "https://storage.local:4431/",
         "description": "Web Server",
         "icon": "caddy"
-      }
-    ]
-  },
-  {
-    "category": "Infrastructure",
-    "services": [
+      },
       {
         "name": "Storage",
         "uri": "https://storage.local:4432",
@@ -36,12 +31,7 @@
         "uri": "http://storage.local:1080/",
         "description": "PXE Network Boot Server",
         "icon": "netboot"
-      }
-    ]
-  },
-  {
-    "category": "Admin Tools",
-    "services": [
+      },
       {
         "name": "Rancher",
         "uri": "https://storage.local:4444/",
