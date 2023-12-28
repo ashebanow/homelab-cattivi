@@ -45,6 +45,12 @@
         "icon": "portainer"
       },
       {
+        "name": "Cockpit",
+        "uri": "http://loquat:9090/",
+        "description": "Container Management",
+        "icon": "portainer"
+      },
+      {
         "name": "Dockge",
         "uri": "http://storage.lan:5001/",
         "description": "Docker Stack Management",
