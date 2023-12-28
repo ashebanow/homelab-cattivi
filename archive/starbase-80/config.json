@@ -4,19 +4,19 @@
     "services": [
       {
         "name": "Caddy",
-        "uri": "https://storage.local:4431/",
+        "uri": "https://storage.lan:4431/",
         "description": "Web Server",
         "icon": "caddy"
       },
       {
         "name": "Storage",
-        "uri": "https://storage.local:4432",
+        "uri": "https://storage.lan:4432",
         "description": "Unraid Storage",
         "icon": "unraid"
       },
       {
         "name": "Traefik",
-        "uri": "http://storage.local:8080/dashboard/#/",
+        "uri": "http://storage.lan:8080/dashboard/#/",
         "description": "Traefik Reverse Proxy",
         "icon": "traefik"
       },
@@ -28,49 +28,49 @@
       },
       {
         "name": "NetBoot.xyz",
-        "uri": "http://storage.local:1080/",
+        "uri": "http://storage.lan:1080/",
         "description": "PXE Network Boot Server",
         "icon": "netboot"
       },
       {
         "name": "Rancher",
-        "uri": "https://storage.local:4444/",
+        "uri": "https://storage.lan:4444/",
         "description": "K8S Cluster & VM Management",
         "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
       },
       {
         "name": "Portainer",
-        "uri": "http://storage.local:9443/",
+        "uri": "http://storage.lan:9443/",
         "description": "Container Management",
         "icon": "portainer"
       },
       {
         "name": "Dockge",
-        "uri": "http://storage.local:5001/",
+        "uri": "http://storage.lan:5001/",
         "description": "Docker Stack Management",
         "icon": "https://github.com/louislam/dockge/raw/master/frontend/public/icon.svg"
       },
       {
         "name": "Vault",
-        "uri": "https://storage.local:8200",
+        "uri": "https://storage.lan:8200",
         "description": "Hashicorp Vault - TOP SEKRET",
         "icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
       },
       {
         "name": "Uptime Kuma",
-        "uri": "http://storage.local:3001",
+        "uri": "http://storage.lan:3001",
         "description": "Uptime Metrics",
         "icon": "uptime-kuma"
       },
       {
         "name": "Glances",
-        "uri": "http://storage.local:61208/",
+        "uri": "http://storage.lan:61208/",
         "description": "Comprehensive Perf Dashboard",
         "icon": "glances"
       },
       {
         "name": "Speedtest",
-        "uri": "http://storage.local:8765",
+        "uri": "http://storage.lan:8765",
         "description": "Internet Speed Test",
         "icon": "openspeedtest"
       },
