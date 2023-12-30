@@ -1,13 +1,24 @@
 [
   {
-    "category": "Services",
+    "category": "Apps",
     "services": [
       {
-        "name": "Caddy",
+        "name": "Cattivi Homelab Website",
         "uri": "https://storage.lan:4431/",
         "description": "Web Server",
         "icon": "caddy"
       },
+      {
+        "name": "Tandoor",
+        "uri": "http://storage.lan:7080/",
+        "description": "Tandoor Recipes",
+        "icon": "tandoorrecipes"
+      }
+    ]
+  },
+  {
+    "category": "Services",
+    "services": [
       {
         "name": "Storage",
         "uri": "https://storage.lan:4432",

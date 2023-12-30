@@ -1,0 +1,73 @@
+services:
+  db_recipes:
+    container_name: netboot
+    image: postgres:15-alpine
+    restart: unless-stopped
+
+    env_file:
+      - ./.env
+
+    networks:
+      - proxy_network
+
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+
+  web_recipes:
+    image: vabene1111/recipes
+    restart: unless-stopped
+
+    depends_on:
+      - db_recipes
+    env_file:
+      - ./.env
+
+    networks:
+      - proxy_network
+
+    volumes:
+      - staticfiles:/opt/recipes/staticfiles
+      # Do not make this a bind mount, see https://docs.tandoor.dev/install/docker/#volumes-vs-bind-mounts
+      - nginx_config:/opt/recipes/nginx/conf.d
+      - mediafiles:/opt/recipes/mediafiles
+
+  nginx_recipes:
+    image: nginx:mainline-alpine
+    restart: unless-stopped
+
+    depends_on:
+      - web_recipes
+
+    env_file:
+      - ./.env
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.recipes.rule=Host(`recipes.cattivi.com`)"
+      - "traefik.http.routers.recipes.entrypoints=websecure"
+      - "traefik.http.routers.recipes.service=web"
+      # - "traefik.http.routers.web.tls.certresolver=default"
+      - "traefik.http.services.recipes.loadbalancer.server.port=443"
+      - "net.unraid.docker.icon=https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/tandoorrecipes.png"
+
+    networks:
+      - proxy_network
+
+    # comment this out once we are fully on traefik.
+    ports:
+      - 7080:80       # web admin port
+
+    volumes:
+      # Do not make this a bind mount, see https://docs.tandoor.dev/install/docker/#volumes-vs-bind-mounts
+      - nginx_config:/etc/nginx/conf.d:ro
+      - staticfiles:/static:ro
+      - mediafiles:/media:ro
+
+networks:
+  proxy_network:
+    external: true
+
+volumes:
+  nginx_config:
+  staticfiles:
+  mediafiles:
