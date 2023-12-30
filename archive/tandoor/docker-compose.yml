@@ -1,6 +1,6 @@
 services:
-  db_recipes:
-    container_name: netboot
+  recipes_db:
+    container_name: tandoor_recipes_db
     image: postgres:15-alpine
     restart: unless-stopped
 
@@ -13,12 +13,14 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql/data
 
-  web_recipes:
+  recipes_web:
+    container_name: tandoor_recipes_web
     image: vabene1111/recipes
     restart: unless-stopped
 
     depends_on:
-      - db_recipes
+      - recipes_db
+
     env_file:
       - ./.env
 
@@ -31,12 +33,13 @@ services:
       - nginx_config:/opt/recipes/nginx/conf.d
       - mediafiles:/opt/recipes/mediafiles
 
-  nginx_recipes:
+  recipes_nginx:
+    container_name: tandoor_recipes_nginx
     image: nginx:mainline-alpine
     restart: unless-stopped
 
     depends_on:
-      - web_recipes
+      - recipes_web
 
     env_file:
       - ./.env
@@ -53,7 +56,7 @@ services:
     networks:
       - proxy_network
 
-    # comment this out once we are fully on traefik.
+    # comment this out once we are fully on traefik
     ports:
       - 7080:80       # web admin port
 
