@@ -3,6 +3,7 @@ services:
     container_name: tandoor_db_recipes
     image: postgres:15-alpine
     restart: unless-stopped
+    stop_grace_period: 5m
 
     env_file:
       - ./.env
@@ -11,7 +12,7 @@ services:
       - proxy_network
 
     volumes:
-      - ./postgresql:/var/lib/postgresql/data
+      - postgresfiles:/var/lib/postgresql/data
 
   web_recipes:
     container_name: tandoor_web_recipes
@@ -58,7 +59,7 @@ services:
 
     # comment this out once we are fully on traefik
     ports:
-      - 7080:8080
+      - 7080:80
 
     volumes:
       # Do not make this a bind mount, see https://docs.tandoor.dev/install/docker/#volumes-vs-bind-mounts
@@ -72,5 +73,6 @@ networks:
 
 volumes:
   nginx_config:
-  staticfiles:
   mediafiles:
+  postgresfiles:
+  staticfiles:
