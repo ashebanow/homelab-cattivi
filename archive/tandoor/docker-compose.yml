@@ -1,6 +1,6 @@
 services:
-  recipes_db:
-    container_name: tandoor_recipes_db
+  db_recipes:
+    container_name: tandoor_db_recipes
     image: postgres:15-alpine
     restart: unless-stopped
 
@@ -13,13 +13,13 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql/data
 
-  recipes_web:
-    container_name: tandoor_recipes_web
+  web_recipes:
+    container_name: tandoor_web_recipes
     image: vabene1111/recipes
     restart: unless-stopped
 
     depends_on:
-      - recipes_db
+      - db_recipes
 
     env_file:
       - ./.env
@@ -33,13 +33,13 @@ services:
       - nginx_config:/opt/recipes/nginx/conf.d
       - mediafiles:/opt/recipes/mediafiles
 
-  recipes_nginx:
-    container_name: tandoor_recipes_nginx
+  nginx_recipes:
+    container_name: tandoor_nginx_recipes
     image: nginx:mainline-alpine
     restart: unless-stopped
 
     depends_on:
-      - recipes_web
+      - web_recipes
 
     env_file:
       - ./.env
