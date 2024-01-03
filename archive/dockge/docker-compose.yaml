@@ -1,0 +1,39 @@
+services:
+  dockge:
+    image: louislam/dockge:1
+    restart: unless-stopped
+
+    environment:
+      # Tell Dockge where is your stacks directory
+      - DOCKGE_STACKS_DIR=/opt/stacks
+
+    networks:
+      - proxy_network
+
+    ports:
+      # Host Port : Container Port
+      - 5001:5001
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      - /mnt/cache/appdata/dockge/data:/app/data
+      # - ./data:/app/data          # for local debugging
+        
+      # If you want to use private registries, you need to share the auth file with Dockge:
+      # - /root/.docker/:/root/.docker
+
+      # Stacks Directory
+      # ⚠️ READ IT CAREFULLY. If you did it wrong, your data could end up writing into a WRONG PATH.
+      # ⚠️ 1. FULL path only. No relative path (MUST)
+      # ⚠️ 2. Left Stacks Path === Right Stacks Path (MUST)
+      #
+      # NOTE:
+      # Unfortunately unraid won't allow left and right side paths to be the same,
+      # so we have to use a different path on the left side. Hopefully it all works!
+      - /mnt/cache/appdata/dockge/stacks:/opt/stacks
+      # - ./stacks:/opt/stacks      # for local debugging
+
+networks:
+ proxy_network:
+   external: true

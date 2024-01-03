@@ -10,7 +10,7 @@ services:
 
     environment:
       - GLANCES_OPT=-w -C /etc/glances/glances.conf
-      - TZ=Pacific/Los_Angeles
+      - TZ=America/Los_Angeles
 
     # ports:
       # - 61208:61208

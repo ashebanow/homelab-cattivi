@@ -17,7 +17,7 @@ services:
 
     environment:
       - GLANCES_OPT=-w -C /etc/glances/glances.conf
-      - TZ=Pacific/Los_Angeles
+      - TZ=America/Los_Angeles
 
     # ports:
       # - 61208:61208
@@ -90,7 +90,8 @@ services:
         max-size: "200k"
 
     networks:
-      proxy_network
+      proxy_network:
+        ipv4_address: 10.60.0.13
 
     ports:
       - 8765:80
@@ -111,7 +112,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Pacific/Los_Angeles
+      - TZ=America/Los_Angeles
       # FIXME: use secrets and real passwords!
       - MONGO_USER=unifi
       - MONGO_PASS=changeme

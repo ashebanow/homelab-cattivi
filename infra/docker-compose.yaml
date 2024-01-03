@@ -24,6 +24,7 @@ networks:
             unifi-mongo: 10.60.0.9
             rancher: 10.60.0.10
             netboot: 10.60.0.11
+            starbase80: 10.60.0.12
 
 #####################################################################
 services:
@@ -57,7 +58,8 @@ services:
       - traefik.http.middlewares.basic-auth-global.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASSWORD_HASH}
 
     networks:
-      proxy_network
+      proxy_network:
+        ipv4_address: 10.60.0.4
 
     ports:
       - 80:80 # HTTP

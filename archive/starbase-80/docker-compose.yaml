@@ -15,11 +15,19 @@ services:
       - HEADERTOP=false
       - CATEGORIES=normal # or small
       - BGCOLOR=beige
-      - BGCOLORDARK=#ddd
+      - BGCOLORDARK=#1e1045
       - NEWWINDOW=true
+
+    networks:
+      proxy_network:
+        ipv4_address: 10.60.0.12
 
     volumes:
       - ./config.json:/app/src/config.json # required
-      # - ./public/favicon.ico:/app/public/favicon.ico # optional
+      - ./public/favicon.ico:/app/public/favicon.ico # optional
       - ./public/logo.png:/app/public/logo.png # Joker icons created by riajulislam - Flaticon
       - ./public/icons:/app/public/icons # or wherever, JSON icon paths are relative to /app/public
+
+networks:
+ proxy_network:
+   external: true

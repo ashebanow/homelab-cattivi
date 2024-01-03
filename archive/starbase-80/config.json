@@ -1,130 +1,137 @@
 [
-		{
-		"category": "Frontends",
-		"services": [
-			{
-				"name": "Caddy",
-				"uri": "https://storage.local:4431/",
-				"description": "Web Server",
-				"icon": "caddy"
-			}
-		]
-	},
-	{
-		"category": "Infrastructure",
-		"services": [
-			{
-				"name": "Gateway",
-				"uri": "https://10.40.0.1:4431",
-				"description": "OpnSense Gateway & Firewall",
-				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/opnsense.svg"
-			},
-			{
-				"name": "Traefik",
-				"uri": "http://storage.local:8080/dashboard/#/",
-				"description": "Traefik Reverse Proxy",
-				"icon": "traefik"
-			},
-			{
-				"name": "Storage",
-				"uri": "https://storage.local:4432",
-				"description": "Unraid Storage",
-				"icon": "unraid"
-			},
-			{
-				"name": "Harvester",
-				"uri": "https://10.50.0.237/",
-				"description": "HCI Kubernetes/VM Hypervisor",
-				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/harvester.svg"
-			},
-			{
-				"name": "Rancher",
-				"uri": "https://storage.local:4444/",
-				"description": "K8S Cluster & VM Management",
-				"icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
-			},
-			{
-				"name": "Unifi Controller",
-				"uri": "https://storage.local:8443/",
-				"description": "Unifi Device Management",
-				"icon": "unifi-controller"
-			},
-			{
-				"name": "NetBoot.xyz",
-				"uri": "http://storage.local:1080/",
-				"description": "PXE Network Boot Server",
-				"icon": "netboot"
-			}
-		]
-	},
-	{
-		"category": "Admin Tools",
-		"services": [
-			{
-				"name": "Terraform",
-				"uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
-				"description": "Terraform Cloud",
-				"icon": "terraform"
-			},
-			{
-				"name": "Portainer",
-				"uri": "https://storage.local:9443",
-				"description": "Container Management",
-				"icon": "portainer"
-			},
-			{
-				"name": "Vault",
-				"uri": "https://storage.local:8200",
-				"description": "Hashicorp Vault - TOP SEKRET",
-				"icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
-			},
-			{
-				"name": "Uptime Kuma",
-				"uri": "http://storage.local:3001",
-				"description": "Uptime Metrics",
-				"icon": "uptime-kuma"
-			},
-			{
-				"name": "Glances",
-				"uri": "http://storage.local:61208/",
-				"description": "Comprehensive Perf Dashboard",
-				"icon": "glances"
-			},
-			{
-				"name": "Speedtest",
-				"uri": "http://storage.local:8765",
-				"description": "Internet Speed Test",
-				"icon": "openspeedtest"
-			},
-			{
-				"name": "Crashplan Pro",
-				"uri": "http://10.50.0.123:7810/",
-				"description": "Cloud Backups",
-				"icon": "https://access.tufts.edu/sites/default/files/styles/app_store_product_image/public/2021-09/crashplan_icon_146200.png?itok=ZjpJwzLx"
-			}
-		]
-	},
-	{
-		"category": "Third Party Links",
-		"services": [
-			{
-				"name": "Cattivi DNS",
-				"uri": "https://dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/cattivi.com/dns/records",
-				"description": "Manage DNS on CloudFlare",
-				"icon": "cloudflare"
-			},
-			{
-				"name": "Cloudflare Domain Management",
-				"uri": "https://dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/domains",
-				"description": "Manage domains on CloudFlare",
-				"icon": "cloudflare"
-			},
-			{
-				"name": "Cloudflare Zero Trust",
-				"uri": "https://one.dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/home",
-				"description": "Manage Zero Trust settings on CloudFlare",
-				"icon": "cloudflare-zero-trust"
-			}
-		]
-	}
+  {
+    "category": "Apps",
+    "services": [
+      {
+        "name": "Cattivi Homelab Website",
+        "uri": "https://storage.lan:4431/",
+        "description": "Web Server",
+        "icon": "caddy"
+      },
+      {
+        "name": "Tandoor",
+        "uri": "http://storage.lan:7080/",
+        "description": "Tandoor Recipes",
+        "icon": "tandoorrecipes"
+      }
+    ]
+  },
+  {
+    "category": "Services",
+    "services": [
+      {
+        "name": "Storage",
+        "uri": "https://storage.lan:4432",
+        "description": "Unraid Storage",
+        "icon": "unraid"
+      },
+      {
+        "name": "Traefik",
+        "uri": "http://storage.lan:8080/dashboard/#/",
+        "description": "Traefik Reverse Proxy",
+        "icon": "traefik"
+      },
+      {
+        "name": "Harvester",
+        "uri": "https://10.50.0.237/",
+        "description": "HCI Kubernetes/VM Hypervisor",
+        "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/harvester.svg"
+      },
+      {
+        "name": "NetBoot.xyz",
+        "uri": "http://storage.lan:1080/",
+        "description": "PXE Network Boot Server",
+        "icon": "netboot"
+      },
+      {
+        "name": "Rancher",
+        "uri": "https://storage.lan:4444/",
+        "description": "K8S Cluster & VM Management",
+        "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
+      },
+      {
+        "name": "Portainer",
+        "uri": "http://storage.lan:9443/",
+        "description": "Container Management",
+        "icon": "portainer"
+      },
+      {
+        "name": "Cockpit",
+        "uri": "http://loquat:9090/",
+        "description": "Container Management",
+        "icon": "portainer"
+      },
+      {
+        "name": "Dockge",
+        "uri": "http://storage.lan:5001/",
+        "description": "Docker Stack Management",
+        "icon": "https://github.com/louislam/dockge/raw/master/frontend/public/icon.svg"
+      },
+      {
+        "name": "Vault",
+        "uri": "https://storage.lan:8200",
+        "description": "Hashicorp Vault - TOP SEKRET",
+        "icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
+      },
+      {
+        "name": "Uptime Kuma",
+        "uri": "http://storage.lan:3001",
+        "description": "Uptime Metrics",
+        "icon": "uptime-kuma"
+      },
+      {
+        "name": "Glances",
+        "uri": "http://storage.lan:61208/",
+        "description": "Comprehensive Perf Dashboard",
+        "icon": "glances"
+      },
+      {
+        "name": "Speedtest",
+        "uri": "http://storage.lan:8765",
+        "description": "Internet Speed Test",
+        "icon": "openspeedtest"
+      },
+      {
+        "name": "Crashplan Pro",
+        "uri": "http://10.50.0.123:7810/",
+        "description": "Cloud Backups",
+        "icon": "https://access.tufts.edu/sites/default/files/styles/app_store_product_image/public/2021-09/crashplan_icon_146200.png?itok=ZjpJwzLx"
+      }
+    ]
+  },
+  {
+    "category": "Third Party Links",
+    "services": [
+      {
+        "name": "Unifi Site Manager",
+        "uri": "https://unifi.ui.com/",
+        "description": "Admin site for switches, gateways, etc.",
+        "icon": "/icons/ubiquiti.svg"
+      },
+      {
+        "name": "Terraform",
+        "uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
+        "description": "Terraform Cloud",
+        "icon": "terraform"
+      },
+      {
+        "name": "Cattivi DNS",
+        "uri": "https://dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/cattivi.com/dns/records",
+        "description": "Manage DNS on CloudFlare",
+        "icon": "cloudflare"
+      },
+      {
+        "name": "Cloudflare Domain Management",
+        "uri": "https://dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/domains",
+        "description": "Manage domains on CloudFlare",
+        "icon": "cloudflare"
+      },
+      {
+        "name": "Cloudflare Zero Trust",
+        "uri": "https://one.dash.cloudflare.com/3d6d5d1ef3bf81151588b4fe64a169d3/home",
+        "description": "Manage Zero Trust settings on CloudFlare",
+        "icon": "cloudflare-zero-trust"
+      }
+    ]
+  }
 ]
