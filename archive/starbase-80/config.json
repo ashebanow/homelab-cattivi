@@ -45,7 +45,7 @@
       },
       {
         "name": "Rancher",
-        "uri": "https://10.40.0.227:4444/",
+        "uri": "https://yuzu/",
         "description": "K8S Cluster & VM Management",
         "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
       },
