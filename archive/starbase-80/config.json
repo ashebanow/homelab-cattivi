@@ -13,6 +13,12 @@
         "uri": "http://10.40.0.227:7080/",
         "description": "Tandoor Recipes",
         "icon": "tandoorrecipes"
+      },
+      {
+        "name": "Crashplan Pro",
+        "uri": "http://10.50.0.123:7810/",
+        "description": "Cloud Backups",
+        "icon": "https://access.tufts.edu/sites/default/files/styles/app_store_product_image/public/2021-09/crashplan_icon_146200.png?itok=ZjpJwzLx"
       }
     ]
   },
@@ -66,12 +72,6 @@
         "uri": "http://10.40.0.227:8765",
         "description": "Internet Speed Test",
         "icon": "openspeedtest"
-      },
-      {
-        "name": "Crashplan Pro",
-        "uri": "http://10.50.0.123:7810/",
-        "description": "Cloud Backups",
-        "icon": "https://access.tufts.edu/sites/default/files/styles/app_store_product_image/public/2021-09/crashplan_icon_146200.png?itok=ZjpJwzLx"
       }
     ]
   },
