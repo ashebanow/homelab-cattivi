@@ -1,0 +1,33 @@
+{
+    "name": "Harvester",
+    "uri": "https://10.50.0.237/",
+    "description": "HCI Kubernetes/VM Hypervisor",
+    "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/harvester.svg"
+  },
+  {
+    "name": "Rancher",
+    "uri": "https://10.40.0.227:4444/",
+    "description": "K8S Cluster & VM Management",
+    "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
+  },
+  {
+    "name": "Cockpit",
+    "uri": "http://loquat:9090/",
+    "description": "Container Management",
+    "icon": "portainer"
+  },
+  {
+    "name": "Dockge",
+    "uri": "http://10.40.0.227:5001/",
+    "description": "Docker Stack Management",
+    "icon": "https://github.com/louislam/dockge/raw/master/frontend/public/icon.svg"
+  },
+
+
+
+  {
+    "name": "Terraform",
+    "uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
+    "description": "Terraform Cloud",
+    "icon": "terraform"
+  },

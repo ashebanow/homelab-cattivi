@@ -32,40 +32,16 @@
         "icon": "traefik"
       },
       {
-        "name": "Harvester",
-        "uri": "https://10.50.0.237/",
-        "description": "HCI Kubernetes/VM Hypervisor",
-        "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/harvester.svg"
-      },
-      {
         "name": "NetBoot.xyz",
         "uri": "http://10.40.0.227:1080/",
         "description": "PXE Network Boot Server",
         "icon": "netboot"
       },
       {
-        "name": "Rancher",
-        "uri": "https://yuzu/",
-        "description": "K8S Cluster & VM Management",
-        "icon": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/rancher.svg"
-      },
-      {
         "name": "Portainer",
         "uri": "http://10.40.0.227:9443/",
         "description": "Container Management",
         "icon": "portainer"
-      },
-      {
-        "name": "Cockpit",
-        "uri": "http://loquat:9090/",
-        "description": "Container Management",
-        "icon": "portainer"
-      },
-      {
-        "name": "Dockge",
-        "uri": "http://10.40.0.227:5001/",
-        "description": "Docker Stack Management",
-        "icon": "https://github.com/louislam/dockge/raw/master/frontend/public/icon.svg"
       },
       {
         "name": "Vault",
@@ -107,12 +83,6 @@
         "uri": "https://unifi.ui.com/",
         "description": "Admin site for switches, gateways, etc.",
         "icon": "/icons/ubiquiti.svg"
-      },
-      {
-        "name": "Terraform",
-        "uri": "https://app.terraform.io/app/Cattivi/workspaces?project=prj-gZu6JesAKJxSqKk8",
-        "description": "Terraform Cloud",
-        "icon": "terraform"
       },
       {
         "name": "Cattivi DNS",
