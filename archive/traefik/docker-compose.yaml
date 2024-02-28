@@ -14,21 +14,23 @@ networks:
           ip_range: 10.60.0.128/25
           gateway: 10.60.0.1
           aux_addresses:
-            auth: 10.60.0.3
-            reverse-proxy: 10.60.0.4
+            web: 10.60.0.4
+            traefik: 10.60.0.5
             portainer: 10.60.0.5
             portainer-agent-virt1: 10.60.0.6
             portainer-agent-virt2: 10.60.0.7
-            unifi: 10.60.0.8
-            unifi-mongo: 10.60.0.9
-            rancher: 10.60.0.10
+            jenkins: 10.60.0.10
             netboot: 10.60.0.11
-            starbase80: 10.60.0.12
+            pihole: 10.60.0.14
+            speedtest: 10.60.0.13
+            starbase-80: 10.60.0.12
+            uptime-kuma: 10.60.0.14
+            vault/docker: 10.60.0.24
 
 services:
-  reverse-proxy:
-    container_name: reverse-proxy
-    hostname: reverse-proxy
+  traefik:
+    container_name: traefik
+    hostname: traefik
     image: traefik:v2.10.4
     restart: unless-stopped
 
@@ -49,7 +51,7 @@ services:
 
     labels:
       - traefik.enable=true
-      - traefik.http.routers.api.rule=Host(`reverse-proxy.cattivi.com`) # Define the subdomain for the traefik dashboard.
+      - traefik.http.routers.api.rule=Host(`traefik.cattivi.com`) # Define the subdomain for the traefik dashboard.
       - traefik.http.routers.api.service=api@internal # Enable Traefik API.
       # protect dashboard with basic auth and restrict access to private class subnets only:
       - traefik.http.routers.api.middlewares=local-ipwhitelist@file,basic-auth@file
@@ -57,7 +59,7 @@ services:
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.4
+        ipv4_address: 10.60.0.5
 
     ports:
       - 80:80 # HTTP

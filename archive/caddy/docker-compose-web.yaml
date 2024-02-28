@@ -20,7 +20,7 @@ services:
 
     networks:
       proxy_network:
-        ipv4_address: 10.60.0.5
+        ipv4_address: 10.60.0.4
 
     ports:
       # - "2019:2019" # admin port

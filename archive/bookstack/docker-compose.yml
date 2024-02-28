@@ -4,10 +4,10 @@ services:
     image: mysql:8.2
 
     environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE=$MYSQL_DATABASE
-      - MYSQL_USER=$MYSQL_USER
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD=${BOOKSTACK_MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${BOOKSTACK_MYSQL_DATABASE}
+      - MYSQL_USER=${BOOKSTACK_MYSQL_USER}
+      - MYSQL_PASSWORD=${BOOKSTACK_MYSQL_PASSWORD}
 
     networks:
       - proxy_network
@@ -23,16 +23,16 @@ services:
       - mysql
 
     environment:
-      - DB_HOST=mysql:3306
-      - DB_DATABASE=$MYSQL_DATABASE
-      - DB_USERNAME=$MYSQL_USER
-      - DB_PASSWORD=$MYSQL_PASSWORD
+      - DB_HOST=${BOOKSTACK_DB_HOST}
+      - DB_DATABASE=${BOOKSTACK_MYSQL_DATABASE}
+      - DB_USERNAME=${BOOKSTACK_MYSQL_USER}
+      - DB_PASSWORD=${BOOKSTACK_MYSQL_PASSWORD}
       #set the APP_ to the URL of bookstack without without a trailing slash APP_URL=https://example.com
-      - APP_URL=$APP_URL
+      - APP_URL=${BOOKSTACK_APP_URL}
       # APP_KEY is used for encryption where needed, so needs to be persisted to
       # preserve decryption abilities.
       # Can run `php artisan key:generate` to generate a key
-      - APP_KEY=$APP_KEY
+      - APP_KEY=${BOOKSTACK_APP_KEY}
 
     labels:
       - "traefik.enable=true"
@@ -43,14 +43,15 @@ services:
       - "traefik.http.services.bookstack.loadbalancer.server.port=8765"
 
     networks:
-      - proxy_network
+      proxy_network:
+        ipv4_address: 10.60.0.7
 
     volumes:
       - uploads:/var/www/bookstack/public/uploads
       - storage-uploads:/var/www/bookstack/storage/uploads
 
     ports:
-      - "8080:8080"
+      - "6080:8080"
 
 #####################################################################
 networks:
