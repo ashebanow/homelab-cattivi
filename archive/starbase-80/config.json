@@ -10,7 +10,7 @@
       },
       {
         "name": "Documentation",
-        "uri": "http://storage.lan:7080/",
+        "uri": "http://storage.lan:6080/",
         "description": "Bookstack Documentation Portal",
         "icon": "bookstack"
       },
