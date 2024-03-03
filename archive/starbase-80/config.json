@@ -10,7 +10,7 @@
       },
       {
         "name": "Documentation",
-        "uri": "http://storage.lan:6080/",
+        "uri": "http://storage.lan:6080/shelves/homelab-documentation",
         "description": "Bookstack Documentation Portal",
         "icon": "bookstack"
       },
