@@ -14,9 +14,6 @@ services:
       - redis
       - database
 
-    env_file:
-      - .env
-
     networks:
       - proxy_network
 
@@ -40,9 +37,6 @@ services:
       - redis
       - database
  
-    env_file:
-      - .env
- 
     networks:
       - proxy_network
  
@@ -59,9 +53,6 @@ services:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     restart: unless_stopped
-
-    env_file:
-      - .env
 
     networks:
       - proxy_network
