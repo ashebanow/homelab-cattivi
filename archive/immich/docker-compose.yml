@@ -14,6 +14,15 @@ services:
       - redis
       - database
 
+    environment:
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      IMMICH_VERSION: ${IMMICH_VERSION}
+      REDIS_HOSTNAME: ${REDIS_HOSTNAME}
+      UPLOAD_LOCATION: ${UPLOAD_LOCATION}
+
     networks:
       - proxy_network
 
@@ -37,6 +46,15 @@ services:
       - redis
       - database
  
+    environment:
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      IMMICH_VERSION: ${IMMICH_VERSION}
+      REDIS_HOSTNAME: ${REDIS_HOSTNAME}
+      UPLOAD_LOCATION: ${UPLOAD_LOCATION}
+
     networks:
       - proxy_network
  
@@ -54,6 +72,15 @@ services:
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     restart: unless-stopped
 
+    environment:
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      IMMICH_VERSION: ${IMMICH_VERSION}
+      REDIS_HOSTNAME: ${REDIS_HOSTNAME}
+      UPLOAD_LOCATION: ${UPLOAD_LOCATION}
+
     networks:
       - proxy_network
 
@@ -64,6 +91,15 @@ services:
     container_name: immich_redis
     image: registry.hub.docker.com/library/redis:6.2-alpine@sha256:51d6c56749a4243096327e3fb964a48ed92254357108449cb6e23999c37773c5
     restart: unless-stopped
+
+    environment:
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      IMMICH_VERSION: ${IMMICH_VERSION}
+      REDIS_HOSTNAME: ${REDIS_HOSTNAME}
+      UPLOAD_LOCATION: ${UPLOAD_LOCATION}
 
     networks:
       - proxy_network
