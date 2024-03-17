@@ -4,19 +4,19 @@
     "services": [
       {
         "name": "Cattivi Homelab Website",
-        "uri": "https://storage.lan:4431/",
+        "uri": "https://storage:4431/",
         "description": "Web Server",
         "icon": "caddy"
       },
       {
         "name": "Documentation",
-        "uri": "http://storage.lan:6080/shelves/homelab-documentation",
+        "uri": "http://storage:6080/shelves/homelab-documentation",
         "description": "Bookstack Documentation Portal",
         "icon": "bookstack"
       },
       {
         "name": "Tandoor",
-        "uri": "http://storage.lan:7080/",
+        "uri": "http://storage:7080/",
         "description": "Tandoor Recipes",
         "icon": "tandoorrecipes"
       },
@@ -33,49 +33,49 @@
     "services": [
       {
         "name": "Storage",
-        "uri": "https://storage.lan:4432",
+        "uri": "https://storage:4432",
         "description": "Unraid Storage",
         "icon": "unraid"
       },
       {
         "name": "Traefik",
-        "uri": "http://storage.lan:8080/dashboard/#/",
+        "uri": "http://storage:8080/dashboard/#/",
         "description": "Traefik Reverse Proxy",
         "icon": "traefik"
       },
       {
         "name": "NetBoot.xyz",
-        "uri": "http://storage.lan:1080/",
+        "uri": "http://storage:1080/",
         "description": "PXE Network Boot Server",
         "icon": "netboot"
       },
       {
         "name": "Portainer",
-        "uri": "http://storage.lan:9443/",
+        "uri": "http://storage:9443/",
         "description": "Container Management",
         "icon": "portainer"
       },
       {
         "name": "Vault",
-        "uri": "https://storage.lan:8200",
+        "uri": "https://storage:8200",
         "description": "Hashicorp Vault - TOP SEKRET",
         "icon": "https://www.hashicorp.com/_next/static/media/colorwhite.c5723175.svg"
       },
       {
         "name": "Uptime Kuma",
-        "uri": "http://storage.lan:3001",
+        "uri": "http://storage:3001",
         "description": "Uptime Metrics",
         "icon": "uptime-kuma"
       },
       {
         "name": "Glances",
-        "uri": "http://storage.lan:61208/",
+        "uri": "http://storage:61208/",
         "description": "Comprehensive Perf Dashboard",
         "icon": "glances"
       },
       {
         "name": "Speedtest",
-        "uri": "http://storage.lan:8765",
+        "uri": "http://storage:8765",
         "description": "Internet Speed Test",
         "icon": "openspeedtest"
       }
