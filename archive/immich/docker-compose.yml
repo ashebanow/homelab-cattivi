@@ -3,9 +3,27 @@ version: '3.8'
 name: immich
 
 services:
+  immich-tailscale:
+    container_name: immich-tailscale
+    hostname: photos
+    image: tailscale/tailscale:latest
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_EXTRA_ARGS="${TS_EXTRA_ARGS}"
+      - TS_SERVE_CONFIG=${TS_SERVE_CONFIG}
+      - TS_STATE_DIR=${TS_STATE_DIR}
+      - TS_USERSPACE=${TS_USERSPACE}
+    volumes:
+      - ${PWD}/state:/var/lib/tailscale
+      - ${PWD}/config:/config
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+
   immich-server:
     container_name: immich_server
-    hostname: photos
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     command: ['start.sh', 'immich']
     restart: unless-stopped
@@ -13,6 +31,7 @@ services:
     depends_on:
       - redis
       - database
+      - immich-tailscale
 
     environment:
       DB_DATABASE_NAME: ${DB_DATABASE_NAME}
