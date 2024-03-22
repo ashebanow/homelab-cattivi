@@ -15,10 +15,10 @@
         "icon": "bookstack"
       },
       {
-        "name": "Tandoor",
-        "uri": "http://storage:7080/",
-        "description": "Tandoor Recipes",
-        "icon": "tandoorrecipes"
+        "name": "Immich",
+        "uri": "http://storage:2283/",
+        "description": "Photo Management & Storage",
+        "icon": "immich"
       },
       {
         "name": "Crashplan Pro",
